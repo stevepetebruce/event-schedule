@@ -1,38 +1,46 @@
 {
-  "name": "frontend",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "formik": "^2.1.4",
-    "mapbox-gl": "^1.8.1",
-    "moment": "^2.24.0",
-    "react": "^16.11.0",
-    "react-datepicker": "^2.14.1",
-    "react-dom": "^16.11.0",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "^3.4.0",
-    "react-transition-group": "^4.3.0",
-    "yup": "^0.28.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+	"name": "frontend",
+	"version": "0.1.0",
+	"private": true,
+	"dependencies": {
+		"formik": "^2.1.4",
+		"mapbox-gl": "^1.8.1",
+		"moment": "2.18.1",
+		"react": "^16.11.0",
+		"react-datepicker": "^2.14.1",
+		"react-dom": "^16.11.0",
+		"react-router-dom": "^5.1.2",
+		"react-scripts": "^3.4.0",
+		"react-transition-group": "^4.3.0",
+		"yup": "^0.28.4"
+	},
+	"scripts": {
+		"start": "npm run watch:css && react-scripts start",
+		"build": "npm run build:css && react-scripts build",
+		"test": "react-scripts test",
+		"eject": "react-scripts eject",
+		"build:css": "postcss src/assets/tailwind.css -o src/assets/main.css",
+		"watch:css": "postcss src/assets/tailwind.css -o src/assets/main.css"
+	},
+	"eslintConfig": {
+		"extends": "react-app"
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
+	"devDependencies": {
+		"autoprefixer": "^9.7.6",
+		"i": "^0.3.6",
+		"postcss-cli": "^7.1.1",
+		"tailwindcss": "^1.4.4"
+	}
 }
