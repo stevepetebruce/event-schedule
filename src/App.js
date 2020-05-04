@@ -68,7 +68,7 @@ const App = () => {
 			value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}>
 			<Router>
 				<MainNavigation />
-				<main>
+				<main className='w-full max-w-screen-md mx-auto'>
 					<Switch>{routes}</Switch>
 				</main>
 			</Router>
