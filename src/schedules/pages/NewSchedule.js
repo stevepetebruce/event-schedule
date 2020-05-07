@@ -39,8 +39,15 @@ const NewSchedule = () => {
 				console.log(values);
 				setSubmitting(false);
 			}}>
-			{({ values, isSubmitting, setFieldValue, touched, errors }) => (
-				<Form className='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full'>
+			{({
+				values,
+				isSubmitting,
+				setFieldValue,
+				FieldArray,
+				touched,
+				errors,
+			}) => (
+				<Form className='bg-gray-100 shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full'>
 					<div className='mb-4'>
 						<label htmlFor='title' className='text-gray-700'>
 							Title
@@ -139,7 +146,7 @@ const NewSchedule = () => {
 						disabled={isSubmitting}
 						type='submit'
 						className='bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded'>
-						Add Schedule
+						Submit
 					</button>
 					<pre>{JSON.stringify(values)}</pre>
 				</Form>
