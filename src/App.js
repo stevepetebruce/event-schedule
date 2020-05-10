@@ -8,7 +8,6 @@ import {
 
 import Users from "./user/pages/Users";
 import NewSchedule from "./schedules/pages/NewSchedule";
-import NewScheduleList from "./schedules/pages/NewScheduleList";
 import UserSchedules from "./schedules/pages/UserSchedules";
 import UpdateSchedule from "./schedules/pages/UpdateSchedule";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
@@ -55,9 +54,6 @@ const App = () => {
 				</Route>
 				<Route path='/:userId/schedules' exact>
 					<UserSchedules />
-				</Route>
-				<Route path='/schedule/new/list' exact>
-					<NewScheduleList />
 				</Route>
 				<Route path='/auth' exact>
 					<Authenticate />
