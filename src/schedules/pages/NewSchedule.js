@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Formik, Form, Field, getIn } from "formik";
+import { Formik, Form, Field } from "formik";
 import DatePicker from "react-datepicker";
 import * as Yup from "yup";
 
@@ -14,8 +14,8 @@ const validateSchema = Yup.object().shape({
 		.required("Please enter a brief description of your event"),
 	address: Yup.string(),
 	startDate: Yup.date().required("A start date is required"),
-	endDate: Yup.date().required(
-		"An end date is required, even if it's the same date"
+	daysQty: Yup.number().required(
+		"Please enter the number of days of your event"
 	),
 	scheduleList: Yup.array().of(
 		Yup.object().shape({
@@ -24,14 +24,13 @@ const validateSchema = Yup.object().shape({
 			),
 			etitle: Yup.string(),
 			stage: Yup.string(),
-			day: Yup.number(),
+			day: Yup.number().required("Please select the day"),
 		})
 	),
 });
 
 const NewSchedule = () => {
 	const [startDate, setStartDate] = useState(new Date());
-	const [endDate, setEndDate] = useState(new Date(startDate));
 
 	return (
 		<Formik
@@ -40,8 +39,8 @@ const NewSchedule = () => {
 				description: "",
 				address: "",
 				startDate: "",
-				endDate: "",
-				scheduleList: [{ presenter: "", etitle: "", stage: "", day: "" }],
+				daysQty: 1,
+				scheduleList: [{ presenter: "", etitle: "", stage: "", day: 1 }],
 			}}
 			validationSchema={validateSchema}
 			validateOnChange={false}
@@ -104,7 +103,7 @@ const NewSchedule = () => {
 							name='address'
 							className='form-input mt-1 block w-full'
 						/>
-						{errors.address && touched.address ? (
+						{errors.address ? (
 							<p className='text-red-500 text-xs italic'>{errors.address}</p>
 						) : null}
 					</div>
@@ -118,11 +117,9 @@ const NewSchedule = () => {
 								onChange={(startDate) => {
 									setFieldValue("startDate", startDate);
 									setStartDate(startDate);
-									setEndDate(startDate);
 								}}
 								selectsStart
 								startDate={startDate}
-								endDate={endDate}
 								dateFormat='dd/MM/yyyy'
 								name='startDate'
 								className='form-input mt-1 block w-full'
@@ -134,25 +131,18 @@ const NewSchedule = () => {
 							) : null}
 						</div>
 						<div className='w-full md:w-1/2 px-3'>
-							<label htmlFor='endDate' className='text-gray-700 block w-full'>
-								End Date
+							<label htmlFor='daysQty' className='text-gray-700 block w-full'>
+								How many days is the event?
 							</label>
-							<DatePicker
-								selected={endDate}
-								onChange={(endDate) => {
-									setFieldValue("endDate", endDate);
-									setEndDate(endDate);
-								}}
-								selectsEnd
-								startDate={startDate}
-								endDate={endDate}
-								minDate={startDate}
-								dateFormat='dd/MM/yyyy'
-								name='endDate'
+							<Field
+								type='number'
+								id='daysQty'
+								name='daysQty'
+								min='1'
 								className='form-input mt-1 block w-full'
 							/>
-							{errors.endDate && touched.endDate ? (
-								<p className='text-red-500 text-xs italic'>{errors.endDate}</p>
+							{errors.daysQty ? (
+								<p className='text-red-500 text-xs italic'>{errors.daysQty}</p>
 							) : null}
 						</div>
 					</div>

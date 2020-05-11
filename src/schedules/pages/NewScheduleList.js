@@ -3,6 +3,7 @@ import { Field, FieldArray, getIn, useFormikContext } from "formik";
 
 function NewScheduleList(props) {
 	const { values, handleChange, errors } = useFormikContext();
+
 	return (
 		<FieldArray
 			name='scheduleList'
@@ -57,7 +58,7 @@ function NewScheduleList(props) {
 											<label
 												htmlFor={`scheduleList.[${index}].stage`}
 												className='text-gray-700'>
-												Venue/Stage{" "}
+												Venue/Stage
 												<span className='text-gray-500'>(Optional)</span>
 											</label>
 											<Field
@@ -71,24 +72,41 @@ function NewScheduleList(props) {
 												{getIn(errors, `scheduleList.[${index}].stage`)}
 											</p>
 										</div>
-										<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
-											<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
-												<label
-													htmlFor={`scheduleList.[${index}].day`}
-													className='text-gray-700'>
-													Date
-												</label>
-												<Field
-													type='text'
-													id='day'
-													name={`scheduleList.[${index}].day`}
-													className='form-input mt-1 block w-full'
-													value={schedule.day}
-												/>
-												<p className='text-red-500 text-xs italic'>
-													{getIn(errors, `scheduleList.[${index}].day`)}
-												</p>
-											</div>
+										<div
+											className='w-full md:w-1/2 px-3 mb-6 md:mb-0'
+											style={{ position: "relative" }}>
+											{props.values.daysQty > 1 ? (
+												<>
+													<label
+														htmlFor={`scheduleList.[${index}].day`}
+														className='text-gray-700'>
+														Day
+													</label>
+													<Field
+														name={`scheduleList.[${index}].day`}
+														id={`scheduleList.[${index}].day`}
+														as='select'
+														className='form-input mt-1 block w-full'>
+														{[...Array(props.values.daysQty)].map((num, i) => (
+															<option key={i + 1} value={i + 1}>
+																{i + 1}
+															</option>
+														))}
+													</Field>
+													<div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-6 pt-8 text-gray-700'>
+														<svg
+															className='fill-current h-4 w-4'
+															xmlns='http://www.w3.org/2000/svg'
+															viewBox='0 0 20 20'>
+															<path d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z' />
+														</svg>
+													</div>
+
+													<p className='text-red-500 text-xs italic'>
+														{getIn(errors, `scheduleList.[${index}].day`)}
+													</p>
+												</>
+											) : null}
 										</div>
 									</div>
 									<span className='absolute top-0 right-0 px-1 py-1'>
@@ -112,7 +130,7 @@ function NewScheduleList(props) {
 						type='button'
 						className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 mb-6 border border-blue-500 hover:border-transparent rounded'
 						onClick={() =>
-							push({ presenter: "", etitle: "", stage: "", day: "" })
+							push({ presenter: "", etitle: "", stage: "", day: 1 })
 						}>
 						Add to list
 					</button>
