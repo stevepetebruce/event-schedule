@@ -1,0 +1,26 @@
+.Collapsible__trigger {
+	display: block;
+	text-decoration: none;
+	position: relative;
+	border: 1px solid white;
+	padding: 10px;
+	background-color: rgba(247, 250, 252);
+	color: #555555;
+	cursor: pointer;
+}
+.Collapsible__trigger:after {
+	content: "\25bc";
+	font-size: 0.7rem;
+	position: absolute;
+	right: 14px;
+	top: 14px;
+	display: block;
+	transition: transform 250ms;
+}
+.Collapsible__trigger.is-open:after {
+	transform: rotateZ(180deg);
+}
+.Collapsible__trigger.is-disabled {
+	opacity: 0.5;
+	background-color: grey;
+}

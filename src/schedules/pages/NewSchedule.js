@@ -3,7 +3,7 @@ import { Formik, Form, Field } from "formik";
 import DatePicker from "react-datepicker";
 import * as Yup from "yup";
 
-import NewScheduleList from "./NewScheduleList";
+import NewScheduleList from "../components/NewScheduleList";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -40,7 +40,20 @@ const NewSchedule = () => {
 				address: "",
 				startDate: "",
 				daysQty: 1,
-				scheduleList: [{ presenter: "", etitle: "", stage: "", day: 1 }],
+				scheduleList: [
+					{
+						presenter: "",
+						etitle: "",
+						stage: "",
+						day: 1,
+						socialList: {
+							facebook: "",
+							twitter: "",
+							youtube: "",
+							soundcloud: "",
+						},
+					},
+				],
 			}}
 			validationSchema={validateSchema}
 			validateOnChange={false}
@@ -49,14 +62,12 @@ const NewSchedule = () => {
 				setSubmitting(true);
 				// commit async call
 				console.log(values);
-				console.log(NewScheduleList.values);
 				setSubmitting(false);
 			}}>
 			{({
 				values,
 				isSubmitting,
 				setFieldValue,
-				FieldArray,
 				touched,
 				errors,
 				handleChange,

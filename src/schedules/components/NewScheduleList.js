@@ -1,5 +1,6 @@
 import React from "react";
 import { Field, FieldArray, getIn, useFormikContext } from "formik";
+import NewSheduleListSocial from "./NewScheduleListSocial";
 
 function NewScheduleList(props) {
 	const { values, handleChange, errors } = useFormikContext();
@@ -18,25 +19,25 @@ function NewScheduleList(props) {
 									<div className='flex flex-wrap -mx-3 mb-4'>
 										<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
 											<label
-												htmlFor={`scheduleList.[${index}].presenter`}
+												htmlFor={`scheduleList[${index}].presenter`}
 												className='text-gray-700'>
 												Band/Artist/Presenter
 											</label>
 											<Field
 												type='text'
 												id='presenter'
-												name={`scheduleList.[${index}].presenter`}
+												name={`scheduleList[${index}].presenter`}
 												className='form-input mt-1 block w-full'
 												value={schedule.presenter}
 												onChange={handleChange}
 											/>
 											<p className='text-red-500 text-xs italic'>
-												{getIn(errors, `scheduleList.[${index}].presenter`)}
+												{getIn(errors, `scheduleList[${index}].presenter`)}
 											</p>
 										</div>
 										<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
 											<label
-												htmlFor={`scheduleList.[${index}].etitle`}
+												htmlFor={`scheduleList[${index}].etitle`}
 												className='text-gray-700'>
 												Event title{" "}
 												<span className='text-gray-500'>(Optional)</span>
@@ -44,19 +45,19 @@ function NewScheduleList(props) {
 											<Field
 												type='text'
 												id='etitle'
-												name={`scheduleList.[${index}].etitle`}
+												name={`scheduleList[${index}].etitle`}
 												className='form-input mt-1 block w-full'
 												value={schedule.etitle}
 											/>
 											<p className='text-red-500 text-xs italic'>
-												{getIn(errors, `scheduleList.[${index}].etitle`)}
+												{getIn(errors, `scheduleList[${index}].etitle`)}
 											</p>
 										</div>
 									</div>
 									<div className='flex flex-wrap -mx-3 mb-4'>
 										<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
 											<label
-												htmlFor={`scheduleList.[${index}].stage`}
+												htmlFor={`scheduleList[${index}].stage`}
 												className='text-gray-700'>
 												Venue/Stage
 												<span className='text-gray-500'>(Optional)</span>
@@ -64,12 +65,12 @@ function NewScheduleList(props) {
 											<Field
 												type='text'
 												id='stage'
-												name={`scheduleList.[${index}].stage`}
+												name={`scheduleList[${index}].stage`}
 												className='form-input mt-1 block w-full'
 												value={schedule.stage}
 											/>
 											<p className='text-red-500 text-xs italic'>
-												{getIn(errors, `scheduleList.[${index}].stage`)}
+												{getIn(errors, `scheduleList[${index}].stage`)}
 											</p>
 										</div>
 										<div
@@ -78,13 +79,13 @@ function NewScheduleList(props) {
 											{props.values.daysQty > 1 ? (
 												<>
 													<label
-														htmlFor={`scheduleList.[${index}].day`}
+														htmlFor={`scheduleList[${index}].day`}
 														className='text-gray-700'>
 														Day
 													</label>
 													<Field
-														name={`scheduleList.[${index}].day`}
-														id={`scheduleList.[${index}].day`}
+														name={`scheduleList[${index}].day`}
+														id={`scheduleList[${index}].day`}
 														as='select'
 														className='form-input mt-1 block w-full'>
 														{[...Array(props.values.daysQty)].map((num, i) => (
@@ -103,12 +104,15 @@ function NewScheduleList(props) {
 													</div>
 
 													<p className='text-red-500 text-xs italic'>
-														{getIn(errors, `scheduleList.[${index}].day`)}
+														{getIn(errors, `scheduleList[${index}].day`)}
 													</p>
 												</>
 											) : null}
 										</div>
 									</div>
+
+									<NewSheduleListSocial schedule={`scheduleList[${index}]`} />
+
 									<span className='absolute top-0 right-0 px-1 py-1'>
 										<svg
 											className='fill-current h-6 w-6 text-blue-500 hover:text-blue-400'
@@ -130,7 +134,18 @@ function NewScheduleList(props) {
 						type='button'
 						className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 mb-6 border border-blue-500 hover:border-transparent rounded'
 						onClick={() =>
-							push({ presenter: "", etitle: "", stage: "", day: 1 })
+							push({
+								presenter: "",
+								etitle: "",
+								stage: "",
+								day: 1,
+								socialList: {
+									facebook: "",
+									twitter: "",
+									youtube: "",
+									soundcloud: "",
+								},
+							})
 						}>
 						Add to list
 					</button>
