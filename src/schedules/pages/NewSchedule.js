@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import DatePicker from "react-datepicker";
+import moment from "moment";
 import * as Yup from "yup";
 
 import NewScheduleList from "../components/NewScheduleList";
@@ -22,6 +23,13 @@ const validateSchema = Yup.object().shape({
 			presenter: Yup.string().required(
 				"Please enter the name of the presenter or artist"
 			),
+			startTime: Yup.string().required("A start time is required"),
+			endTime: Yup.string()
+				.required("A finish time is required")
+				.test("is-greater", "Finish time should be later", function (value) {
+					const { startTime } = this.parent;
+					return moment(value, "HH:mm").isAfter(moment(startTime, "HH:mm"));
+				}),
 			etitle: Yup.string(),
 			stage: Yup.string(),
 			day: Yup.number().required("Please select the day"),
@@ -45,6 +53,8 @@ const NewSchedule = () => {
 						presenter: "",
 						etitle: "",
 						stage: "",
+						startTime: moment().format("HH:mm"),
+						endTime: moment().format("HH:mm"),
 						day: 1,
 						socialList: {
 							facebook: "",

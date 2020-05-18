@@ -1,9 +1,14 @@
 import React from "react";
 import { Field, FieldArray, getIn, useFormikContext } from "formik";
+import TimePicker from "rc-time-picker";
+import moment from "moment";
+
+import "../../assets/rc-time-picker.css";
+
 import NewSheduleListSocial from "./NewScheduleListSocial";
 
 function NewScheduleList(props) {
-	const { values, handleChange, errors } = useFormikContext();
+	const { values, handleChange, errors, setFieldValue } = useFormikContext();
 
 	return (
 		<FieldArray
@@ -35,46 +40,56 @@ function NewScheduleList(props) {
 												{getIn(errors, `scheduleList[${index}].presenter`)}
 											</p>
 										</div>
-										<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
+										<div className='w-full md:w-2/12 px-3 mb-6 md:mb-0'>
 											<label
-												htmlFor={`scheduleList[${index}].etitle`}
+												htmlFor={`scheduleList[${index}].startTime`}
 												className='text-gray-700'>
-												Event title{" "}
-												<span className='text-gray-500'>(Optional)</span>
+												Start Time
 											</label>
-											<Field
-												type='text'
-												id='etitle'
-												name={`scheduleList[${index}].etitle`}
-												className='form-input mt-1 block w-full'
-												value={schedule.etitle}
+											<TimePicker
+												defaultValue={moment()}
+												showSecond={false}
+												minuteStep={5}
+												name={`scheduleList[${index}].startTime`}
+												id={`scheduleList[${index}].startTime`}
+												onChange={(value) => {
+													setFieldValue(
+														`scheduleList[${index}].startTime`,
+														value.format("HH:mm"),
+														false
+													);
+												}}
 											/>
 											<p className='text-red-500 text-xs italic'>
-												{getIn(errors, `scheduleList[${index}].etitle`)}
+												{getIn(errors, `scheduleList[${index}].startTime`)}
 											</p>
 										</div>
-									</div>
-									<div className='flex flex-wrap -mx-3 mb-4'>
-										<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
+										<div className='w-full md:w-2/12 px-3 mb-6 md:mb-0'>
 											<label
-												htmlFor={`scheduleList[${index}].stage`}
+												htmlFor={`scheduleList[${index}].endTime`}
 												className='text-gray-700'>
-												Venue/Stage
-												<span className='text-gray-500'>(Optional)</span>
+												End Time
 											</label>
-											<Field
-												type='text'
-												id='stage'
-												name={`scheduleList[${index}].stage`}
-												className='form-input mt-1 block w-full'
-												value={schedule.stage}
+											<TimePicker
+												defaultValue={moment()}
+												showSecond={false}
+												minuteStep={5}
+												name={`scheduleList[${index}].endTime`}
+												id={`scheduleList[${index}].endTime`}
+												onChange={(value) => {
+													setFieldValue(
+														`scheduleList[${index}].endTime`,
+														value.format("HH:mm"),
+														false
+													);
+												}}
 											/>
 											<p className='text-red-500 text-xs italic'>
-												{getIn(errors, `scheduleList[${index}].stage`)}
+												{getIn(errors, `scheduleList[${index}].endTime`)}
 											</p>
 										</div>
 										<div
-											className='w-full md:w-1/2 px-3 mb-6 md:mb-0'
+											className='w-full md:w-2/12 px-3 mb-6 md:mb-0'
 											style={{ position: "relative" }}>
 											{props.values.daysQty > 1 ? (
 												<>
@@ -102,12 +117,49 @@ function NewScheduleList(props) {
 															<path d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z' />
 														</svg>
 													</div>
-
 													<p className='text-red-500 text-xs italic'>
 														{getIn(errors, `scheduleList[${index}].day`)}
 													</p>
 												</>
 											) : null}
+										</div>
+									</div>
+									<div className='flex flex-wrap -mx-3 mb-4'>
+										<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
+											<label
+												htmlFor={`scheduleList[${index}].stage`}
+												className='text-gray-700'>
+												Venue/Stage
+												<span className='text-gray-500'>(Optional)</span>
+											</label>
+											<Field
+												type='text'
+												id='stage'
+												name={`scheduleList[${index}].stage`}
+												className='form-input mt-1 block w-full'
+												value={schedule.stage}
+											/>
+											<p className='text-red-500 text-xs italic'>
+												{getIn(errors, `scheduleList[${index}].stage`)}
+											</p>
+										</div>
+										<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
+											<label
+												htmlFor={`scheduleList[${index}].etitle`}
+												className='text-gray-700'>
+												Event title{" "}
+												<span className='text-gray-500'>(Optional)</span>
+											</label>
+											<Field
+												type='text'
+												id='etitle'
+												name={`scheduleList[${index}].etitle`}
+												className='form-input mt-1 block w-full'
+												value={schedule.etitle}
+											/>
+											<p className='text-red-500 text-xs italic'>
+												{getIn(errors, `scheduleList[${index}].etitle`)}
+											</p>
 										</div>
 									</div>
 
@@ -138,6 +190,8 @@ function NewScheduleList(props) {
 								presenter: "",
 								etitle: "",
 								stage: "",
+								startTime: moment().format("HH:mm"),
+								endTime: moment().format("HH:mm"),
 								day: 1,
 								socialList: {
 									facebook: "",
