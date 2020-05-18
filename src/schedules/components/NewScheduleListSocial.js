@@ -1,5 +1,4 @@
 import React from "react";
-import Collapsible from "react-collapsible";
 
 import FacebookIcon from "@material-ui/icons/Facebook";
 import TwitterIcon from "@material-ui/icons/Twitter";
@@ -13,7 +12,7 @@ import "./NewScheduleListSocial.css";
 
 function NewScheduleListSocial({ schedule }) {
 	return (
-		<Collapsible trigger='Add description and social media links'>
+		<>
 			<div className='flex flex-wrap -mx-3 mb-4'>
 				<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0 flex content-center'>
 					<SocialInput
@@ -55,7 +54,7 @@ function NewScheduleListSocial({ schedule }) {
 					/>
 				</div>
 			</div>
-		</Collapsible>
+		</>
 	);
 }
 

@@ -5,7 +5,7 @@ import moment from "moment";
 
 import "../../assets/rc-time-picker.css";
 
-import NewSheduleListSocial from "./NewScheduleListSocial";
+import NewScheduleListDetails from "./NewScheduleListDetails";
 
 function NewScheduleList(props) {
 	const { values, handleChange, errors, setFieldValue } = useFormikContext();
@@ -124,46 +124,8 @@ function NewScheduleList(props) {
 											) : null}
 										</div>
 									</div>
-									<div className='flex flex-wrap -mx-3 mb-4'>
-										<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
-											<label
-												htmlFor={`scheduleList[${index}].stage`}
-												className='text-gray-700'>
-												Venue/Stage
-												<span className='text-gray-500'>(Optional)</span>
-											</label>
-											<Field
-												type='text'
-												id='stage'
-												name={`scheduleList[${index}].stage`}
-												className='form-input mt-1 block w-full'
-												value={schedule.stage}
-											/>
-											<p className='text-red-500 text-xs italic'>
-												{getIn(errors, `scheduleList[${index}].stage`)}
-											</p>
-										</div>
-										<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
-											<label
-												htmlFor={`scheduleList[${index}].etitle`}
-												className='text-gray-700'>
-												Event title{" "}
-												<span className='text-gray-500'>(Optional)</span>
-											</label>
-											<Field
-												type='text'
-												id='etitle'
-												name={`scheduleList[${index}].etitle`}
-												className='form-input mt-1 block w-full'
-												value={schedule.etitle}
-											/>
-											<p className='text-red-500 text-xs italic'>
-												{getIn(errors, `scheduleList[${index}].etitle`)}
-											</p>
-										</div>
-									</div>
 
-									<NewSheduleListSocial schedule={`scheduleList[${index}]`} />
+									<NewScheduleListDetails schedule={`scheduleList[${index}]`} />
 
 									<span className='absolute top-0 right-0 px-1 py-1'>
 										<svg
