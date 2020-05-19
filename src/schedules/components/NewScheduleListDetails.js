@@ -34,6 +34,24 @@ function NewScheduleListDetails({ schedule }) {
 					/>
 				</div>
 			</div>
+			<div className='flex flex-wrap -mx-3 mb-4'>
+				<div className='w-full px-3 mb-6 md:mb-0'>
+					<div className='mb-4'>
+						<label htmlFor='biography' className='text-gray-700'>
+							Artist/Band biography
+							<span className='text-gray-500'>(Optional)</span>
+						</label>
+						<Field
+							component='textarea'
+							className='form-textarea mt-1 block w-full'
+							rows='3'
+							id={`${schedule}.biography`}
+							name={`${schedule}.biography`}
+							value={schedule.biography}
+						/>
+					</div>
+				</div>
+			</div>
 			<NewSheduleListSocial schedule={schedule} />
 		</Collapsible>
 	);

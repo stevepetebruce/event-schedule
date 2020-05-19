@@ -56,6 +56,7 @@ const NewSchedule = () => {
 						startTime: moment().format("HH:mm"),
 						endTime: moment().format("HH:mm"),
 						day: 1,
+						biography: "",
 						socialList: {
 							facebook: "",
 							twitter: "",
