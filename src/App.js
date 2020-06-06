@@ -11,7 +11,7 @@ import NewSchedule from "./schedules/pages/NewSchedule";
 import UserSchedules from "./schedules/pages/UserSchedules";
 import UpdateSchedule from "./schedules/pages/UpdateSchedule";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
-import Authenticate from "./schedules/pages/Authenticate";
+import Authenticate from "./user/pages/Authenticate";
 
 import { AuthContext } from "./shared/context/auth-context";
 
