@@ -3,6 +3,8 @@ import React, { useState, useContext } from "react";
 import Input from "../../shared/components/FormElements/Input";
 import Button from "../../shared/components/FormElements/Button";
 import Card from "../../shared/components/UIElements/Card";
+import ErrorModal from "../../shared/components/UIElements/ErrorModal";
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import {
 	VALIDATOR_REQUIRE,
 	VALIDATOR_MINLENGTH,
@@ -16,6 +18,8 @@ import "./Authenticate.css";
 const Authenticate = (props) => {
 	const auth = useContext(AuthContext);
 	const [isLoginMode, setIsLoginMode] = useState(true);
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState();
 
 	const [formState, inputHandler, setFormData] = useForm(
 		{
@@ -37,6 +41,7 @@ const Authenticate = (props) => {
 		if (isLoginMode) {
 		} else {
 			try {
+				setIsLoading(true);
 				const response = await fetch("http://localhost:5000/api/signup", {
 					method: "POST",
 					headers: {
@@ -50,12 +55,18 @@ const Authenticate = (props) => {
 				});
 				const responseData = await response.json();
 				console.log(responseData);
-			} catch (error) {
-				console.log(error);
+				console.log(response);
+				setIsLoading(false);
+				if (!response.ok) {
+					throw new Error(responseData.message);
+				}
+				auth.login();
+			} catch (err) {
+				setIsLoading(false);
+				setError(err.message);
 			}
+			setIsLoading(false);
 		}
-
-		auth.login();
 	};
 
 	const switchModeHandler = () => {
@@ -82,48 +93,56 @@ const Authenticate = (props) => {
 		setIsLoginMode((previousMode) => !previousMode);
 	};
 
+	const errorHandler = () => {
+		setError(null);
+	};
+
 	return (
-		<Card className='authentication'>
-			<h2>{isLoginMode ? "Log In" : "Sign Up"}</h2>
-			<hr />
-			<form onSubmit={authSubmitHandler}>
-				{!isLoginMode && (
+		<>
+			<ErrorModal error={error} onClear={errorHandler} />
+			<Card className='authentication'>
+				{isLoading && <LoadingSpinner asOverlay={true} />}
+				<h2>{isLoginMode ? "Log In" : "Sign Up"}</h2>
+				<hr />
+				<form onSubmit={authSubmitHandler}>
+					{!isLoginMode && (
+						<Input
+							type='text'
+							id='name'
+							element='input'
+							label='Your Name'
+							validators={[VALIDATOR_REQUIRE()]}
+							errorText='Please enter a name'
+							onInput={inputHandler}
+						/>
+					)}
 					<Input
 						type='text'
-						id='name'
+						id='email'
 						element='input'
-						label='Your Name'
-						validators={[VALIDATOR_REQUIRE()]}
-						errorText='Please enter a name'
+						label='Email Address'
+						validators={[VALIDATOR_REQUIRE(), VALIDATOR_EMAIL()]}
+						errorText='Please enter a valid email address'
 						onInput={inputHandler}
 					/>
-				)}
-				<Input
-					type='text'
-					id='email'
-					element='input'
-					label='Email Address'
-					validators={[VALIDATOR_REQUIRE(), VALIDATOR_EMAIL()]}
-					errorText='Please enter a valid email address'
-					onInput={inputHandler}
-				/>
-				<Input
-					type='password'
-					id='password'
-					element='input'
-					label='Password'
-					validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(5)]}
-					errorText='Please enter a password longer than 5 characters'
-					onInput={inputHandler}
-				/>
-				<Button type='submit' disabled={!formState.isValid}>
-					{isLoginMode ? "Log In" : "Sign Up"}
+					<Input
+						type='password'
+						id='password'
+						element='input'
+						label='Password'
+						validators={[VALIDATOR_REQUIRE(), VALIDATOR_MINLENGTH(5)]}
+						errorText='Please enter a password longer than 5 characters'
+						onInput={inputHandler}
+					/>
+					<Button type='submit' disabled={!formState.isValid}>
+						{isLoginMode ? "Log In" : "Sign Up"}
+					</Button>
+				</form>
+				<Button inverse onClick={switchModeHandler}>
+					Switch to {isLoginMode ? "Sign Up" : "Log In"}
 				</Button>
-			</form>
-			<Button inverse onClick={switchModeHandler}>
-				Switch to {isLoginMode ? "Sign Up" : "Log In"}
-			</Button>
-		</Card>
+			</Card>
+		</>
 	);
 };
 
