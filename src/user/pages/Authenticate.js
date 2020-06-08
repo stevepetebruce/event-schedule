@@ -12,14 +12,14 @@ import {
 } from "../../shared/util/validators";
 import useForm from "../../shared/hooks/form-hook";
 import { AuthContext } from "../../shared/context/auth-context";
+import { useHttpClient } from "../../shared/hooks/http-hook";
 
 import "./Authenticate.css";
 
 const Authenticate = (props) => {
 	const auth = useContext(AuthContext);
 	const [isLoginMode, setIsLoginMode] = useState(true);
-	const [isLoading, setIsLoading] = useState(false);
-	const [error, setError] = useState();
+	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
 	const [formState, inputHandler, setFormData] = useForm(
 		{
@@ -34,63 +34,6 @@ const Authenticate = (props) => {
 		},
 		false
 	);
-
-	const authSubmitHandler = async (e) => {
-		e.preventDefault();
-
-		setIsLoading(true);
-
-		if (isLoginMode) {
-			try {
-				const response = await fetch("http://localhost:5000/api/login", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						email: formState.inputs.email.value,
-						password: formState.inputs.password.value,
-					}),
-				});
-				const responseData = await response.json();
-
-				setIsLoading(false);
-
-				if (!response.ok) {
-					throw new Error(responseData.message);
-				}
-				auth.login();
-			} catch (err) {
-				setIsLoading(false);
-				setError(err.message);
-			}
-		} else {
-			try {
-				const response = await fetch("http://localhost:5000/api/signup", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						name: formState.inputs.name.value,
-						email: formState.inputs.email.value,
-						password: formState.inputs.password.value,
-					}),
-				});
-				const responseData = await response.json();
-
-				setIsLoading(false);
-				if (!response.ok) {
-					throw new Error(responseData.message);
-				}
-				auth.login();
-			} catch (err) {
-				setIsLoading(false);
-				setError(err.message);
-			}
-			setIsLoading(false);
-		}
-	};
 
 	const switchModeHandler = () => {
 		if (!isLoginMode) {
@@ -116,13 +59,49 @@ const Authenticate = (props) => {
 		setIsLoginMode((previousMode) => !previousMode);
 	};
 
-	const errorHandler = () => {
-		setError(null);
+	const authSubmitHandler = async (event) => {
+		event.preventDefault();
+
+		if (isLoginMode) {
+			try {
+				await sendRequest(
+					"http://localhost:5000/api/login",
+					"POST",
+					JSON.stringify({
+						email: formState.inputs.email.value,
+						password: formState.inputs.password.value,
+					}),
+					{
+						"Content-Type": "application/json",
+					}
+				);
+				auth.login();
+			} catch (err) {
+				console.log(err);
+			}
+		} else {
+			try {
+				await sendRequest(
+					"http://localhost:5000/api/signup",
+					"POST",
+					JSON.stringify({
+						name: formState.inputs.name.value,
+						email: formState.inputs.email.value,
+						password: formState.inputs.password.value,
+					}),
+					{
+						"Content-Type": "application/json",
+					}
+				);
+
+				auth.login();
+			} catch (err) {}
+		}
 	};
 
 	return (
 		<>
-			<ErrorModal error={error} onClear={errorHandler} />
+			<ErrorModal error={error} onClear={clearError} />
 			<Card className='authentication'>
 				{isLoading && <LoadingSpinner asOverlay={true} />}
 				<h2>{isLoginMode ? "Log In" : "Sign Up"}</h2>

@@ -19,12 +19,11 @@ const Users = () => {
 				if (!response.ok) {
 					throw new Error(responseData.message);
 				}
-				console.log(responseData.users);
 				setLoadedUsers(responseData.users);
+				setIsLoading(false);
 			} catch (err) {
 				setError(err.message);
 			}
-			setIsLoading(false);
 		};
 		sendRequest();
 	}, []);
@@ -38,7 +37,7 @@ const Users = () => {
 			<ErrorModal error={error} onClear={errorHandler} />
 			{isLoading && (
 				<div className='center'>
-					<LoadingSpinner />
+					<LoadingSpinner asOverlay={true} />
 				</div>
 			)}
 			{!isLoading && loadedUsers && <UsersList items={loadedUsers} />}
