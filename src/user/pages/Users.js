@@ -1,25 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import UsersList from "../components/UsersList";
+import ErrorModal from "../../shared/components/UIElements/ErrorModal";
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 
 const Users = () => {
-	const USERS = [
-		{
-			id: "u1",
-			name: "Fred Jones",
-			image:
-				"https://images.squarespace-cdn.com/content/v1/5bbf5e985239583a3ffdf9ef/1566231417267-X5VOKNAAS65ADF6AY4FW/ke17ZwdGBToddI8pDm48kIBEaGnRn0GnVDYz0K8FfhNZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZamWLI2zvYWH8K3-s_4yszcp2ryTI0HqTOaaUohrI8PIUSz3zJsQOJN6iXceCez9VYaUalUgiOas2dKR3Xzdhf0KMshLAGzx4R3EDFOm1kBS/Sem%25252Bnome%25252B4.jpg?format=100w",
-			scheduleCount: 3
-		},
-		{
-			id: "u2",
-			name: "Fred Jane Smith",
-			image:
-				"https://images.squarespace-cdn.com/content/v1/5bbf5e985239583a3ffdf9ef/1566231417267-X5VOKNAAS65ADF6AY4FW/ke17ZwdGBToddI8pDm48kIBEaGnRn0GnVDYz0K8FfhNZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZamWLI2zvYWH8K3-s_4yszcp2ryTI0HqTOaaUohrI8PIUSz3zJsQOJN6iXceCez9VYaUalUgiOas2dKR3Xzdhf0KMshLAGzx4R3EDFOm1kBS/Sem%25252Bnome%25252B4.jpg?format=100w",
-			scheduleCount: 34
-		}
-	];
-	return <UsersList items={USERS} />;
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState();
+	const [loadedUsers, setLoadedUsers] = useState();
+
+	useEffect(() => {
+		const sendRequest = async () => {
+			setIsLoading(true);
+			try {
+				const response = await fetch("http://localhost:5000/api");
+				const responseData = await response.json();
+
+				if (!response.ok) {
+					throw new Error(responseData.message);
+				}
+				console.log(responseData.users);
+				setLoadedUsers(responseData.users);
+			} catch (err) {
+				setError(err.message);
+			}
+			setIsLoading(false);
+		};
+		sendRequest();
+	}, []);
+
+	const errorHandler = () => {
+		setError(null);
+	};
+
+	return (
+		<>
+			<ErrorModal error={error} onClear={errorHandler} />
+			{isLoading && (
+				<div className='center'>
+					<LoadingSpinner />
+				</div>
+			)}
+			{!isLoading && loadedUsers && <UsersList items={loadedUsers} />}
+		</>
+	);
 };
 
 export default Users;
