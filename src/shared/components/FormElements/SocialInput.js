@@ -1,7 +1,8 @@
 import React from "react";
-import { Field } from "formik";
+import { Field, getIn, useFormikContext } from "formik";
 
 function SocialInput(props) {
+	const { errors } = useFormikContext();
 	return (
 		<>
 			<div className='w-1/6 flex pt-2'>
@@ -16,6 +17,9 @@ function SocialInput(props) {
 					id={`${props.schedule}.socialList.${props.social}`}
 					name={`${props.schedule}.socialList.${props.social}`}
 				/>
+				<p className='text-red-500 text-xs italic'>
+					{getIn(errors, `${props.schedule}.socialList.${props.social}`)}
+				</p>
 			</div>
 		</>
 	);
