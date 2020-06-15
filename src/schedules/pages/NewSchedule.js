@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
 import DatePicker from "react-datepicker";
 import moment from "moment";
@@ -53,6 +54,7 @@ const validateSchema = Yup.object().shape({
 
 const NewSchedule = () => {
 	const auth = useContext(AuthContext);
+	const history = useHistory();
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 	const [startDate, setStartDate] = useState(new Date());
 
@@ -96,6 +98,7 @@ const NewSchedule = () => {
 							JSON.stringify({ ...values, ...{ creator: auth.userId } }),
 							{ "Content-Type": "application/json" }
 						);
+						history.push("/");
 					} catch (error) {
 						console.log(error);
 					}
