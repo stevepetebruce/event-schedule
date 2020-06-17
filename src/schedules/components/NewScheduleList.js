@@ -48,6 +48,7 @@ function NewScheduleList(props) {
 											</label>
 											<TimePicker
 												defaultValue={moment()}
+												value={moment(`${schedule.startTime}`, "HH:mm")}
 												showSecond={false}
 												minuteStep={5}
 												name={`scheduleList[${index}].startTime`}
@@ -72,6 +73,7 @@ function NewScheduleList(props) {
 											</label>
 											<TimePicker
 												defaultValue={moment()}
+												value={moment(`${schedule.endTime}`, "HH:mm")}
 												showSecond={false}
 												minuteStep={5}
 												name={`scheduleList[${index}].endTime`}

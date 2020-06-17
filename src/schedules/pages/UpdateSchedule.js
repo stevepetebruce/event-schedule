@@ -1,94 +1,86 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState, useContext } from "react";
+import { useParams, useHistory } from "react-router-dom";
+import { Formik, Form, Field } from "formik";
+import DatePicker from "react-datepicker";
+import moment from "moment";
+import * as Yup from "yup";
 
-import Input from "../../shared/components/FormElements/Input";
-import Button from "../../shared/components/FormElements/Button";
+import NewScheduleList from "../components/NewScheduleList";
 import Card from "../../shared/components/UIElements/Card";
-import useForm from "../../shared/hooks/form-hook";
+import ErrorModal from "../../shared/components/UIElements/ErrorModal";
+import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import { AuthContext } from "../../shared/context/auth-context";
+import { useHttpClient } from "../../shared/hooks/http-hook";
 
-import {
-	VALIDATOR_REQUIRE,
-	VALIDATOR_MINLENGTH,
-} from "../../shared/util/validators";
+import "react-datepicker/dist/react-datepicker.css";
 
-import "./ScheduleForm.css";
-
-const DUMMY_SCHEDULES = [
-	{
-		id: "s1",
-		title: "New Show",
-		description: "A great show",
-		imageUrl:
-			"http://www.tutorialsscripts.com/free-icons/alphabet-characters/lower-case-letter/a-icon/white-little-letter-character-a-icon-48-x-48.png",
-		address: "jbfds bfsdbfm  fd fmds ",
-		location: {
-			lat: 50.8047148,
-			lng: -1.1667698,
-		},
-		date: "23423423",
-		creator: "u1",
-	},
-	{
-		id: "s2",
-		title: "Second Show",
-		description: "Another great show",
-		imageUrl:
-			"http://www.tutorialsscripts.com/free-icons/alphabet-characters/lower-case-letter/a-icon/white-little-letter-character-a-icon-48-x-48.png",
-		address: "jbfdsbfs dbfm  fd fmds ",
-		location: {
-			lattitude: 51.8047148,
-			longitude: -1.1667698,
-		},
-		date: "23423423",
-		creator: "u2",
-	},
-];
+const validateSchema = Yup.object().shape({
+	title: Yup.string().required("Please enter the name of your event"),
+	description: Yup.string()
+		.min(10, "Please enter a longer description (minimum of 10 characters")
+		.required("Please enter a brief description of your event"),
+	address: Yup.string(),
+	startDate: Yup.date(),
+	daysQty: Yup.number().required(
+		"Please enter the number of days of your event"
+	),
+	scheduleList: Yup.array().of(
+		Yup.object().shape({
+			presenter: Yup.string().required(
+				"Please enter the name of the presenter or artist"
+			),
+			startTime: Yup.string().required("A start time is required"),
+			endTime: Yup.string()
+				.required("A finish time is required")
+				.test("is-greater", "Should be later than start time", function (
+					value
+				) {
+					const { startTime } = this.parent;
+					return moment(value, "HH:mm").isAfter(moment(startTime, "HH:mm"));
+				}),
+			etitle: Yup.string(),
+			stage: Yup.string(),
+			day: Yup.number().required("Please select the day"),
+			socialList: Yup.object().shape({
+				facebook: Yup.string().url("A enter a valid link, including https://"),
+				twitter: Yup.string().url("A enter a valid link, including https://"),
+				youtube: Yup.string().url("A enter a valid link, including https://"),
+				soundcloud: Yup.string().url(
+					"A enter a valid link, including https://"
+				),
+			}),
+		})
+	),
+});
 
 const UpdatePlace = () => {
-	const [isLoading, setIsLoading] = useState(true);
-	const placeId = useParams().scheduleId;
-
-	const [formState, inputHandler, setFormData] = useForm(
-		{
-			title: {
-				value: "",
-				isValid: false,
-			},
-			description: {
-				value: "",
-				isValid: false,
-			},
-		},
-		false
-	);
-
-	const mySchedule = DUMMY_SCHEDULES.find((s) => s.id === placeId);
+	const auth = useContext(AuthContext);
+	const { isLoading, error, sendRequest, clearError } = useHttpClient();
+	const [loadedSchedule, setLoadedSchedule] = useState();
+	const scheduleId = useParams().scheduleId;
+	const history = useHistory();
+	const [startDate, setStartDate] = useState();
 
 	useEffect(() => {
-		if (mySchedule) {
-			setFormData(
-				{
-					title: {
-						value: mySchedule.title,
-						isValid: true,
-					},
-					description: {
-						value: mySchedule.description,
-						isValid: true,
-					},
-				},
-				true
-			);
-		}
-		setIsLoading(false);
-	}, [setFormData, mySchedule, isLoading]);
+		const fetchSchedule = async () => {
+			try {
+				const responseData = await sendRequest(
+					`http://localhost:5000/api/schedules/${scheduleId}`
+				);
+				setLoadedSchedule(responseData.schedule);
+				setStartDate(new Date(responseData.schedule.startDate));
+			} catch (err) {
+				console.log(err);
+			}
+		};
+		fetchSchedule();
+	}, [history, scheduleId, sendRequest]);
 
-	const scheduleUpdateSubmitHandler = (e) => {
-		e.preventDefault();
-		console.log(formState.inputs);
-	};
+	if (isLoading) {
+		return <LoadingSpinner asOverlay={true} />;
+	}
 
-	if (!mySchedule) {
+	if (!loadedSchedule && !error) {
 		return (
 			<div className='center'>
 				<Card>
@@ -97,44 +89,138 @@ const UpdatePlace = () => {
 			</div>
 		);
 	}
-	if (isLoading) {
-		return (
-			<div className='center'>
-				<h2>Loading...</h2>
-			</div>
-		);
-	}
+
 	return (
-		<form className='place-form'>
-			<Input
-				type='text'
-				id='title'
-				element='input'
-				label='Title'
-				validators={[VALIDATOR_REQUIRE()]}
-				errorText='Please enter a valid title'
-				onInput={inputHandler}
-				initialValue={formState.inputs.title.value}
-				initialIsValid={formState.inputs.title.isValid}
-			/>
-			<Input
-				type='description'
-				id='description'
-				element='textarea'
-				label='Description'
-				validators={[VALIDATOR_MINLENGTH(5)]}
-				errorText='Please enter a valid description (min 5 characters)'
-				onInput={inputHandler}
-				initialValue={formState.inputs.description.value}
-				initialIsValid={formState.inputs.description.isValid}
-			/>
-			<Button
-				type='submit'
-				disabled={!formState.isValid}
-				onClick={scheduleUpdateSubmitHandler}>
-				Update Schedule
-			</Button>
-		</form>
+		<>
+			<ErrorModal error={error} onClear={clearError} />
+			<Formik
+				initialValues={{
+					title: loadedSchedule.title,
+					description: loadedSchedule.description,
+					startDate: loadedSchedule.startDate,
+					daysQty: loadedSchedule.daysQty,
+					scheduleList: loadedSchedule.scheduleList,
+				}}
+				validationSchema={validateSchema}
+				validateOnChange={false}
+				validateOnBlur={false}
+				enableReinitialize
+				onSubmit={async (values, { setSubmitting }) => {
+					setSubmitting({ values });
+					try {
+						await sendRequest(
+							`http://localhost:5000/api/schedules/${scheduleId}`,
+							"PATCH",
+							JSON.stringify({ ...values }),
+							{ "Content-Type": "application/json" }
+						);
+						history.push("/" + auth.userId + "/schedules");
+					} catch (err) {
+						console.log(err);
+					}
+					setSubmitting(false);
+				}}>
+				{({
+					values,
+					isSubmitting,
+					setFieldValue,
+					touched,
+					errors,
+					handleChange,
+				}) => (
+					<Form className='bg-gray-100 shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full'>
+						{isLoading && <LoadingSpinner asOverlay={true} />}
+						<div className='mb-4'>
+							<label htmlFor='title' className='text-gray-700'>
+								Title
+							</label>
+							<Field
+								type='text'
+								id='title'
+								name='title'
+								className='form-input mt-1 block w-full'
+							/>
+							{errors.title && touched.title ? (
+								<p className='text-red-500 text-xs italic'>{errors.title}</p>
+							) : null}
+						</div>
+						<div className='mb-4'>
+							<label htmlFor='description' className='text-gray-700'>
+								Description
+							</label>
+							<Field
+								component='textarea'
+								className='form-textarea mt-1 block w-full'
+								rows='3'
+								id='description'
+								name='description'
+							/>
+							{errors.description && touched.description ? (
+								<p className='text-red-500 text-xs italic'>
+									{errors.description}
+								</p>
+							) : null}
+						</div>
+						<div className='flex flex-wrap -mx-3 mb-4'>
+							<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
+								<label
+									htmlFor='startDate'
+									className='text-gray-700 block w-full'>
+									Start Date
+								</label>
+								<DatePicker
+									selected={startDate}
+									onChange={(startDate) => {
+										setFieldValue("startDate", startDate);
+										setStartDate(startDate);
+									}}
+									selectsStart
+									startDate={startDate}
+									dateFormat='dd/MM/yyyy'
+									name='startDate'
+									className='form-input mt-1 block w-full'
+								/>
+								{errors.startDate && touched.startDate ? (
+									<p className='text-red-500 text-xs italic'>
+										{errors.startDate}
+									</p>
+								) : null}
+							</div>
+							<div className='w-full md:w-1/2 px-3'>
+								<label htmlFor='daysQty' className='text-gray-700 block w-full'>
+									How many days is the event?
+								</label>
+								<Field
+									type='number'
+									id='daysQty'
+									name='daysQty'
+									min='1'
+									className='form-input mt-1 block w-full'
+								/>
+								{errors.daysQty ? (
+									<p className='text-red-500 text-xs italic'>
+										{errors.daysQty}
+									</p>
+								) : null}
+							</div>
+						</div>
+
+						<NewScheduleList
+							values={values}
+							setFieldValue={setFieldValue}
+							onChange={handleChange}
+						/>
+
+						<button
+							disabled={isSubmitting}
+							type='submit'
+							className='bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded'>
+							Submit
+						</button>
+					</Form>
+				)}
+			</Formik>
+		</>
 	);
 };
 
