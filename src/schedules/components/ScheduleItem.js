@@ -84,7 +84,7 @@ const ScheduleItem = (props) => {
 						<h2>{props.location}</h2>
 						<p>{props.description}</p>
 					</div>
-					{auth.isLoggedIn && (
+					{auth.userId === props.creatorId && (
 						<div className='place-item__actions'>
 							<Button inverse onClick={openMapHandler}>
 								VIEW MAP

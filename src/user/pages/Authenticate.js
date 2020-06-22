@@ -75,7 +75,7 @@ const Authenticate = (props) => {
 						"Content-Type": "application/json",
 					}
 				);
-				auth.login(responseData.user.id);
+				auth.login(responseData.user.id, responseData.user.status);
 			} catch (err) {
 				console.log(err);
 			}

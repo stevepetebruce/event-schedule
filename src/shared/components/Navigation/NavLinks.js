@@ -9,11 +9,20 @@ const NavLinks = (props) => {
 	const auth = useContext(AuthContext);
 	return (
 		<ul className='nav-links'>
-			<li>
-				<NavLink to='/' exact>
-					All Users
-				</NavLink>
-			</li>
+			{auth.userStatus === "admin" && (
+				<li>
+					<NavLink to='/users' exact>
+						All Users
+					</NavLink>
+				</li>
+			)}
+			{auth.isLoggedIn && (
+				<li>
+					<NavLink to='/' exact>
+						Account
+					</NavLink>
+				</li>
+			)}
 			{auth.isLoggedIn && (
 				<li>
 					<NavLink to={`/${auth.userId}/schedules`}>Schedules</NavLink>
