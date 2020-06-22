@@ -31,6 +31,7 @@ const ScheduleList = (props) => {
 					coordinates={schedule.location}
 					date={schedule.date}
 					creatorId={schedule.creator}
+					onDelete={props.onDeleteSchedule}
 				/>
 			))}
 		</ul>

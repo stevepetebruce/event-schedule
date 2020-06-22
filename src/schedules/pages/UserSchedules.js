@@ -11,6 +11,12 @@ const UserSchedules = (props) => {
 	const [loadedSchedules, setloadedSchedules] = useState();
 	const userId = useParams().userId;
 
+	const scheduleDeletedHandler = (deletedScheduleId) => {
+		setloadedSchedules((prevSchedules) =>
+			prevSchedules.filter((schedule) => schedule.id !== deletedScheduleId)
+		);
+	};
+
 	useEffect(() => {
 		const fetchSchedules = async () => {
 			try {
@@ -30,7 +36,10 @@ const UserSchedules = (props) => {
 			<ErrorModal error={error} onClear={clearError} />
 			{isLoading && <LoadingSpinner asOverlay={true} />}
 			{!isLoading && loadedSchedules && (
-				<ScheduleList items={loadedSchedules} />
+				<ScheduleList
+					items={loadedSchedules}
+					onDeleteSchedule={scheduleDeletedHandler}
+				/>
 			)}
 		</>
 	);
