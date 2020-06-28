@@ -91,6 +91,7 @@ const NewSchedule = () => {
 				validateOnBlur={false}
 				onSubmit={async (values, { setSubmitting }) => {
 					setSubmitting({ ...values, ...{ creator: auth.userId } });
+
 					try {
 						await sendRequest(
 							"http://localhost:5000/api/schedules",

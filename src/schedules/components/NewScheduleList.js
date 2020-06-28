@@ -6,6 +6,7 @@ import moment from "moment";
 import "../../assets/rc-time-picker.css";
 
 import NewScheduleListDetails from "./NewScheduleListDetails";
+import ImageUpload from "../../shared/components/FormElements/ImageUpload";
 
 function NewScheduleList(props) {
 	const { values, handleChange, errors, setFieldValue } = useFormikContext();
@@ -22,7 +23,10 @@ function NewScheduleList(props) {
 									key={index}
 									className='border border-gray-400 bg-white rounded-b lg:rounded px-4 py-2 mb-2 flex flex-col justify-between leading-normal relative'>
 									<div className='flex flex-wrap -mx-3 mb-4'>
-										<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
+										<div className='w-full md:w-2/12 px-3 mb-6 md:mb-0'>
+											<ImageUpload schedule={`scheduleList[${index}]`} />
+										</div>
+										<div className='w-full md:w-4/12 px-3 mb-6 md:mb-0'>
 											<label
 												htmlFor={`scheduleList[${index}].presenter`}
 												className='text-gray-700'>
