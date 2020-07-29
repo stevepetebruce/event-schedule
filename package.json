@@ -3,11 +3,11 @@
 	"version": "0.1.0",
 	"private": true,
 	"dependencies": {
-		"@material-ui/core": "^4.10.1",
+		"@material-ui/core": "^4.11.0",
 		"@material-ui/icons": "^4.9.1",
-		"formik": "^2.1.4",
-		"mapbox-gl": "^1.10.1",
-		"moment": "^2.26.0",
+		"formik": "^2.1.5",
+		"mapbox-gl": "^1.11.1",
+		"moment": "^2.27.0",
 		"rc-time-picker": "^3.7.3",
 		"react": "^16.13.1",
 		"react-collapsible": "^2.8.0",
@@ -43,9 +43,9 @@
 	},
 	"devDependencies": {
 		"@tailwindcss/custom-forms": "^0.2.1",
-		"autoprefixer": "^9.8.0",
+		"autoprefixer": "^9.8.5",
 		"i": "^0.3.6",
 		"postcss-cli": "^7.1.1",
-		"tailwindcss": "^1.4.6"
+		"tailwindcss": "^1.6.0"
 	}
 }
