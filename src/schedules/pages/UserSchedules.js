@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 
 import ScheduleList from "../components/ScheduleList";
 import { useHttpClient } from "../../shared/hooks/http-hook";
+import { AuthContext } from "../../shared/context/auth-context";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 
@@ -10,6 +11,7 @@ const UserSchedules = (props) => {
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 	const [loadedSchedules, setloadedSchedules] = useState();
 	const userId = useParams().userId;
+	const auth = useContext(AuthContext);
 
 	const scheduleDeletedHandler = (deletedScheduleId) => {
 		setloadedSchedules((prevSchedules) =>
@@ -21,7 +23,12 @@ const UserSchedules = (props) => {
 		const fetchSchedules = async () => {
 			try {
 				const responseData = await sendRequest(
-					`http://localhost:5000/api/schedules/user/${userId}`
+					`http://localhost:5000/api/schedules/user/${userId}`,
+					"GET",
+					null,
+					{
+						Authorization: "Bearer " + auth.token,
+					}
 				);
 				setloadedSchedules(responseData.schedules);
 			} catch (err) {
@@ -29,7 +36,7 @@ const UserSchedules = (props) => {
 			}
 		};
 		fetchSchedules();
-	}, [sendRequest, userId]);
+	}, [auth.token, sendRequest, userId]);
 
 	return (
 		<>

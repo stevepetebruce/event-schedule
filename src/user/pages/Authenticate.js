@@ -75,7 +75,11 @@ const Authenticate = (props) => {
 						"Content-Type": "application/json",
 					}
 				);
-				auth.login(responseData.user.id, responseData.user.status);
+				auth.login(
+					responseData.userId,
+					responseData.token,
+					responseData.status
+				);
 			} catch (err) {
 				console.log(err);
 			}
@@ -94,7 +98,11 @@ const Authenticate = (props) => {
 					}
 				);
 
-				auth.login(responseData.user.id);
+				auth.login(
+					responseData.userId,
+					responseData.token,
+					responseData.status
+				);
 			} catch (err) {}
 		}
 	};

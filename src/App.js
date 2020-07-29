@@ -17,25 +17,25 @@ import Authenticate from "./user/pages/Authenticate";
 import { AuthContext } from "./shared/context/auth-context";
 
 const App = () => {
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
+	const [token, setToken] = useState(false);
 	const [userId, setUserId] = useState(null);
 	const [userStatus, setUserStatus] = useState(null);
 
-	const login = useCallback((uid, ustatus) => {
-		setIsLoggedIn(true);
+	const login = useCallback((uid, tkn, status) => {
 		setUserId(uid);
-		setUserStatus(ustatus);
+		setUserStatus(status);
+		setToken(tkn);
 	}, []);
 
 	const logout = useCallback(() => {
-		setIsLoggedIn(false);
 		setUserId(null);
 		setUserStatus(null);
+		setToken(null);
 	}, []);
 
 	let routes;
 
-	if (isLoggedIn) {
+	if (token) {
 		routes = (
 			<>
 				{userStatus === "admin" && (
@@ -72,7 +72,8 @@ const App = () => {
 	return (
 		<AuthContext.Provider
 			value={{
-				isLoggedIn: isLoggedIn,
+				isLoggedIn: !!token,
+				token: token,
 				userId: userId,
 				userStatus: userStatus,
 				login: login,

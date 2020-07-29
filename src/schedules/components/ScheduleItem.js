@@ -32,7 +32,11 @@ const ScheduleItem = (props) => {
 		try {
 			await sendRequest(
 				`http://localhost:5000/api/schedules/${props.id}`,
-				"DELETE"
+				"DELETE",
+				null,
+				{
+					Authorization: "Bearer " + auth.token,
+				}
 			);
 
 			props.onDelete(props.id);

@@ -97,7 +97,10 @@ const NewSchedule = () => {
 							"http://localhost:5000/api/schedules",
 							"POST",
 							JSON.stringify({ ...values, ...{ creator: auth.userId } }),
-							{ "Content-Type": "application/json" }
+							{
+								Authorization: "Bearer " + auth.token,
+								"Content-Type": "application/json",
+							}
 						);
 						history.push("/");
 					} catch (error) {

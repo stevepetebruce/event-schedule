@@ -112,7 +112,10 @@ const UpdatePlace = () => {
 							`http://localhost:5000/api/schedules/${scheduleId}`,
 							"PATCH",
 							JSON.stringify({ ...values }),
-							{ "Content-Type": "application/json" }
+							{
+								"Content-Type": "application/json",
+								Authorization: "Bearer " + auth.token,
+							}
 						);
 						history.push("/" + auth.userId + "/schedules");
 					} catch (err) {
