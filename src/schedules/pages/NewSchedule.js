@@ -6,6 +6,7 @@ import moment from "moment";
 import * as Yup from "yup";
 
 import NewScheduleList from "../components/NewScheduleList";
+import FormControl from "../../shared/components/FormElements/FormControl";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { AuthContext } from "../../shared/context/auth-context";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
@@ -90,6 +91,7 @@ const NewSchedule = () => {
 				validateOnChange={false}
 				validateOnBlur={false}
 				onSubmit={async (values, { setSubmitting }) => {
+					console.log(values);
 					setSubmitting({ ...values, ...{ creator: auth.userId } });
 
 					try {
@@ -119,35 +121,20 @@ const NewSchedule = () => {
 					<Form className='bg-gray-100 shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full'>
 						{isLoading && <LoadingSpinner asOverlay={true} />}
 						<div className='mb-4'>
-							<label htmlFor='title' className='text-gray-700'>
-								Title
-							</label>
-							<Field
+							<FormControl
+								control='input'
 								type='text'
-								id='title'
+								label='Title'
 								name='title'
-								className='form-input mt-1 block w-full'
 							/>
-							{errors.title && touched.title ? (
-								<p className='text-red-500 text-xs italic'>{errors.title}</p>
-							) : null}
 						</div>
 						<div className='mb-4'>
-							<label htmlFor='description' className='text-gray-700'>
-								Description
-							</label>
-							<Field
-								component='textarea'
-								className='form-textarea mt-1 block w-full'
-								rows='3'
-								id='description'
+							<FormControl
+								control='textarea'
+								label='Description'
 								name='description'
+								rows='3'
 							/>
-							{errors.description && touched.description ? (
-								<p className='text-red-500 text-xs italic'>
-									{errors.description}
-								</p>
-							) : null}
 						</div>
 						<div className='mb-4'>
 							<label htmlFor='address' className='text-gray-700'>
@@ -189,21 +176,13 @@ const NewSchedule = () => {
 								) : null}
 							</div>
 							<div className='w-full md:w-1/2 px-3'>
-								<label htmlFor='daysQty' className='text-gray-700 block w-full'>
-									How many days is the event?
-								</label>
-								<Field
+								<FormControl
+									control='input'
 									type='number'
-									id='daysQty'
+									label='How many days is the event?'
 									name='daysQty'
 									min='1'
-									className='form-input mt-1 block w-full'
 								/>
-								{errors.daysQty ? (
-									<p className='text-red-500 text-xs italic'>
-										{errors.daysQty}
-									</p>
-								) : null}
 							</div>
 						</div>
 

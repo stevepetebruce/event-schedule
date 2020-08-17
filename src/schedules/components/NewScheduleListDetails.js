@@ -2,24 +2,27 @@ import React from "react";
 import Collapsible from "react-collapsible";
 import { Field } from "formik";
 
+import FormControl from "../../shared/components/FormElements/FormControl";
 import NewSheduleListSocial from "./NewScheduleListSocial";
 
-function NewScheduleListDetails({ schedule }) {
+function NewScheduleListDetails({ schedule, index }) {
 	return (
 		<Collapsible trigger='Add event information and social media links'>
 			<div className='flex flex-wrap -mx-3 mb-4'>
 				<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
-					<label htmlFor={`${schedule}.etitle`} className='text-gray-700'>
-						Event title <span className='text-gray-500'>(Optional)</span>
-					</label>
-					<Field
+					<FormControl
+						control='input'
 						type='text'
-						id={`${schedule}.etitle`}
-						name={`${schedule}.etitle`}
-						className='form-input mt-1 block w-full'
+						label={
+							<>
+								Event title <span className='text-gray-500'>(Optional)</span>
+							</>
+						}
+						name={`scheduleList[${index}].etitle`}
 						value={schedule.etitle}
 					/>
 				</div>
+
 				<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
 					<label htmlFor={`${schedule}.stage`} className='text-gray-700'>
 						Venue/Stage

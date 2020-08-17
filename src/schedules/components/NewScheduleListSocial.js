@@ -11,6 +11,7 @@ import SocialInput from "../../shared/components/FormElements/SocialInput";
 import "./NewScheduleListSocial.css";
 
 function NewScheduleListSocial({ schedule }) {
+	console.log("ttt", schedule);
 	return (
 		<>
 			<div className='flex flex-wrap -mx-3 mb-4'>

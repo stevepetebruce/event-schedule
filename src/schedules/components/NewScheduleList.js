@@ -6,10 +6,11 @@ import moment from "moment";
 import "../../assets/rc-time-picker.css";
 
 import NewScheduleListDetails from "./NewScheduleListDetails";
+import FormControl from "../../shared/components/FormElements/FormControl";
 import ImageUpload from "../../shared/components/FormElements/ImageUpload";
 
 function NewScheduleList(props) {
-	const { values, handleChange, errors, setFieldValue } = useFormikContext();
+	const { values, errors, setFieldValue } = useFormikContext();
 
 	return (
 		<FieldArray
@@ -27,22 +28,13 @@ function NewScheduleList(props) {
 											<ImageUpload schedule={`scheduleList[${index}]`} />
 										</div>
 										<div className='w-full md:w-4/12 px-3 mb-6 md:mb-0'>
-											<label
-												htmlFor={`scheduleList[${index}].presenter`}
-												className='text-gray-700'>
-												Band/Artist/Presenter
-											</label>
-											<Field
+											<FormControl
+												control='input'
 												type='text'
-												id={`scheduleList[${index}].presenter`}
+												label='Band/Artist/Presenter'
 												name={`scheduleList[${index}].presenter`}
-												className='form-input mt-1 block w-full'
 												value={schedule.presenter}
-												onChange={handleChange}
 											/>
-											<p className='text-red-500 text-xs italic'>
-												{getIn(errors, `scheduleList[${index}].presenter`)}
-											</p>
 										</div>
 										<div className='w-full md:w-2/12 px-3 mb-6 md:mb-0'>
 											<label
@@ -131,7 +123,7 @@ function NewScheduleList(props) {
 										</div>
 									</div>
 
-									<NewScheduleListDetails schedule={`scheduleList[${index}]`} />
+									<NewScheduleListDetails schedule={schedule} index={index} />
 
 									<span className='absolute top-0 right-0 px-1 py-1'>
 										<svg
