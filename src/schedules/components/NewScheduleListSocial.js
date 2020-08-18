@@ -6,52 +6,74 @@ import YouTubeIcon from "@material-ui/icons/YouTube";
 import { Icon } from "@material-ui/core";
 import SoundCloudIcon from "../../assets/icons/soundcloud-tile.svg";
 
-import SocialInput from "../../shared/components/FormElements/SocialInput";
+import FormControl from "../../shared/components/FormElements/FormControl";
 
 import "./NewScheduleListSocial.css";
 
-function NewScheduleListSocial({ schedule }) {
+function NewScheduleListSocial({ schedule, index }) {
 	console.log("ttt", schedule);
 	return (
 		<>
 			<div className='flex flex-wrap -mx-3 mb-4'>
 				<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0 flex content-center'>
-					<SocialInput
-						schedule={schedule}
-						social='facebook'
-						icon={<FacebookIcon htmlColor='#3b5998' fontSize='large' />}
+					<FormControl
+						control='input'
+						type='text'
+						label={
+							<div className='pt-2'>
+								<FacebookIcon htmlColor='#3b5998' fontSize='large' />
+							</div>
+						}
+						name={`scheduleList[${index}].socialList.facebook`}
+						value={schedule.socialList.facebook}
 					/>
 				</div>
 				<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0 flex justify-start'>
-					<SocialInput
-						schedule={schedule}
-						social='twitter'
-						icon={<TwitterIcon htmlColor='#4099ff' fontSize='large' />}
+					<FormControl
+						control='input'
+						type='text'
+						label={
+							<div className='pt-2'>
+								<TwitterIcon htmlColor='#4099ff' fontSize='large' />
+							</div>
+						}
+						name={`scheduleList[${index}].socialList.twitter`}
+						value={schedule.socialList.twitter}
 					/>
 				</div>
 			</div>
 			<div className='flex flex-wrap -mx-3 mb-4'>
 				<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0 flex justify-start'>
-					<SocialInput
-						schedule={schedule}
-						social='youtube'
-						icon={<YouTubeIcon htmlColor='#c4302b' fontSize='large' />}
+					<FormControl
+						control='input'
+						type='text'
+						label={
+							<div className='pt-2'>
+								<YouTubeIcon htmlColor='#c4302b' fontSize='large' />
+							</div>
+						}
+						name={`scheduleList[${index}].socialList.youtube`}
+						value={schedule.socialList.youtube}
 					/>
 				</div>
 				<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0 flex justify-start'>
-					<SocialInput
-						schedule={schedule}
-						social='soundcloud'
-						icon={
-							<Icon>
-								<img
-									src={SoundCloudIcon}
-									height={25}
-									width={30}
-									alt='SoundCloud'
-								/>
-							</Icon>
+					<FormControl
+						control='input'
+						type='text'
+						label={
+							<div className='pt-2 mr-1 ml-1'>
+								<Icon>
+									<img
+										src={SoundCloudIcon}
+										height={25}
+										width={30}
+										alt='SoundCloud'
+									/>
+								</Icon>
+							</div>
 						}
+						name={`scheduleList[${index}].socialList.soundcloud`}
+						value={schedule.socialList.soundcloud}
 					/>
 				</div>
 			</div>

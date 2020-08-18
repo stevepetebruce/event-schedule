@@ -91,7 +91,6 @@ const NewSchedule = () => {
 				validateOnChange={false}
 				validateOnBlur={false}
 				onSubmit={async (values, { setSubmitting }) => {
-					console.log(values);
 					setSubmitting({ ...values, ...{ creator: auth.userId } });
 
 					try {
