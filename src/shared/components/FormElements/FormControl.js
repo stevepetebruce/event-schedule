@@ -2,6 +2,7 @@ import React from "react";
 
 import InputFormik from "./InputFormik";
 import TextArea from "./TextArea";
+import Select from "./Select";
 
 function FormControl(props) {
 	const { control, ...rest } = props;
@@ -11,6 +12,7 @@ function FormControl(props) {
 		case "textarea":
 			return <TextArea {...rest} />;
 		case "select":
+			return <Select {...rest} />;
 		case "checkbox":
 		case "date":
 		case "time":
