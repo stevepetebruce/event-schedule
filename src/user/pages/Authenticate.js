@@ -21,10 +21,23 @@ const Authenticate = (props) => {
 		name: "",
 		email: "",
 		password: "",
+		confirmPassword: "",
 	};
 
-	const validationSchema = Yup.object({
+	const validationSchemaSignUp = Yup.object({
 		name: Yup.string(),
+		email: Yup.string()
+			.email("Please enter a valid email")
+			.required("Email required"),
+		password: Yup.string()
+			.min(6, "Please enter a minimum of 6 characters")
+			.required("Password required"),
+		confirmPassword: Yup.string()
+			.oneOf([Yup.ref("password"), ""], "Passwords must match")
+			.required("Required"),
+	});
+
+	const validationSchemaLogin = Yup.object({
 		email: Yup.string()
 			.email("Please enter a valid email")
 			.required("Email required"),
@@ -40,7 +53,6 @@ const Authenticate = (props) => {
 	const onSubmit = async (values) => {
 		if (isLoginMode) {
 			try {
-				console.log(values);
 				const responseData = await sendRequest(
 					"http://localhost:5000/api/login",
 					"POST",
@@ -61,7 +73,6 @@ const Authenticate = (props) => {
 			}
 		} else {
 			try {
-				console.log(values);
 				const responseData = await sendRequest(
 					"http://localhost:5000/api/signup",
 					"POST",
@@ -78,7 +89,9 @@ const Authenticate = (props) => {
 					responseData.token,
 					responseData.status
 				);
-			} catch (err) {}
+			} catch (err) {
+				console.log(err);
+			}
 		}
 	};
 
@@ -88,45 +101,84 @@ const Authenticate = (props) => {
 				{isLoading && <LoadingSpinner asOverlay={true} />}
 				<h2>{isLoginMode ? "Log In" : "Sign Up"}</h2>
 				<hr />
-				<Formik
-					initialValues={initialValues}
-					validationSchema={validationSchema}
-					onSubmit={onSubmit}>
-					{(formik) => {
-						return (
-							<>
-								<Form>
-									{!isLoginMode && (
+				{!isLoginMode && (
+					<Formik
+						initialValues={initialValues}
+						validationSchema={validationSchemaSignUp}
+						onSubmit={onSubmit}>
+						{(formik) => {
+							return (
+								<>
+									<Form>
 										<FormControl
 											control='input'
 											type='text'
 											label='Name'
 											name='name'
 										/>
-									)}
-									<FormControl
-										control='input'
-										type='text'
-										label='Email address'
-										name='email'
-									/>
-									<FormControl
-										control='input'
-										type='text'
-										label='Password'
-										name='password'
-									/>
-									<Button type='submit' disabled={!formik.isValid}>
-										{isLoginMode ? "Log In" : "Sign Up"}
-									</Button>
-									<Button type='reset' inverse onClick={switchModeHandler}>
-										Switch to {isLoginMode ? "Sign Up" : "Log In"}
-									</Button>
-								</Form>
-							</>
-						);
-					}}
-				</Formik>
+										<FormControl
+											control='input'
+											type='text'
+											label='Email address'
+											name='email'
+										/>
+										<FormControl
+											control='input'
+											type='password'
+											label='Password'
+											name='password'
+										/>
+										<FormControl
+											control='input'
+											type='password'
+											label='Confirm password'
+											name='confirmPassword'
+										/>
+										<Button type='submit' disabled={!formik.isValid}>
+											{isLoginMode ? "Log In" : "Sign Up"}
+										</Button>
+										<Button type='reset' inverse onClick={switchModeHandler}>
+											Switch to {isLoginMode ? "Sign Up" : "Log In"}
+										</Button>
+									</Form>
+								</>
+							);
+						}}
+					</Formik>
+				)}
+				{isLoginMode && (
+					<Formik
+						initialValues={initialValues}
+						validationSchema={validationSchemaLogin}
+						onSubmit={onSubmit}>
+						{(formik) => {
+							return (
+								<>
+									<Form>
+										<FormControl
+											control='input'
+											type='text'
+											label='Email address'
+											name='email'
+										/>
+										<FormControl
+											control='input'
+											type='password'
+											label='Password'
+											name='password'
+										/>
+										<Button type='submit' disabled={!formik.isValid}>
+											{isLoginMode ? "Log In" : "Sign Up"}
+										</Button>
+										<Button type='reset' inverse onClick={switchModeHandler}>
+											Switch to {isLoginMode ? "Sign Up" : "Log In"}
+										</Button>
+									</Form>
+								</>
+							);
+						}}
+					</Formik>
+				)}
 			</Card>
 			<ErrorModal error={error} onClear={clearError} />
 		</>
