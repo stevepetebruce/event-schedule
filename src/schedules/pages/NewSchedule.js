@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
-import { Formik, Form, Field } from "formik";
+import { Formik, Form } from "formik";
 import moment from "moment";
 import * as Yup from "yup";
 
@@ -16,7 +16,6 @@ const validateSchema = Yup.object().shape({
 	description: Yup.string()
 		.min(10, "Please enter a longer description (minimum of 10 characters")
 		.required("Please enter a brief description of your event"),
-	address: Yup.string(),
 	startDate: Yup.date().required("A start date is required"),
 	daysQty: Yup.number().required(
 		"Please enter the number of days of your event"
@@ -62,7 +61,6 @@ const NewSchedule = () => {
 				initialValues={{
 					title: "",
 					description: "",
-					address: "",
 					startDate: new Date(),
 					daysQty: 1,
 					scheduleList: [
@@ -130,20 +128,6 @@ const NewSchedule = () => {
 								name='description'
 								rows='3'
 							/>
-						</div>
-						<div className='mb-4'>
-							<label htmlFor='address' className='text-gray-700'>
-								Address <span className='text-gray-500'>(Optional)</span>
-							</label>
-							<Field
-								type='text'
-								id='address'
-								name='address'
-								className='form-input mt-1 block w-full'
-							/>
-							{errors.address ? (
-								<p className='text-red-500 text-xs italic'>{errors.address}</p>
-							) : null}
 						</div>
 						<div className='flex flex-wrap -mx-3 mb-4'>
 							<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
