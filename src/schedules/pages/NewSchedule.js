@@ -1,7 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
-import DatePicker from "react-datepicker";
 import moment from "moment";
 import * as Yup from "yup";
 
@@ -11,8 +10,6 @@ import { useHttpClient } from "../../shared/hooks/http-hook";
 import { AuthContext } from "../../shared/context/auth-context";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
-
-import "react-datepicker/dist/react-datepicker.css";
 
 const validateSchema = Yup.object().shape({
 	title: Yup.string().required("Please enter the name of your event"),
@@ -57,7 +54,6 @@ const NewSchedule = () => {
 	const auth = useContext(AuthContext);
 	const history = useHistory();
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
-	const [startDate, setStartDate] = useState(new Date());
 
 	return (
 		<>
@@ -67,7 +63,7 @@ const NewSchedule = () => {
 					title: "",
 					description: "",
 					address: "",
-					startDate: "",
+					startDate: new Date(),
 					daysQty: 1,
 					scheduleList: [
 						{
@@ -151,28 +147,11 @@ const NewSchedule = () => {
 						</div>
 						<div className='flex flex-wrap -mx-3 mb-4'>
 							<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
-								<label
-									htmlFor='startDate'
-									className='text-gray-700 block w-full'>
-									Start Date
-								</label>
-								<DatePicker
-									selected={startDate}
-									onChange={(startDate) => {
-										setFieldValue("startDate", startDate);
-										setStartDate(startDate);
-									}}
-									selectsStart
-									startDate={startDate}
-									dateFormat='dd/MM/yyyy'
+								<FormControl
+									control='date'
+									label='Start Date'
 									name='startDate'
-									className='form-input mt-1 block w-full'
 								/>
-								{errors.startDate && touched.startDate ? (
-									<p className='text-red-500 text-xs italic'>
-										{errors.startDate}
-									</p>
-								) : null}
 							</div>
 							<div className='w-full md:w-1/2 px-3'>
 								<FormControl
