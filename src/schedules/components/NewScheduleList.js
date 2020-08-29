@@ -1,15 +1,16 @@
 import React from "react";
-import { Field, FieldArray, getIn, useFormikContext } from "formik";
+import { FieldArray, getIn, useFormikContext } from "formik";
 import TimePicker from "rc-time-picker";
 import moment from "moment";
 
 import "../../assets/rc-time-picker.css";
 
 import NewScheduleListDetails from "./NewScheduleListDetails";
+import FormControl from "../../shared/components/FormElements/FormControl";
 import ImageUpload from "../../shared/components/FormElements/ImageUpload";
 
 function NewScheduleList(props) {
-	const { values, handleChange, errors, setFieldValue } = useFormikContext();
+	const { values, errors, setFieldValue } = useFormikContext();
 
 	return (
 		<FieldArray
@@ -27,22 +28,13 @@ function NewScheduleList(props) {
 											<ImageUpload schedule={`scheduleList[${index}]`} />
 										</div>
 										<div className='w-full md:w-4/12 px-3 mb-6 md:mb-0'>
-											<label
-												htmlFor={`scheduleList[${index}].presenter`}
-												className='text-gray-700'>
-												Band/Artist/Presenter
-											</label>
-											<Field
+											<FormControl
+												control='input'
 												type='text'
-												id={`scheduleList[${index}].presenter`}
+												label='Band/Artist/Presenter'
 												name={`scheduleList[${index}].presenter`}
-												className='form-input mt-1 block w-full'
 												value={schedule.presenter}
-												onChange={handleChange}
 											/>
-											<p className='text-red-500 text-xs italic'>
-												{getIn(errors, `scheduleList[${index}].presenter`)}
-											</p>
 										</div>
 										<div className='w-full md:w-2/12 px-3 mb-6 md:mb-0'>
 											<label
@@ -98,40 +90,18 @@ function NewScheduleList(props) {
 											className='w-full md:w-2/12 px-3 mb-6 md:mb-0'
 											style={{ position: "relative" }}>
 											{props.values.daysQty > 1 ? (
-												<>
-													<label
-														htmlFor={`scheduleList[${index}].day`}
-														className='text-gray-700'>
-														Day
-													</label>
-													<Field
-														name={`scheduleList[${index}].day`}
-														id={`scheduleList[${index}].day`}
-														as='select'
-														className='form-input mt-1 block w-full'>
-														{[...Array(props.values.daysQty)].map((num, i) => (
-															<option key={i + 1} value={i + 1}>
-																{i + 1}
-															</option>
-														))}
-													</Field>
-													<div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-6 pt-8 text-gray-700'>
-														<svg
-															className='fill-current h-4 w-4'
-															xmlns='http://www.w3.org/2000/svg'
-															viewBox='0 0 20 20'>
-															<path d='M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z' />
-														</svg>
-													</div>
-													<p className='text-red-500 text-xs italic'>
-														{getIn(errors, `scheduleList[${index}].day`)}
-													</p>
-												</>
+												<FormControl
+													control='select'
+													label='Day'
+													name={`scheduleList[${index}].day`}
+													options={props.values.daysQty}
+													value={schedule.day}
+												/>
 											) : null}
 										</div>
 									</div>
 
-									<NewScheduleListDetails schedule={`scheduleList[${index}]`} />
+									<NewScheduleListDetails schedule={schedule} index={index} />
 
 									<span className='absolute top-0 right-0 px-1 py-1'>
 										<svg

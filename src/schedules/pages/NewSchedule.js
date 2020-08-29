@@ -1,17 +1,15 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
-import DatePicker from "react-datepicker";
 import moment from "moment";
 import * as Yup from "yup";
 
 import NewScheduleList from "../components/NewScheduleList";
+import FormControl from "../../shared/components/FormElements/FormControl";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { AuthContext } from "../../shared/context/auth-context";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
-
-import "react-datepicker/dist/react-datepicker.css";
 
 const validateSchema = Yup.object().shape({
 	title: Yup.string().required("Please enter the name of your event"),
@@ -56,7 +54,6 @@ const NewSchedule = () => {
 	const auth = useContext(AuthContext);
 	const history = useHistory();
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
-	const [startDate, setStartDate] = useState(new Date());
 
 	return (
 		<>
@@ -66,7 +63,7 @@ const NewSchedule = () => {
 					title: "",
 					description: "",
 					address: "",
-					startDate: "",
+					startDate: new Date(),
 					daysQty: 1,
 					scheduleList: [
 						{
@@ -119,35 +116,20 @@ const NewSchedule = () => {
 					<Form className='bg-gray-100 shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full'>
 						{isLoading && <LoadingSpinner asOverlay={true} />}
 						<div className='mb-4'>
-							<label htmlFor='title' className='text-gray-700'>
-								Title
-							</label>
-							<Field
+							<FormControl
+								control='input'
 								type='text'
-								id='title'
+								label='Title'
 								name='title'
-								className='form-input mt-1 block w-full'
 							/>
-							{errors.title && touched.title ? (
-								<p className='text-red-500 text-xs italic'>{errors.title}</p>
-							) : null}
 						</div>
 						<div className='mb-4'>
-							<label htmlFor='description' className='text-gray-700'>
-								Description
-							</label>
-							<Field
-								component='textarea'
-								className='form-textarea mt-1 block w-full'
-								rows='3'
-								id='description'
+							<FormControl
+								control='textarea'
+								label='Description'
 								name='description'
+								rows='3'
 							/>
-							{errors.description && touched.description ? (
-								<p className='text-red-500 text-xs italic'>
-									{errors.description}
-								</p>
-							) : null}
 						</div>
 						<div className='mb-4'>
 							<label htmlFor='address' className='text-gray-700'>
@@ -165,45 +147,20 @@ const NewSchedule = () => {
 						</div>
 						<div className='flex flex-wrap -mx-3 mb-4'>
 							<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
-								<label
-									htmlFor='startDate'
-									className='text-gray-700 block w-full'>
-									Start Date
-								</label>
-								<DatePicker
-									selected={startDate}
-									onChange={(startDate) => {
-										setFieldValue("startDate", startDate);
-										setStartDate(startDate);
-									}}
-									selectsStart
-									startDate={startDate}
-									dateFormat='dd/MM/yyyy'
+								<FormControl
+									control='date'
+									label='Start Date'
 									name='startDate'
-									className='form-input mt-1 block w-full'
 								/>
-								{errors.startDate && touched.startDate ? (
-									<p className='text-red-500 text-xs italic'>
-										{errors.startDate}
-									</p>
-								) : null}
 							</div>
 							<div className='w-full md:w-1/2 px-3'>
-								<label htmlFor='daysQty' className='text-gray-700 block w-full'>
-									How many days is the event?
-								</label>
-								<Field
+								<FormControl
+									control='input'
 									type='number'
-									id='daysQty'
+									label='How many days is the event?'
 									name='daysQty'
 									min='1'
-									className='form-input mt-1 block w-full'
 								/>
-								{errors.daysQty ? (
-									<p className='text-red-500 text-xs italic'>
-										{errors.daysQty}
-									</p>
-								) : null}
 							</div>
 						</div>
 
