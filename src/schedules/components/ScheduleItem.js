@@ -3,7 +3,6 @@ import React, { useState, useContext } from "react";
 import Card from "../../shared/components/UIElements/Card";
 import Button from "../../shared/components/FormElements/Button";
 import Modal from "../../shared/components/UIElements/Modal";
-import Map from "../../shared/components/UIElements/Map";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import { AuthContext } from "../../shared/context/auth-context";
@@ -14,11 +13,8 @@ import "./ScheduleItem.css";
 const ScheduleItem = (props) => {
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 	const auth = useContext(AuthContext);
-	const [showMap, setShowMap] = useState(false);
 	const [showConfirmModal, setShowConfirmModal] = useState(false);
 
-	const openMapHandler = () => setShowMap(true);
-	const closeMapHandler = () => setShowMap(false);
 	const showDeleteHandler = () => {
 		setShowConfirmModal(true);
 	};
@@ -49,17 +45,6 @@ const ScheduleItem = (props) => {
 		<React.Fragment>
 			<ErrorModal error={error} onClear={clearError} />
 			<Modal
-				show={showMap}
-				oncancel={closeMapHandler}
-				header={props.address}
-				contentClass='place-item__modal-content'
-				footerClass='place-item__modal-actions'
-				footer={<Button onClick={closeMapHandler}>CLOSE</Button>}>
-				<div className='map-container'>
-					<Map center={props.coordinates} zoom={16} />
-				</div>
-			</Modal>
-			<Modal
 				show={showConfirmModal}
 				cancel={cancelDeleteHandler}
 				header='Delete Schedule'
@@ -85,14 +70,10 @@ const ScheduleItem = (props) => {
 					</div>
 					<div className='place-item__info'>
 						<h1>{props.title}</h1>
-						<h2>{props.location}</h2>
 						<p>{props.description}</p>
 					</div>
 					{auth.userId === props.creatorId && (
 						<div className='place-item__actions'>
-							<Button inverse onClick={openMapHandler}>
-								VIEW MAP
-							</Button>
 							<Button to={`/schedules/${props.id}/edit`}>EDIT</Button>
 							<Button to={`/schedules/${props.id}`}>VIEW SCHEDULE</Button>
 							<Button danger onClick={showDeleteHandler}>
