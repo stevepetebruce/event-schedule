@@ -16,7 +16,9 @@ const validateSchema = Yup.object().shape({
 	description: Yup.string()
 		.min(10, "Please enter a longer description (minimum of 10 characters")
 		.required("Please enter a brief description of your event"),
-	startDate: Yup.date().required("A start date is required"),
+	startDate: Yup.date()
+		.min(new Date(), "Date must be in the future")
+		.required("A start date is required"),
 	daysQty: Yup.number().required(
 		"Please enter the number of days of your event"
 	),
