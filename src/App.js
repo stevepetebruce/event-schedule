@@ -8,7 +8,7 @@ import {
 
 import Users from "./user/pages/Users";
 import Account from "./user/pages/Account";
-import ScheduleDisplay from "./schedules/pages/ScheduleDisplay";
+import ScheduleDisplay from "./public_schedule/pages/ScheduleDisplay";
 import NewSchedule from "./schedules/pages/NewSchedule";
 import UserSchedules from "./schedules/pages/UserSchedules";
 import UpdateSchedule from "./schedules/pages/UpdateSchedule";

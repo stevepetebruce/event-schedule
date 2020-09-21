@@ -36,6 +36,7 @@ const ScheduleDisplay = (props) => {
 					`http://localhost:5000/api/schedules/${scheduleId}`
 				);
 				setLoadedSchedule(responseData.schedule);
+				console.log(responseData.schedule);
 				scheduleDuration(responseData);
 			} catch (err) {
 				console.log(err.message);

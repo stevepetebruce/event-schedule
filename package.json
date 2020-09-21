@@ -16,7 +16,6 @@
 		"react-router-dom": "^5.2.0",
 		"react-scripts": "^3.4.3",
 		"react-transition-group": "^4.4.1",
-		"swiper": "^6.2.0",
 		"yup": "^0.28.5"
 	},
 	"scripts": {
