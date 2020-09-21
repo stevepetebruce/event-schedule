@@ -4,12 +4,14 @@ import { useHttpClient } from "../../shared/hooks/http-hook";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import ScheduleDisplayTime from "../components/ScheduleDisplayTime";
+import ScheduleDisplayStages from "../components/ScheduleDisplayStages";
 
 const ScheduleDisplay = (props) => {
 	const scheduleId = useParams().scheduleId;
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 	const [loadedSchedule, setLoadedSchedule] = useState();
 	const [timeDuration, setTimeDuration] = useState([]);
+	const [stages, setStages] = useState([]);
 
 	useEffect(() => {
 		const scheduleDuration = (responseData) => {
@@ -30,6 +32,17 @@ const ScheduleDisplay = (props) => {
 			}
 		};
 
+		const stageList = (responseData) => {
+			const stages = responseData.schedule.scheduleList.map((schedule) => {
+				return schedule.stage.toUpperCase();
+			});
+			const stagesOrdered = stages.sort((a, b) => a.localeCompare(b));
+			const stagesUnique = stagesOrdered.filter(
+				(a, b) => stagesOrdered.indexOf(a) === b
+			);
+			setStages(stagesUnique);
+		};
+
 		const fetchSchedule = async () => {
 			try {
 				let responseData = await sendRequest(
@@ -38,6 +51,7 @@ const ScheduleDisplay = (props) => {
 				setLoadedSchedule(responseData.schedule);
 				console.log(responseData.schedule);
 				scheduleDuration(responseData);
+				stageList(responseData);
 			} catch (err) {
 				console.log(err.message);
 			}
@@ -57,7 +71,12 @@ const ScheduleDisplay = (props) => {
 				</div>
 			)}
 			{!isLoading && loadedSchedule && (
-				<ScheduleDisplayTime timeDuration={timeDuration} />
+				<div className='w-screen flex bg-blue-900'>
+					<ScheduleDisplayStages stages={stages} />
+					<div classNAME='flex flex-col overflow-x-scroll scrolling-touch'>
+						<ScheduleDisplayTime timeDuration={timeDuration} />
+					</div>
+				</div>
 			)}
 		</>
 	);
