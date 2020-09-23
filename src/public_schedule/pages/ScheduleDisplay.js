@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useHttpClient } from "../../shared/hooks/http-hook";
@@ -5,6 +6,7 @@ import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import ScheduleDisplayTime from "../components/ScheduleDisplayTime";
 import ScheduleDisplayStages from "../components/ScheduleDisplayStages";
+import ScheduleDisplayEvent from "../components/ScheduleDisplayEvent";
 
 const ScheduleDisplay = (props) => {
 	const scheduleId = useParams().scheduleId;
@@ -12,6 +14,7 @@ const ScheduleDisplay = (props) => {
 	const [loadedSchedule, setLoadedSchedule] = useState();
 	const [timeDuration, setTimeDuration] = useState([]);
 	const [stages, setStages] = useState([]);
+	const [eventList, setEventList] = useState({});
 
 	useEffect(() => {
 		const scheduleDuration = (responseData) => {
@@ -34,24 +37,29 @@ const ScheduleDisplay = (props) => {
 
 		const stageList = (responseData) => {
 			const stages = responseData.schedule.scheduleList.map((schedule) => {
-				return schedule.stage.toUpperCase();
+				return schedule.stage;
 			});
-			const stagesOrdered = stages.sort((a, b) => a.localeCompare(b));
-			const stagesUnique = stagesOrdered.filter(
-				(a, b) => stagesOrdered.indexOf(a) === b
-			);
+			const stagesUnique = stages.filter((a, b) => stages.indexOf(a) === b);
 			setStages(stagesUnique);
 		};
 
+		const eventsByStage = (responseData) => {
+			const events = responseData.schedule.scheduleList.reduce(function (r, a) {
+				r[a.stage] = r[a.stage] || [];
+				r[a.stage].push(a);
+				return r;
+			}, {});
+			setEventList(events);
+		};
 		const fetchSchedule = async () => {
 			try {
 				let responseData = await sendRequest(
 					`http://localhost:5000/api/schedules/${scheduleId}`
 				);
 				setLoadedSchedule(responseData.schedule);
-				console.log(responseData.schedule);
 				scheduleDuration(responseData);
 				stageList(responseData);
+				eventsByStage(responseData);
 			} catch (err) {
 				console.log(err.message);
 			}
@@ -60,7 +68,7 @@ const ScheduleDisplay = (props) => {
 			return;
 		}
 		fetchSchedule();
-	}, [loadedSchedule, scheduleId, sendRequest, timeDuration]);
+	}, []);
 
 	return (
 		<>
@@ -73,8 +81,9 @@ const ScheduleDisplay = (props) => {
 			{!isLoading && loadedSchedule && (
 				<div className='w-screen flex bg-blue-900'>
 					<ScheduleDisplayStages stages={stages} />
-					<div classNAME='flex flex-col overflow-x-scroll scrolling-touch'>
+					<div className='flex flex-col overflow-x-scroll scrolling-touch'>
 						<ScheduleDisplayTime timeDuration={timeDuration} />
+						<ScheduleDisplayEvent stages={stages} eventList={eventList} />
 					</div>
 				</div>
 			)}

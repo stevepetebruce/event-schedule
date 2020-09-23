@@ -2,7 +2,7 @@ import React from "react";
 
 function ScheduleDisplayStages({ stages }) {
 	return (
-		<aside className='flex-col items-center h-full text-white leading-tight truncate bg-blue-900'>
+		<aside className='flex-col items-center h-full text-white leading-tight bg-blue-900'>
 			<div className='h-6 flex items-center w-full'></div>
 			<ul>
 				{stages.map((stage) => (

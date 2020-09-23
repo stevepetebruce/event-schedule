@@ -1,0 +1,25 @@
+import React from "react";
+
+function ScheduleDisplayEventItem({ event }) {
+	return (
+		<div
+			className='bg-orange-100 hover:bg-orange-200 focus:outline-none focus:shadow-outline w-64 flex flex-row items-center rounded shadow'
+			key={event.presenter}>
+			<img
+				src='https://images.unsplash.com/photo-1560590053-465d3d493b62?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
+				alt='Band'
+				className='h-16 w-16 object-cover rounded-l'
+			/>
+			<div className='pl-3 overflow-x-auto'>
+				<h3 className='font-semibold text-lg leading-tight truncate text-blue-900'>
+					{event.presenter}
+				</h3>
+				<div className='text-gray-700 text-sm'>
+					{event.startTime}-{event.endTime}
+				</div>
+			</div>
+		</div>
+	);
+}
+
+export default ScheduleDisplayEventItem;
