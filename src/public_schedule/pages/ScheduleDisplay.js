@@ -83,7 +83,11 @@ const ScheduleDisplay = (props) => {
 					<ScheduleDisplayStages stages={stages} />
 					<div className='flex flex-col overflow-x-scroll scrolling-touch'>
 						<ScheduleDisplayTime timeDuration={timeDuration} />
-						<ScheduleDisplayEvent stages={stages} eventList={eventList} />
+						<ScheduleDisplayEvent
+							stages={stages}
+							eventList={eventList}
+							timeDuration={timeDuration}
+						/>
 					</div>
 				</div>
 			)}
