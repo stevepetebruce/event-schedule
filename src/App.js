@@ -8,6 +8,7 @@ import {
 
 import Users from "./user/pages/Users";
 import Account from "./user/pages/Account";
+import ScheduleDisplay from "./public_schedule/pages/ScheduleDisplay";
 import NewSchedule from "./schedules/pages/NewSchedule";
 import UserSchedules from "./schedules/pages/UserSchedules";
 import UpdateSchedule from "./schedules/pages/UpdateSchedule";
@@ -42,17 +43,23 @@ const App = () => {
 				<Route path='/schedules/:scheduleId'>
 					<UpdateSchedule />
 				</Route>
+				<Route path='/:scheduleId' exact>
+					<ScheduleDisplay />
+				</Route>
 				<Redirect to='/' />
 			</>
 		);
 	} else {
 		routes = (
-			<>
+			<Switch>
 				<Route path='/auth' exact>
 					<Authenticate />
 				</Route>
+				<Route path='/:scheduleId' exact>
+					<ScheduleDisplay />
+				</Route>
 				<Redirect to='/auth' />
-			</>
+			</Switch>
 		);
 	}
 
