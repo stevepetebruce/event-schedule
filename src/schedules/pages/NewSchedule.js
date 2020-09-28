@@ -57,7 +57,7 @@ const NewSchedule = () => {
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
 	return (
-		<>
+		<div className='max-w-screen-md w-full mx-auto flex'>
 			<ErrorModal error={error} onClear={clearError} />
 			<Formik
 				initialValues={{
@@ -165,7 +165,7 @@ const NewSchedule = () => {
 					</Form>
 				)}
 			</Formik>
-		</>
+		</div>
 	);
 };
 

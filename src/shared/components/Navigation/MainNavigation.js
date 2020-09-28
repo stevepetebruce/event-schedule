@@ -7,7 +7,7 @@ import SideDrawer from "./SideDrawer";
 import Backdrop from "../UIElements/Backdrop";
 import "./MainNavigation.css";
 
-const MainNavigation = props => {
+const MainNavigation = (props) => {
 	const [drawerIsOpen, setDrawerIsOpen] = useState(false);
 
 	const openDrawerHandler = () => {
@@ -22,17 +22,15 @@ const MainNavigation = props => {
 		<React.Fragment>
 			{drawerIsOpen ? <Backdrop onClick={closeDrawerHandler} /> : null}
 			<SideDrawer show={drawerIsOpen} onClick={closeDrawerHandler}>
-				<nav className='main-navigation__drawer-nav'>
+				<nav className='h-full bg-gray-900 text-gray-600 left-0 top-0 fixed z-50 w-8/12 h-screen shadow-2xl'>
 					<NavLinks />
 				</nav>
 			</SideDrawer>
 			<MainHeader>
 				<button
-					className='main-navigation__menu-btn'
+					className='main-navigation__menu-btn mr-12 pointer-events-auto'
 					onClick={openDrawerHandler}>
-					<span />
-					<span />
-					<span />
+					&#9776;
 				</button>
 				<h1 className='main-navigation__title'>
 					<Link to='/'>Your Schedules</Link>
