@@ -6,6 +6,7 @@ import * as Yup from "yup";
 
 import NewScheduleList from "../components/NewScheduleList";
 import FormControl from "../../shared/components/FormElements/FormControl";
+import Button from "../../shared/components/FormElements/Button";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { AuthContext } from "../../shared/context/auth-context";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
@@ -156,12 +157,9 @@ const NewSchedule = () => {
 							onChange={handleChange}
 						/>
 
-						<button
-							disabled={isSubmitting}
-							type='submit'
-							className='bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded'>
+						<Button default disabled={isSubmitting} type='submit'>
 							Submit
-						</button>
+						</Button>
 					</Form>
 				)}
 			</Formik>

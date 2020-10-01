@@ -134,7 +134,7 @@ const Authenticate = (props) => {
 											label='Confirm password'
 											name='confirmPassword'
 										/>
-										<Button type='submit' disabled={!formik.isValid}>
+										<Button type='submit' default disabled={!formik.isValid}>
 											{isLoginMode ? "Log In" : "Sign Up"}
 										</Button>
 										<Button type='reset' inverse onClick={switchModeHandler}>
@@ -167,7 +167,7 @@ const Authenticate = (props) => {
 											label='Password'
 											name='password'
 										/>
-										<Button type='submit' disabled={!formik.isValid}>
+										<Button type='submit' default disabled={!formik.isValid}>
 											{isLoginMode ? "Log In" : "Sign Up"}
 										</Button>
 										<Button type='reset' inverse onClick={switchModeHandler}>

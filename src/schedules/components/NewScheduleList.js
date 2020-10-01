@@ -5,6 +5,7 @@ import moment from "moment";
 
 import "../../assets/rc-time-picker.css";
 
+import Button from "../../shared/components/FormElements/Button";
 import NewScheduleListDetails from "./NewScheduleListDetails";
 import FormControl from "../../shared/components/FormElements/FormControl";
 import ImageUpload from "../../shared/components/FormElements/ImageUpload";
@@ -118,9 +119,9 @@ function NewScheduleList(props) {
 							);
 						})}
 					</div>
-					<button
+					<Button
+						inverse
 						type='button'
-						className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 mb-6 border border-blue-500 hover:border-transparent rounded'
 						onClick={() =>
 							push({
 								presenter: "",
@@ -139,7 +140,7 @@ function NewScheduleList(props) {
 							})
 						}>
 						Add to list
-					</button>
+					</Button>
 				</>
 			)}
 		/>

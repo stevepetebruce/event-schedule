@@ -28,7 +28,7 @@ const MainNavigation = (props) => {
 			</SideDrawer>
 			<MainHeader>
 				<button
-					className='main-navigation__menu-btn mr-12 pointer-events-auto'
+					className='main-navigation__menu-btn mr-12 pointer-events-auto text-xl'
 					onClick={openDrawerHandler}>
 					&#9776;
 				</button>

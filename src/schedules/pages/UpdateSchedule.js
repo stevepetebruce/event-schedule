@@ -8,6 +8,7 @@ import * as Yup from "yup";
 import NewScheduleList from "../components/NewScheduleList";
 import FormControl from "../../shared/components/FormElements/FormControl";
 import Card from "../../shared/components/UIElements/Card";
+import Button from "../../shared/components/FormElements/Button";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import { AuthContext } from "../../shared/context/auth-context";
@@ -193,12 +194,13 @@ const UpdatePlace = () => {
 							onChange={handleChange}
 						/>
 
-						<button
+						<Button
+							default
 							disabled={isSubmitting}
 							type='submit'
 							className='bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded'>
 							Submit
-						</button>
+						</Button>
 					</Form>
 				)}
 			</Formik>
