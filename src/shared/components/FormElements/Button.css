@@ -1,9 +1,9 @@
 .button:disabled,
 .button:hover:disabled,
 .button:active:disabled {
-	background: #ccc;
-	color: #979797;
-	border-color: #ccc;
+	background: #2d3748;
+	color: #a0aec0;
+	border-color: #2d3748;
 	cursor: not-allowed;
 }
 

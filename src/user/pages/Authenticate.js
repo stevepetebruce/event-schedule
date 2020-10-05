@@ -10,8 +10,6 @@ import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import { AuthContext } from "../../shared/context/auth-context";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 
-import "./Authenticate.css";
-
 const Authenticate = (props) => {
 	const auth = useContext(AuthContext);
 	const [isLoginMode, setIsLoginMode] = useState(true);
@@ -97,10 +95,11 @@ const Authenticate = (props) => {
 
 	return (
 		<>
-			<Card className='authentication'>
+			<Card style={{ marginTop: "7rem" }}>
 				{isLoading && <LoadingSpinner asOverlay={true} />}
-				<h2>{isLoginMode ? "Log In" : "Sign Up"}</h2>
-				<hr />
+				<h2 className='text-center pb-4'>
+					{isLoginMode ? "Log In" : "Sign Up"}
+				</h2>
 				{!isLoginMode && (
 					<Formik
 						initialValues={initialValues}
@@ -134,12 +133,14 @@ const Authenticate = (props) => {
 											label='Confirm password'
 											name='confirmPassword'
 										/>
-										<Button type='submit' default disabled={!formik.isValid}>
-											{isLoginMode ? "Log In" : "Sign Up"}
-										</Button>
-										<Button type='reset' inverse onClick={switchModeHandler}>
-											Switch to {isLoginMode ? "Sign Up" : "Log In"}
-										</Button>
+										<div className='pl-4 mt-5'>
+											<Button type='submit' default disabled={!formik.isValid}>
+												{isLoginMode ? "Log In" : "Sign Up"}
+											</Button>
+											<Button type='reset' inverse onClick={switchModeHandler}>
+												Switch to {isLoginMode ? "Sign Up" : "Log In"}
+											</Button>
+										</div>
 									</Form>
 								</>
 							);
@@ -167,12 +168,14 @@ const Authenticate = (props) => {
 											label='Password'
 											name='password'
 										/>
-										<Button type='submit' default disabled={!formik.isValid}>
-											{isLoginMode ? "Log In" : "Sign Up"}
-										</Button>
-										<Button type='reset' inverse onClick={switchModeHandler}>
-											Switch to {isLoginMode ? "Sign Up" : "Log In"}
-										</Button>
+										<div className='pl-4 mt-5'>
+											<Button type='submit' default disabled={!formik.isValid}>
+												{isLoginMode ? "Log In" : "Sign Up"}
+											</Button>
+											<Button type='reset' inverse onClick={switchModeHandler}>
+												Switch to {isLoginMode ? "Sign Up" : "Log In"}
+											</Button>
+										</div>
 									</Form>
 								</>
 							);

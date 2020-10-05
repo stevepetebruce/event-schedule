@@ -11,7 +11,7 @@ const Button = (props) => {
 					props.size || "default"
 				} ${
 					props.default &&
-					"bg-indigo-600 hover:bg-indigo-500 text-white button focus:outline-none focus:bg-indigo-600"
+					"bg-indigo-500 hover:bg-indigo-600 text-white focus:outline-none focus:bg-indigo-500"
 				} ${
 					props.inverse &&
 					"bg-transparent hover:bg-indigo-500 text-indigo-500 border border-indigo-500 hover:border-transparent hover:text-white focus:outline-none focus:bg-indigo-600 button"
@@ -33,7 +33,7 @@ const Button = (props) => {
 					props.size || "default"
 				} ${
 					props.default &&
-					"bg-indigo-600 hover:bg-indigo-500 text-white focus:outline-none focus:bg-indigo-600 button"
+					"bg-indigo-500 hover:bg-indigo-600 text-white focus:outline-none focus:bg-indigo-500 button"
 				} ${
 					props.inverse &&
 					"bg-transparent hover:bg-indigo-500 text-indigo-500 border border-indigo-500 hover:border-transparent hover:text-white focus:outline-none focus:bg-indigo-600 button"
@@ -51,7 +51,7 @@ const Button = (props) => {
 				props.size || "default"
 			} ${
 				props.default &&
-				"bg-indigo-600 hover:bg-indigo-500 text-white focus:outline-none focus:bg-indigo-600 button"
+				"bg-indigo-500 hover:bg-indigo-600 text-white focus:outline-none focus:bg-indigo-500 button"
 			} ${
 				props.inverse &&
 				"bg-transparent hover:bg-indigo-500 text-indigo-500 border border-indigo-500 hover:border-transparent hover:text-white focus:outline-none focus:bg-indigo-600 button"
