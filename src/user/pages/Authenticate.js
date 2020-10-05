@@ -97,7 +97,7 @@ const Authenticate = (props) => {
 		<>
 			<Card style={{ marginTop: "7rem" }}>
 				{isLoading && <LoadingSpinner asOverlay={true} />}
-				<h2 className='text-center pb-4'>
+				<h2 className='text-center pb-2'>
 					{isLoginMode ? "Log In" : "Sign Up"}
 				</h2>
 				{!isLoginMode && (
@@ -109,31 +109,43 @@ const Authenticate = (props) => {
 							return (
 								<>
 									<Form>
-										<FormControl
-											control='input'
-											type='text'
-											label='Name'
-											name='name'
-										/>
-										<FormControl
-											control='input'
-											type='text'
-											label='Email address'
-											name='email'
-										/>
-										<FormControl
-											control='input'
-											type='password'
-											label='Password'
-											name='password'
-										/>
-										<FormControl
-											control='input'
-											type='password'
-											label='Confirm password'
-											name='confirmPassword'
-										/>
-										<div className='pl-4 mt-5'>
+										<div className='mt-3'>
+											<FormControl
+												control='input'
+												type='text'
+												label='Name'
+												name='name'
+												className='mt-8'
+											/>
+										</div>
+										<div className='mt-3'>
+											<FormControl
+												control='input'
+												type='text'
+												label='Email address'
+												name='email'
+												className='mt-8'
+											/>
+										</div>
+										<div className='mt-3'>
+											<FormControl
+												control='input'
+												type='password'
+												label='Password'
+												name='password'
+												className='mt-8'
+											/>
+										</div>
+										<div className='mt-3'>
+											<FormControl
+												control='input'
+												type='password'
+												label='Confirm password'
+												name='confirmPassword'
+												className='mt-8'
+											/>
+										</div>
+										<div className='pl-4 mt-8'>
 											<Button type='submit' default disabled={!formik.isValid}>
 												{isLoginMode ? "Log In" : "Sign Up"}
 											</Button>
@@ -156,19 +168,23 @@ const Authenticate = (props) => {
 							return (
 								<>
 									<Form>
-										<FormControl
-											control='input'
-											type='text'
-											label='Email address'
-											name='email'
-										/>
-										<FormControl
-											control='input'
-											type='password'
-											label='Password'
-											name='password'
-										/>
-										<div className='pl-4 mt-5'>
+										<div className='mt-3'>
+											<FormControl
+												control='input'
+												type='text'
+												label='Email address'
+												name='email'
+											/>
+										</div>
+										<div className='mt-3'>
+											<FormControl
+												control='input'
+												type='password'
+												label='Password'
+												name='password'
+											/>
+										</div>
+										<div className='pl-4 mt-8'>
 											<Button type='submit' default disabled={!formik.isValid}>
 												{isLoginMode ? "Log In" : "Sign Up"}
 											</Button>

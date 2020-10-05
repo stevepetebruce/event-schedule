@@ -11,7 +11,7 @@ html {
 body {
 	margin: 0;
 	background-color: #2d3748;
-	color: #bee3f8;
+	color: #a0aec0;
 }
 
 h1,
@@ -24,6 +24,7 @@ h4 {
 }
 
 h1 {
+	font-size: 1.8rem;
 }
 
 h2 {

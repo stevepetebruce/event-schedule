@@ -58,8 +58,9 @@ const NewSchedule = () => {
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
 	return (
-		<div className='max-w-screen-md w-full mx-auto flex'>
+		<div className='max-w-screen-md w-full mx-auto flex flex-col'>
 			<ErrorModal error={error} onClear={clearError} />
+			<h1 className='pl-8 mb-4'>Add Event</h1>
 			<Formik
 				initialValues={{
 					title: "",
@@ -114,7 +115,7 @@ const NewSchedule = () => {
 					errors,
 					handleChange,
 				}) => (
-					<Form className='bg-gray-100 shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full'>
+					<Form className='bg-gray-900 shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 w-full'>
 						{isLoading && <LoadingSpinner asOverlay={true} />}
 						<div className='mb-4'>
 							<FormControl
@@ -132,7 +133,7 @@ const NewSchedule = () => {
 								rows='3'
 							/>
 						</div>
-						<div className='flex flex-wrap -mx-3 mb-4'>
+						<div className='flex flex-wrap -mx-3 mb-10'>
 							<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
 								<FormControl
 									control='date'
@@ -151,6 +152,7 @@ const NewSchedule = () => {
 							</div>
 						</div>
 
+						<h2 className='py-4'>Add Event List</h2>
 						<NewScheduleList
 							values={values}
 							setFieldValue={setFieldValue}

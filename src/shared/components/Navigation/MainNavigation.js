@@ -32,9 +32,9 @@ const MainNavigation = (props) => {
 					onClick={openDrawerHandler}>
 					&#9776;
 				</button>
-				<h1 className='main-navigation__title'>
+				<h3 className='main-navigation__title'>
 					<Link to='/'>Your Schedules</Link>
-				</h1>
+				</h3>
 				<nav className='main-navigation__header-nav'>
 					<NavLinks />
 				</nav>

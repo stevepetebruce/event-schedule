@@ -7,7 +7,7 @@ function Select(props) {
 	console.log([...Array(options)], name);
 	return (
 		<>
-			<label htmlFor={name} className='text-gray-700'>
+			<label htmlFor={name} className='text-gray-500'>
 				{label}
 			</label>
 			<div className='relative'>
@@ -16,14 +16,14 @@ function Select(props) {
 					id={name}
 					name={name}
 					{...rest}
-					className='form-input mt-1 block w-full'>
+					className='form-input mt-1 block w-full bg-gray-800 text-gray-400 rounded-md border-none p-3'>
 					{[...Array(options)].map((num, i) => (
 						<option key={i + 1} value={i + 1}>
 							{i + 1}
 						</option>
 					))}
 				</Field>
-				<div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700'>
+				<div className='pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 bg-gray-800 text-gray-400 rounded-md border-none p-3'>
 					<svg
 						className='fill-current h-4 w-4'
 						xmlns='http://www.w3.org/2000/svg'

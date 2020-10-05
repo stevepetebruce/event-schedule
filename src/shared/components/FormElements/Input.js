@@ -2,8 +2,6 @@ import React, { useReducer, useEffect } from "react";
 
 import { validate } from "../../util/validators";
 
-import "./Input.css";
-
 const inputReducer = (state, action) => {
 	switch (action.type) {
 		case "CHANGE":
@@ -60,6 +58,7 @@ const Input = (props) => {
 				onChange={changeHandler}
 				onBlur={touchHandler}
 				value={inputState.value}
+				className='bg-gray-600 text-gray-300'
 			/>
 		) : (
 			<textarea
