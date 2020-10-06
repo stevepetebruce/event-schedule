@@ -4,12 +4,10 @@ import Card from "../../shared/components/UIElements/Card";
 import Button from "../../shared/components/FormElements/Button";
 import ScheduleItem from "./ScheduleItem";
 
-import "./ScheduleList.css";
-
 const ScheduleList = (props) => {
 	if (props.items.length === 0) {
 		return (
-			<div className='place-list center'>
+			<div className='center w-11/12 max-w-2xl my-4 mx-auto'>
 				<Card>
 					<h2 className='mb-6'>Create your first schedule</h2>
 					<div className='inline pl-4 center'>
@@ -23,7 +21,7 @@ const ScheduleList = (props) => {
 	}
 
 	return (
-		<ul className='place-list'>
+		<ul className='w-11/12 max-w-2xl list-none my-4 mx-auto'>
 			{props.items.map((schedule) => (
 				<ScheduleItem
 					key={schedule.id}
