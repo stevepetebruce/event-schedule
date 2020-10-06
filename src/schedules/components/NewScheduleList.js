@@ -4,7 +4,9 @@ import TimePicker from "rc-time-picker";
 import moment from "moment";
 
 import "../../assets/rc-time-picker.css";
+import "../../shared/components/FormElements/TimePicker.css";
 
+import Button from "../../shared/components/FormElements/Button";
 import NewScheduleListDetails from "./NewScheduleListDetails";
 import FormControl from "../../shared/components/FormElements/FormControl";
 import ImageUpload from "../../shared/components/FormElements/ImageUpload";
@@ -22,7 +24,7 @@ function NewScheduleList(props) {
 							return (
 								<div
 									key={index}
-									className='border border-gray-400 bg-white rounded-b lg:rounded px-4 py-2 mb-2 flex flex-col justify-between leading-normal relative'>
+									className='border border-indigo-700 border-solid bg-gray-900 rounded-lg px-4 py-2 mb-6 flex flex-col justify-between leading-normal relative'>
 									<div className='flex flex-wrap -mx-3 mb-4'>
 										<div className='w-full md:w-2/12 px-3 mb-6 md:mb-0'>
 											<ImageUpload schedule={`scheduleList[${index}]`} />
@@ -39,7 +41,7 @@ function NewScheduleList(props) {
 										<div className='w-full md:w-2/12 px-3 mb-6 md:mb-0'>
 											<label
 												htmlFor={`scheduleList[${index}].startTime`}
-												className='text-gray-700'>
+												className='text-gray-500'>
 												Start Time
 											</label>
 											<TimePicker
@@ -49,6 +51,7 @@ function NewScheduleList(props) {
 												minuteStep={5}
 												name={`scheduleList[${index}].startTime`}
 												id={`scheduleList[${index}].startTime`}
+												className='text-gray-500'
 												onChange={(value) => {
 													setFieldValue(
 														`scheduleList[${index}].startTime`,
@@ -64,7 +67,7 @@ function NewScheduleList(props) {
 										<div className='w-full md:w-2/12 px-3 mb-6 md:mb-0'>
 											<label
 												htmlFor={`scheduleList[${index}].endTime`}
-												className='text-gray-700'>
+												className='text-gray-500'>
 												End Time
 											</label>
 											<TimePicker
@@ -105,7 +108,7 @@ function NewScheduleList(props) {
 
 									<span className='absolute top-0 right-0 px-1 py-1'>
 										<svg
-											className='fill-current h-6 w-6 text-blue-500 hover:text-blue-400'
+											className='fill-current h-6 w-6 text-indigo-500 hover:text-indigo-700'
 											role='button'
 											xmlns='http://www.w3.org/2000/svg'
 											viewBox='0 0 20 20'
@@ -118,9 +121,9 @@ function NewScheduleList(props) {
 							);
 						})}
 					</div>
-					<button
+					<Button
+						inverse
 						type='button'
-						className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 mb-6 border border-blue-500 hover:border-transparent rounded'
 						onClick={() =>
 							push({
 								presenter: "",
@@ -139,7 +142,7 @@ function NewScheduleList(props) {
 							})
 						}>
 						Add to list
-					</button>
+					</Button>
 				</>
 			)}
 		/>

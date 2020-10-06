@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react";
 
-import './Card.css';
-
-const Card = props => {
-  return (
-    <div className={`card ${props.className}`} style={props.style}>
-      {props.children}
-    </div>
-  );
+const Card = (props) => {
+	return (
+		<div
+			className='max-w-xl mx-auto py-10 px-10 text-gray-700 bg-gray-900 rounded-lg text-left font-medium shadow-lg'
+			style={props.style}>
+			{props.children}
+		</div>
+	);
 };
 
 export default Card;

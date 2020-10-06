@@ -4,6 +4,8 @@ import Collapsible from "react-collapsible";
 import FormControl from "../../shared/components/FormElements/FormControl";
 import NewSheduleListSocial from "./NewScheduleListSocial";
 
+import "../../shared/components/UIElements/Collapsible.css";
+
 function NewScheduleListDetails({ schedule, index }) {
 	return (
 		<Collapsible trigger='Add event information and social media links'>
@@ -14,7 +16,7 @@ function NewScheduleListDetails({ schedule, index }) {
 						type='text'
 						label={
 							<>
-								Event title <span className='text-gray-500'>(Optional)</span>
+								Event title <span className='text-gray-700'>(Optional)</span>
 							</>
 						}
 						name={`scheduleList[${index}].etitle`}
@@ -28,7 +30,7 @@ function NewScheduleListDetails({ schedule, index }) {
 						type='text'
 						label={
 							<>
-								Venue/Stage <span className='text-gray-500'>(Optional)</span>
+								Venue/Stage <span className='text-gray-700'>(Optional)</span>
 							</>
 						}
 						name={`scheduleList[${index}].stage`}
@@ -43,8 +45,8 @@ function NewScheduleListDetails({ schedule, index }) {
 							control='textarea'
 							label={
 								<>
-									Artist/Band biography
-									<span className='text-gray-500'>(Optional)</span>
+									Artist/Band biography{" "}
+									<span className='text-gray-700'>(Optional)</span>
 								</>
 							}
 							name={`scheduleList[${index}].biography`}

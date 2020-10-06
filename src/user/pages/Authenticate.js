@@ -10,8 +10,6 @@ import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import { AuthContext } from "../../shared/context/auth-context";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 
-import "./Authenticate.css";
-
 const Authenticate = (props) => {
 	const auth = useContext(AuthContext);
 	const [isLoginMode, setIsLoginMode] = useState(true);
@@ -97,10 +95,11 @@ const Authenticate = (props) => {
 
 	return (
 		<>
-			<Card className='authentication'>
+			<Card style={{ marginTop: "7rem" }}>
 				{isLoading && <LoadingSpinner asOverlay={true} />}
-				<h2>{isLoginMode ? "Log In" : "Sign Up"}</h2>
-				<hr />
+				<h2 className='text-center pb-2'>
+					{isLoginMode ? "Log In" : "Sign Up"}
+				</h2>
 				{!isLoginMode && (
 					<Formik
 						initialValues={initialValues}
@@ -110,36 +109,50 @@ const Authenticate = (props) => {
 							return (
 								<>
 									<Form>
-										<FormControl
-											control='input'
-											type='text'
-											label='Name'
-											name='name'
-										/>
-										<FormControl
-											control='input'
-											type='text'
-											label='Email address'
-											name='email'
-										/>
-										<FormControl
-											control='input'
-											type='password'
-											label='Password'
-											name='password'
-										/>
-										<FormControl
-											control='input'
-											type='password'
-											label='Confirm password'
-											name='confirmPassword'
-										/>
-										<Button type='submit' disabled={!formik.isValid}>
-											{isLoginMode ? "Log In" : "Sign Up"}
-										</Button>
-										<Button type='reset' inverse onClick={switchModeHandler}>
-											Switch to {isLoginMode ? "Sign Up" : "Log In"}
-										</Button>
+										<div className='mt-3'>
+											<FormControl
+												control='input'
+												type='text'
+												label='Name'
+												name='name'
+												className='mt-8'
+											/>
+										</div>
+										<div className='mt-3'>
+											<FormControl
+												control='input'
+												type='text'
+												label='Email address'
+												name='email'
+												className='mt-8'
+											/>
+										</div>
+										<div className='mt-3'>
+											<FormControl
+												control='input'
+												type='password'
+												label='Password'
+												name='password'
+												className='mt-8'
+											/>
+										</div>
+										<div className='mt-3'>
+											<FormControl
+												control='input'
+												type='password'
+												label='Confirm password'
+												name='confirmPassword'
+												className='mt-8'
+											/>
+										</div>
+										<div className='pl-4 mt-8'>
+											<Button type='submit' default disabled={!formik.isValid}>
+												{isLoginMode ? "Log In" : "Sign Up"}
+											</Button>
+											<Button type='reset' inverse onClick={switchModeHandler}>
+												Switch to {isLoginMode ? "Sign Up" : "Log In"}
+											</Button>
+										</div>
 									</Form>
 								</>
 							);
@@ -155,24 +168,30 @@ const Authenticate = (props) => {
 							return (
 								<>
 									<Form>
-										<FormControl
-											control='input'
-											type='text'
-											label='Email address'
-											name='email'
-										/>
-										<FormControl
-											control='input'
-											type='password'
-											label='Password'
-											name='password'
-										/>
-										<Button type='submit' disabled={!formik.isValid}>
-											{isLoginMode ? "Log In" : "Sign Up"}
-										</Button>
-										<Button type='reset' inverse onClick={switchModeHandler}>
-											Switch to {isLoginMode ? "Sign Up" : "Log In"}
-										</Button>
+										<div className='mt-3'>
+											<FormControl
+												control='input'
+												type='text'
+												label='Email address'
+												name='email'
+											/>
+										</div>
+										<div className='mt-3'>
+											<FormControl
+												control='input'
+												type='password'
+												label='Password'
+												name='password'
+											/>
+										</div>
+										<div className='pl-4 mt-8'>
+											<Button type='submit' default disabled={!formik.isValid}>
+												{isLoginMode ? "Log In" : "Sign Up"}
+											</Button>
+											<Button type='reset' inverse onClick={switchModeHandler}>
+												Switch to {isLoginMode ? "Sign Up" : "Log In"}
+											</Button>
+										</div>
 									</Form>
 								</>
 							);

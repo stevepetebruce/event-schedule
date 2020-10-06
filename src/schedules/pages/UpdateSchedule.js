@@ -8,6 +8,7 @@ import * as Yup from "yup";
 import NewScheduleList from "../components/NewScheduleList";
 import FormControl from "../../shared/components/FormElements/FormControl";
 import Card from "../../shared/components/UIElements/Card";
+import Button from "../../shared/components/FormElements/Button";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import { AuthContext } from "../../shared/context/auth-context";
@@ -93,8 +94,9 @@ const UpdatePlace = () => {
 	}
 
 	return (
-		<>
+		<div className='max-w-screen-md w-full mx-auto flex flex-col'>
 			<ErrorModal error={error} onClear={clearError} />
+			<h1 className='pl-8 mb-4'>Update Event</h1>
 			<Formik
 				initialValues={{
 					title: loadedSchedule.title,
@@ -133,7 +135,7 @@ const UpdatePlace = () => {
 					errors,
 					handleChange,
 				}) => (
-					<Form className='bg-gray-100 shadow-md rounded px-8 pt-6 pb-8 mb-4 w-full'>
+					<Form className='bg-gray-900 shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 w-full'>
 						{isLoading && <LoadingSpinner asOverlay={true} />}
 						<div className='mb-4'>
 							<FormControl
@@ -155,7 +157,7 @@ const UpdatePlace = () => {
 							<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
 								<label
 									htmlFor='startDate'
-									className='text-gray-700 block w-full'>
+									className='text-gray-400 block w-full'>
 									Start Date
 								</label>
 								<DatePicker
@@ -168,7 +170,7 @@ const UpdatePlace = () => {
 									startDate={startDate}
 									dateFormat='dd/MM/yyyy'
 									name='startDate'
-									className='form-input mt-1 block w-full'
+									className='form-input mt-1 block w-full bg-gray-800 text-gray-400 rounded-md border-none p-3'
 								/>
 								{errors.startDate && touched.startDate ? (
 									<p className='text-red-500 text-xs italic'>
@@ -187,22 +189,20 @@ const UpdatePlace = () => {
 							</div>
 						</div>
 
+						<h2 className='py-4'>Update Event List</h2>
 						<NewScheduleList
 							values={values}
 							setFieldValue={setFieldValue}
 							onChange={handleChange}
 						/>
 
-						<button
-							disabled={isSubmitting}
-							type='submit'
-							className='bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded'>
+						<Button default disabled={isSubmitting} type='submit'>
 							Submit
-						</button>
+						</Button>
 					</Form>
 				)}
 			</Formik>
-		</>
+		</div>
 	);
 };
 

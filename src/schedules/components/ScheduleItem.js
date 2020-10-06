@@ -74,8 +74,12 @@ const ScheduleItem = (props) => {
 					</div>
 					{auth.userId === props.creatorId && (
 						<div className='place-item__actions'>
-							<Button to={`/schedules/${props.id}/edit`}>EDIT</Button>
-							<Button to={`/${props.id}`}>VIEW SCHEDULE</Button>
+							<Button default to={`/schedules/${props.id}/edit`}>
+								EDIT
+							</Button>
+							<Button default to={`/${props.id}`}>
+								VIEW SCHEDULE
+							</Button>
 							<Button danger onClick={showDeleteHandler}>
 								DELETE
 							</Button>
