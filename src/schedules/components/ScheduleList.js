@@ -11,10 +11,12 @@ const ScheduleList = (props) => {
 		return (
 			<div className='place-list center'>
 				<Card>
-					<h2>No Schedules were found</h2>
-					<Button default to='/schedule/new'>
-						Create Schedule
-					</Button>
+					<h2 className='mb-6'>Create your first schedule</h2>
+					<div className='inline pl-4 center'>
+						<Button default to='/schedule/new' className='center'>
+							Create Schedule
+						</Button>
+					</div>
 				</Card>
 			</div>
 		);
