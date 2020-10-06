@@ -5,18 +5,18 @@
 	"dependencies": {
 		"@material-ui/core": "^4.11.0",
 		"@material-ui/icons": "^4.9.1",
-		"formik": "^2.1.5",
+		"formik": "^2.1.7",
 		"mapbox-gl": "^1.12.0",
-		"moment": "^2.27.0",
+		"moment": "^2.29.1",
 		"rc-time-picker": "^3.7.3",
 		"react": "^16.13.1",
-		"react-collapsible": "^2.8.0",
-		"react-datepicker": "^2.16.0",
+		"react-collapsible": "^2.8.1",
+		"react-datepicker": "^3.2.2",
 		"react-dom": "^16.13.1",
 		"react-router-dom": "^5.2.0",
 		"react-scripts": "^3.4.3",
 		"react-transition-group": "^4.4.1",
-		"yup": "^0.28.5"
+		"yup": "^0.29.3"
 	},
 	"scripts": {
 		"start": "npm run watch:css && react-scripts start",
@@ -45,7 +45,7 @@
 		"@tailwindcss/custom-forms": "^0.2.1",
 		"autoprefixer": "^9.8.6",
 		"i": "^0.3.6",
-		"postcss-cli": "^7.1.1",
-		"tailwindcss": "^1.7.6"
+		"postcss-cli": "^8.0.0",
+		"tailwindcss": "^1.8.11"
 	}
 }
