@@ -1,12 +1,16 @@
 /* eslint-disable */
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@reach/tabs";
+
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import ScheduleDisplayTime from "../components/ScheduleDisplayTime";
 import ScheduleDisplayStages from "../components/ScheduleDisplayStages";
 import ScheduleDisplayEvent from "../components/ScheduleDisplayEvent";
+
+import "@reach/tabs/styles.css";
 
 const ScheduleDisplay = (props) => {
 	const scheduleId = useParams().scheduleId;
@@ -15,9 +19,11 @@ const ScheduleDisplay = (props) => {
 	const [timeDuration, setTimeDuration] = useState([]);
 	const [stages, setStages] = useState([]);
 	const [eventList, setEventList] = useState({});
+	const [numDays, setNumDays] = useState([]);
 
 	useEffect(() => {
 		const scheduleDuration = (responseData) => {
+			console.log([...Array(responseData.schedule.daysQty)]);
 			const startTimes = responseData.schedule.scheduleList.map((schedule) => {
 				return parseInt(schedule.startTime.substring(0, 2));
 			});
@@ -60,6 +66,7 @@ const ScheduleDisplay = (props) => {
 				scheduleDuration(responseData);
 				stageList(responseData);
 				eventsByStage(responseData);
+				setNumDays([...Array(1)]);
 			} catch (err) {
 				console.log(err.message);
 			}
@@ -79,17 +86,31 @@ const ScheduleDisplay = (props) => {
 				</div>
 			)}
 			{!isLoading && loadedSchedule && (
-				<div className='w-screen flex bg-blue-900'>
-					<ScheduleDisplayStages stages={stages} />
-					<div className='flex flex-col overflow-x-scroll scrolling-touch'>
-						<ScheduleDisplayTime timeDuration={timeDuration} />
-						<ScheduleDisplayEvent
-							stages={stages}
-							eventList={eventList}
-							timeDuration={timeDuration}
-						/>
-					</div>
-				</div>
+				<Tabs>
+					<TabList>
+						{numDays.map((_, i) => (
+							<Tab key={i + 1}>Day {i + 1}</Tab>
+						))}
+						<Tab>222</Tab>
+					</TabList>
+
+					<TabPanels>
+						<TabPanel>
+							<div className='w-screen flex bg-blue-900'>
+								<ScheduleDisplayStages stages={stages} />
+								<div className='flex flex-col overflow-x-scroll scrolling-touch'>
+									<ScheduleDisplayTime timeDuration={timeDuration} />
+									<ScheduleDisplayEvent
+										stages={stages}
+										eventList={eventList}
+										timeDuration={timeDuration}
+									/>
+								</div>
+							</div>
+						</TabPanel>
+						<TabPanel>dfhjdskhdjsh</TabPanel>
+					</TabPanels>
+				</Tabs>
 			)}
 		</>
 	);
