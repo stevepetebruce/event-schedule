@@ -66,7 +66,7 @@ const ScheduleDisplay = (props) => {
 				scheduleDuration(responseData);
 				stageList(responseData);
 				eventsByStage(responseData);
-				setNumDays([...Array(1)]);
+				setNumDays([...Array(responseData.schedule.daysQty)]);
 			} catch (err) {
 				console.log(err.message);
 			}
@@ -85,15 +85,13 @@ const ScheduleDisplay = (props) => {
 					<LoadingSpinner asOverlay={true} />
 				</div>
 			)}
-			{!isLoading && loadedSchedule && (
+			{!isLoading && loadedSchedule && numDays.length > 1 && (
 				<Tabs>
 					<TabList>
 						{numDays.map((_, i) => (
 							<Tab key={i + 1}>Day {i + 1}</Tab>
 						))}
-						<Tab>222</Tab>
 					</TabList>
-
 					<TabPanels>
 						<TabPanel>
 							<div className='w-screen flex bg-blue-900'>
@@ -108,9 +106,21 @@ const ScheduleDisplay = (props) => {
 								</div>
 							</div>
 						</TabPanel>
-						<TabPanel>dfhjdskhdjsh</TabPanel>
 					</TabPanels>
 				</Tabs>
+			)}
+			{!isLoading && loadedSchedule && (
+				<div className='w-screen flex bg-blue-900'>
+					<ScheduleDisplayStages stages={stages} />
+					<div className='flex flex-col overflow-x-scroll scrolling-touch'>
+						<ScheduleDisplayTime timeDuration={timeDuration} />
+						<ScheduleDisplayEvent
+							stages={stages}
+							eventList={eventList}
+							timeDuration={timeDuration}
+						/>
+					</div>
+				</div>
 			)}
 		</>
 	);
