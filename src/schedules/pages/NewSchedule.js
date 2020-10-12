@@ -29,16 +29,9 @@ const validateSchema = Yup.object().shape({
 				"Please enter the name of the presenter or artist"
 			),
 			startTime: Yup.string().required("A start time is required"),
-			endTime: Yup.string()
-				.required("A finish time is required")
-				.test("is-greater", "Should be later than start time", function (
-					value
-				) {
-					const { startTime } = this.parent;
-					return moment(value, "HH:mm").isAfter(moment(startTime, "HH:mm"));
-				}),
+			endTime: Yup.string().required("A finish time is required"),
 			etitle: Yup.string(),
-			stage: Yup.string(),
+			stage: Yup.string().required("A venue/stage is required"),
 			day: Yup.number().required("Please select the day"),
 			socialList: Yup.object().shape({
 				facebook: Yup.string().url("A enter a valid link, including https://"),

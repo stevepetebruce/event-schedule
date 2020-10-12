@@ -9,13 +9,22 @@ function ScheduleDisplayEventItem({ event, timeDuration, eventDay }) {
 		const scheduleStartHour = calcTimes(timeDuration[0], 0);
 		let eventStartHour = calcTimes(event.startTime, 0);
 		const eventStartMinutes = calcTimes(event.startTime, 1);
-		const eventEndhour = calcTimes(event.endTime, 0);
+		const eventEndHour = calcTimes(event.endTime, 0);
 		const eventEndMinutes = calcTimes(event.endTime, 1);
 
-		const scheduleDuration =
-			eventEndhour * 60 +
-			eventEndMinutes -
-			(eventStartHour * 60 + eventStartMinutes);
+		let scheduleDuration;
+
+		if (eventEndHour < eventStartHour) {
+			scheduleDuration =
+				(eventEndHour + 1 * 24) * 60 +
+				eventEndMinutes -
+				(eventStartHour * 60 + eventStartMinutes);
+		} else {
+			scheduleDuration =
+				eventEndHour * 60 +
+				eventEndMinutes -
+				(eventStartHour * 60 + eventStartMinutes);
+		}
 
 		if (eventStartHour < 5) {
 			eventStartHour = eventStartHour + 24;
