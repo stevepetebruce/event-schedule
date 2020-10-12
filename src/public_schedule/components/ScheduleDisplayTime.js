@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 
 const ScheduleDisplayTime = ({ timeDuration }) => {
 	const [style, setStyle] = useState({});
+	// console.log(timeDuration);
 
 	useEffect(() => {
 		if (timeDuration.length < 5) {

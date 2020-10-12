@@ -6,8 +6,8 @@ function ScheduleDisplayEventItem({ event, timeDuration, eventDay }) {
 	useEffect(() => {
 		const calcTimes = (durTime, num) => Number(durTime.split(":")[num]);
 
-		const startTime = calcTimes(timeDuration[0], 0);
-		const eventStarthour = calcTimes(event.startTime, 0);
+		const scheduleStartHour = calcTimes(timeDuration[0], 0);
+		let eventStartHour = calcTimes(event.startTime, 0);
 		const eventStartMinutes = calcTimes(event.startTime, 1);
 		const eventEndhour = calcTimes(event.endTime, 0);
 		const eventEndMinutes = calcTimes(event.endTime, 1);
@@ -15,12 +15,16 @@ function ScheduleDisplayEventItem({ event, timeDuration, eventDay }) {
 		const scheduleDuration =
 			eventEndhour * 60 +
 			eventEndMinutes -
-			(eventStarthour * 60 + eventStartMinutes);
+			(eventStartHour * 60 + eventStartMinutes);
+
+		if (eventStartHour < 5) {
+			eventStartHour = eventStartHour + 24;
+		}
 
 		if (timeDuration.length < 5) {
 			setStyle({
 				marginLeft:
-					(eventStarthour - startTime) * 300 +
+					(eventStartHour - scheduleStartHour) * 300 +
 					(eventStartMinutes / 60) * 300 +
 					"px",
 				width: (scheduleDuration / 60) * 300,
@@ -28,7 +32,7 @@ function ScheduleDisplayEventItem({ event, timeDuration, eventDay }) {
 		} else {
 			setStyle({
 				marginLeft:
-					(eventStarthour - startTime) * 200 +
+					(eventStartHour - scheduleStartHour) * 200 +
 					(eventStartMinutes / 60) * 200 +
 					"px",
 				width: (scheduleDuration / 60) * 200,

@@ -24,19 +24,31 @@ const ScheduleDisplay = (props) => {
 	useEffect(() => {
 		const scheduleDuration = (responseData) => {
 			const startTimes = responseData.schedule.scheduleList.map((schedule) => {
-				return parseInt(schedule.startTime.substring(0, 2));
+				if (parseInt(schedule.startTime.split(":")[0]) < 5) {
+					return 24;
+				}
+				return parseInt(schedule.startTime.split(":")[0]);
 			});
 			const endTimes = responseData.schedule.scheduleList.map((schedule) => {
-				return parseInt(schedule.endTime.substring(0, 2));
+				if (parseInt(schedule.endTime.split(":")[0], 10) < 5) {
+					return parseInt(schedule.endTime.split(":")[0]) + 24;
+				}
+				return parseInt(schedule.endTime.split(":")[0]);
 			});
+
 			const minTime = Math.min(...startTimes);
 			const maxTime = Math.max(...endTimes) + 1;
 
 			for (let i = minTime; i <= maxTime; i++) {
-				if (maxTime > 24) {
-					i = `0${maxTime - 24}`;
-				}
-				setTimeDuration((timeDuration) => [...timeDuration, i + ":00"]);
+				i > 23
+					? setTimeDuration((timeDuration) => [
+							...timeDuration,
+							("0" + (i - 24)).slice(-2) + ":00",
+					  ])
+					: setTimeDuration((timeDuration) => [
+							...timeDuration,
+							("0" + i).slice(-2) + ":00",
+					  ]);
 			}
 		};
 
