@@ -1,7 +1,7 @@
 import React from "react";
 import ScheduleDisplayEventItem from "./ScheduleDisplayEventItem";
 
-function ScheduleDisplayEvent({ stages, eventList, timeDuration }) {
+function ScheduleDisplayEvent({ stages, eventList, timeDuration, eventDay }) {
 	return (
 		(eventList[stages[0]] && (
 			<>
@@ -11,9 +11,10 @@ function ScheduleDisplayEvent({ stages, eventList, timeDuration }) {
 						key={stage}>
 						{eventList[stage].map((event) => (
 							<ScheduleDisplayEventItem
+								key={event.presenter}
 								event={event}
 								timeDuration={timeDuration}
-								key={event.presenter}
+								eventDay={eventDay}
 							/>
 						))}
 					</div>

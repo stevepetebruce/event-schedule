@@ -23,7 +23,6 @@ const ScheduleDisplay = (props) => {
 
 	useEffect(() => {
 		const scheduleDuration = (responseData) => {
-			console.log([...Array(responseData.schedule.daysQty)]);
 			const startTimes = responseData.schedule.scheduleList.map((schedule) => {
 				return parseInt(schedule.startTime.substring(0, 2));
 			});
@@ -57,6 +56,9 @@ const ScheduleDisplay = (props) => {
 			}, {});
 			setEventList(events);
 		};
+		const orderByDay = (eventList) => {
+			[...eventList];
+		};
 		const fetchSchedule = async () => {
 			try {
 				let responseData = await sendRequest(
@@ -67,6 +69,7 @@ const ScheduleDisplay = (props) => {
 				stageList(responseData);
 				eventsByStage(responseData);
 				setNumDays([...Array(responseData.schedule.daysQty)]);
+				orderByDay(eventList);
 			} catch (err) {
 				console.log(err.message);
 			}
@@ -93,23 +96,26 @@ const ScheduleDisplay = (props) => {
 						))}
 					</TabList>
 					<TabPanels>
-						<TabPanel>
-							<div className='w-screen flex bg-blue-900'>
-								<ScheduleDisplayStages stages={stages} />
-								<div className='flex flex-col overflow-x-scroll scrolling-touch'>
-									<ScheduleDisplayTime timeDuration={timeDuration} />
-									<ScheduleDisplayEvent
-										stages={stages}
-										eventList={eventList}
-										timeDuration={timeDuration}
-									/>
+						{numDays.map((_, i) => (
+							<TabPanel key={i}>
+								<div className='w-screen flex bg-blue-900'>
+									<ScheduleDisplayStages stages={stages} />
+									<div className='flex flex-col overflow-x-scroll scrolling-touch'>
+										<ScheduleDisplayTime timeDuration={timeDuration} />
+										<ScheduleDisplayEvent
+											stages={stages}
+											eventList={eventList}
+											timeDuration={timeDuration}
+											eventDay={i + 1}
+										/>
+									</div>
 								</div>
-							</div>
-						</TabPanel>
+							</TabPanel>
+						))}
 					</TabPanels>
 				</Tabs>
 			)}
-			{!isLoading && loadedSchedule && (
+			{!isLoading && loadedSchedule && numDays.length <= 1 && (
 				<div className='w-screen flex bg-blue-900'>
 					<ScheduleDisplayStages stages={stages} />
 					<div className='flex flex-col overflow-x-scroll scrolling-touch'>
@@ -118,6 +124,7 @@ const ScheduleDisplay = (props) => {
 							stages={stages}
 							eventList={eventList}
 							timeDuration={timeDuration}
+							eventDay={1}
 						/>
 					</div>
 				</div>
