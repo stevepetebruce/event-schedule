@@ -110,7 +110,7 @@ const ScheduleDisplay = (props) => {
 					<TabPanels>
 						{numDays.map((_, i) => (
 							<TabPanel key={i}>
-								<div className='w-screen flex bg-blue-900'>
+								<div className='w-screen flex bg-gray-800'>
 									<ScheduleDisplayStages stages={stages} />
 									<div className='flex flex-col overflow-x-scroll scrolling-touch'>
 										<ScheduleDisplayTime timeDuration={timeDuration} />
@@ -128,7 +128,7 @@ const ScheduleDisplay = (props) => {
 				</Tabs>
 			)}
 			{!isLoading && loadedSchedule && numDays.length <= 1 && (
-				<div className='w-screen flex bg-blue-900'>
+				<div className='w-screen flex bg-gray-800'>
 					<ScheduleDisplayStages stages={stages} />
 					<div className='flex flex-col overflow-x-scroll scrolling-touch'>
 						<ScheduleDisplayTime timeDuration={timeDuration} />
