@@ -21,7 +21,7 @@ function ScheduleDisplayEvent({ stages, eventList, timeDuration, eventDay }) {
 			<>
 				{stages.map((stage) => (
 					<div
-						className='h-16 flex border-b border-blue-700 border-dashed w-screen relative'
+						className='h-16 flex border-b border-indigo-700 border-dashed w-screen relative'
 						key={stage}
 						style={style}>
 						{eventList[stage].map((event) => (
@@ -36,7 +36,7 @@ function ScheduleDisplayEvent({ stages, eventList, timeDuration, eventDay }) {
 				))}
 			</>
 		)) || (
-			<div className='h-16 flex items-center text-blue-200'>
+			<div className='h-16 flex items-center text-indigo-200'>
 				No events to display
 			</div>
 		)

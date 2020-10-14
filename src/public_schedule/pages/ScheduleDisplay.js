@@ -11,6 +11,7 @@ import ScheduleDisplayStages from "../components/ScheduleDisplayStages";
 import ScheduleDisplayEvent from "../components/ScheduleDisplayEvent";
 
 import "@reach/tabs/styles.css";
+import "../../shared/components/UIElements/Tabs.css";
 
 const ScheduleDisplay = (props) => {
 	const scheduleId = useParams().scheduleId;
@@ -104,7 +105,9 @@ const ScheduleDisplay = (props) => {
 				<Tabs>
 					<TabList>
 						{numDays.map((_, i) => (
-							<Tab key={i + 1}>Day {i + 1}</Tab>
+							<Tab key={i + 1}>
+								<h3>Day {i + 1}</h3>
+							</Tab>
 						))}
 					</TabList>
 					<TabPanels>
