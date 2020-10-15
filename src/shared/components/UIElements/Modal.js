@@ -5,20 +5,22 @@ import { CSSTransition } from "react-transition-group";
 import Backdrop from "./Backdrop";
 import "./Modal.css";
 
-const ModalOverlay = props => {
+const ModalOverlay = (props) => {
 	const Content = (
-		<div className={`modal ${props.modal}`} style={props.style}>
-			<header className={`modal__header props.headerClass`}>
-				<h2>{props.header}</h2>
+		<div
+			className={`modal rounded-lg fixed w-4/5 bg-gray-800 z-50 ${props.modal}`}
+			style={props.style}>
+			<header className={`w-full p-5 bg-gray-900 props.headerClass`}>
+				<h3>{props.header}</h3>
 			</header>
 			<form
 				onSubmit={
-					props.onSubmit ? props.onSubmit : event => event.preventDefault()
+					props.onSubmit ? props.onSubmit : (event) => event.preventDefault()
 				}>
-				<div className={`modal__class ${props.contentClass}`}>
+				<div className={`px-5 py-5 ${props.contentClass}`}>
 					{props.children}
 				</div>
-				<footer className={`modal__footer ${props.footerClass}`}>
+				<footer className={`px-5 py-5 ${props.footerClass}`}>
 					{props.footer}
 				</footer>
 			</form>
@@ -27,7 +29,7 @@ const ModalOverlay = props => {
 	return ReactDOM.createPortal(Content, document.querySelector("#modal-hook"));
 };
 
-const Modal = props => {
+const Modal = (props) => {
 	return (
 		<React.Fragment>
 			{props.show && <Backdrop onClick={props.onCancel} />}

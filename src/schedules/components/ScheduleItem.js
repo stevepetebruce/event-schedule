@@ -52,7 +52,7 @@ const ScheduleItem = (props) => {
 				footerClass='place-item__modal-actions'
 				footer={
 					<>
-						<Button inverse onClick={cancelDeleteHandler}>
+						<Button default onClick={cancelDeleteHandler}>
 							CLOSE
 						</Button>
 						<Button danger onClick={confirmDeleteHandler}>
