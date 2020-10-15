@@ -17,10 +17,10 @@ const ScheduleDisplayTime = ({ timeDuration }) => {
 
 	return (
 		<div className='flex'>
-			<ul className='flex h-6 text-blue-200'>
+			<ul className='flex h-6 text-indigo-200 mt-2'>
 				{timeDuration.map((time) => (
-					<li className='border-r border-blue-600' key={time} style={style}>
-						<h1 className='pl-2'>{time}</h1>
+					<li className='border-r border-indigo-600' key={time} style={style}>
+						<h3 className='pl-2'>{time}</h3>
 					</li>
 				))}
 			</ul>

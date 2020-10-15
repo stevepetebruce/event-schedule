@@ -1,0 +1,15 @@
+[data-reach-tab-list] {
+	margin-bottom: 2px;
+	padding-left: 12px;
+	border-top: 1px solid #4a5568;
+	border-bottom: 1px solid #4a5568;
+}
+
+[data-reach-tab] {
+	padding: 8px 20px;
+}
+
+[data-reach-tab][data-selected] {
+	background: #4c51bf;
+	outline: none;
+}

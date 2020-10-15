@@ -28,11 +28,7 @@ function NewScheduleListDetails({ schedule, index }) {
 					<FormControl
 						control='input'
 						type='text'
-						label={
-							<>
-								Venue/Stage <span className='text-gray-700'>(Optional)</span>
-							</>
-						}
+						label={<>Venue/Stage</>}
 						name={`scheduleList[${index}].stage`}
 						value={schedule.stage}
 					/>
