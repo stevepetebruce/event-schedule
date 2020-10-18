@@ -8,6 +8,10 @@
 		left: calc(50% - 20rem);
 		width: 40rem;
 	}
+	.modal-wide {
+		left: calc(50% - 30rem);
+		width: 60rem;
+	}
 }
 
 .modal-enter {

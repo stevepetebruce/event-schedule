@@ -11,7 +11,6 @@ import FormControl from "../../shared/components/FormElements/FormControl";
 import "./NewScheduleListSocial.css";
 
 function NewScheduleListSocial({ schedule, index }) {
-	console.log("ttt", schedule);
 	return (
 		<>
 			<div className='flex flex-wrap -mx-3 mb-4'>
