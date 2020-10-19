@@ -7,9 +7,9 @@ const Button = (props) => {
 	if (props.href) {
 		return (
 			<a
-				className={`px-6 py-3 rounded-full no-underline mr-4 inline-block button button--${
-					props.size || "default"
-				} ${
+				className={`px-6 py-3 rounded-full no-underline mr-4 inline-block button ${
+					props.style
+				} button--${props.size || "default"} ${
 					props.default &&
 					"bg-indigo-500 hover:bg-indigo-600 text-white focus:outline-none focus:bg-indigo-500"
 				} ${
@@ -17,7 +17,7 @@ const Button = (props) => {
 					"bg-transparent hover:bg-indigo-500 text-indigo-500 border border-indigo-500 hover:border-transparent hover:text-white focus:outline-none focus:bg-indigo-600 button"
 				} ${
 					props.danger &&
-					"bg-red-700 hover:bg-red-600 text-white button focus:bg-red-700 focus:outline-none focus:bg-red-700"
+					"bg-red-700 hover:bg-red-600 text-white button focus:bg-red-700 focus:outline-none"
 				}`}
 				href={props.href}>
 				{props.children}
@@ -29,9 +29,9 @@ const Button = (props) => {
 			<Link
 				to={props.to}
 				exact={props.exact}
-				className={`px-6 py-3 rounded-full no-underline mr-4 inline-block button button--${
-					props.size || "default"
-				} ${
+				className={`px-6 py-3 rounded-full no-underline mr-4 inline-block button ${
+					props.style
+				} button--${props.size || "default"} ${
 					props.default &&
 					"bg-indigo-500 hover:bg-indigo-600 text-white focus:outline-none focus:bg-indigo-500 button"
 				} ${
@@ -39,7 +39,7 @@ const Button = (props) => {
 					"bg-transparent hover:bg-indigo-500 text-indigo-500 border border-indigo-500 hover:border-transparent hover:text-white focus:outline-none focus:bg-indigo-600 button"
 				} ${
 					props.danger &&
-					"bg-red-700 hover:bg-red-600 text-white button focus:bg-red-700 focus:outline-none focus:bg-red-700"
+					"bg-red-700 hover:bg-red-600 text-white button focus:bg-red-700 focus:outline-none"
 				}`}>
 				{props.children}
 			</Link>
@@ -47,9 +47,9 @@ const Button = (props) => {
 	}
 	return (
 		<button
-			className={`px-6 py-3 rounded-full no-underline mr-4 inline-block button button--${
-				props.size || "default"
-			} ${
+			className={`px-6 py-3 rounded-full no-underline mr-4 inline-block button ${
+				props.style
+			} button--${props.size || "default"} ${
 				props.default &&
 				"bg-indigo-500 hover:bg-indigo-600 text-white focus:outline-none focus:bg-indigo-500 button"
 			} ${
@@ -57,7 +57,7 @@ const Button = (props) => {
 				"bg-transparent hover:bg-indigo-500 text-indigo-500 border border-indigo-500 hover:border-transparent hover:text-white focus:outline-none focus:bg-indigo-600 button"
 			} ${
 				props.danger &&
-				"bg-red-700 hover:bg-red-600 text-white button focus:bg-red-700 focus:outline-none focus:bg-red-700"
+				"bg-red-700 hover:bg-red-600 text-white button focus:bg-red-700 focus:outline-none"
 			}`}
 			type={props.type}
 			onClick={props.onClick}

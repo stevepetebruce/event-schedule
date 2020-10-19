@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 
 import Card from "../../shared/components/UIElements/Card";
 import Button from "../../shared/components/FormElements/Button";
+import Dropdown from "../../shared/components/UIElements/Dropdown";
 import Modal from "../../shared/components/UIElements/Modal";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
@@ -80,6 +81,12 @@ const ScheduleItem = (props) => {
 							<Button default to={`/${props.id}`}>
 								VIEW SCHEDULE
 							</Button>
+							<Dropdown
+								id={props.id}
+								values={[...Array(props.numDays)]}
+								valueName='DAY'>
+								DISPLAY
+							</Dropdown>
 							<Button danger onClick={showDeleteHandler}>
 								DELETE
 							</Button>

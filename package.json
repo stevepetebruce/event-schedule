@@ -12,6 +12,7 @@
 		"rc-time-picker": "^3.7.3",
 		"react": "^16.13.1",
 		"react-collapsible": "^2.8.1",
+		"react-cool-onclickoutside": "^1.5.7",
 		"react-datepicker": "^3.2.2",
 		"react-dom": "^16.13.1",
 		"react-router-dom": "^5.2.0",
