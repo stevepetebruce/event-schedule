@@ -9,6 +9,7 @@ import {
 import Users from "./user/pages/Users";
 import Account from "./user/pages/Account";
 import ScheduleDisplay from "./public_schedule/pages/ScheduleDisplay";
+import MonitorDisplay from "./public_schedule/pages/MonitorDisplay";
 import NewSchedule from "./schedules/pages/NewSchedule";
 import UserSchedules from "./schedules/pages/UserSchedules";
 import UpdateSchedule from "./schedules/pages/UpdateSchedule";
@@ -46,6 +47,9 @@ const App = () => {
 				<Route path='/:scheduleId' exact>
 					<ScheduleDisplay />
 				</Route>
+				<Route path='/display/:scheduleId/:day' exact>
+					<MonitorDisplay />
+				</Route>
 				<Redirect to='/' />
 			</>
 		);
@@ -57,6 +61,9 @@ const App = () => {
 				</Route>
 				<Route path='/:scheduleId' exact>
 					<ScheduleDisplay />
+				</Route>
+				<Route path='/display/:scheduleId/:day' exact>
+					<MonitorDisplay />
 				</Route>
 				<Redirect to='/auth' />
 			</Switch>

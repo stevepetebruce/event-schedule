@@ -28,7 +28,7 @@ function Dropdown(props) {
 						<div className='absolute right-0 mt-2 py-2 w-48 bg-gray-300 rounded-lg shadow-xl'>
 							{values.map((value, i) => (
 								<a
-									href={`display/${props.id}/${i + 1}`}
+									href={`/display/${props.id}/${i + 1}`}
 									key={i}
 									className='block px-4 py-3 rounded-full no-underline text-gray-800 hover:bg-indigo-500 hover:text-white'>
 									{value ? value : props.valueName} {i + 1}
