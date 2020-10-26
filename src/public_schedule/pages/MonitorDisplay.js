@@ -8,56 +8,91 @@ function MonitorDisplay() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState();
 	const [data, setData] = useState();
+	const [live, setLive] = useState(false)
+	const [currentDisplay, setCurrentDisplay] = useState(null);
 
-	const date = new Date();
+	
 	
 	useEffect(() => {
+
 		const sendRequest = async() => {
 			setIsLoading(true);
 			try {
-				const response = await fetch("http://localhost:5000/api/schedules/display/5f209fffe85b9293b35d2fd6/3");
+				const response = await fetch("http://localhost:5000/api/schedules/display/5f96ba6012e3152e34685882/1");
 				const responseData = await response.json();
-
+				
 				if(!response.ok) {
 					throw new Error(responseData.message);
 				}
 				setData(responseData);
+				isEvent(responseData);
+				
+				
 			} catch (error) {
 				setError(error.message);
 			}
 			setIsLoading(false);
-
 		};
 		sendRequest();
-	},[]);
 
+		const isEvent = (data) => {
+			if(data){
+				const scheduleListOrdered = data.schedule.scheduleList.sort(function(a, b){return a.startTime.split(":").join(".") - b.startTime.split(":").join(".")});
+				
+				const currentEvent = scheduleListOrdered.find((event) => {
+					const checkMorningHours = (hour) => {
+						return hour < 5 ? hour + 24 : hour;
+					}
+					const currentTime = Date.now();
+					const now = new Date();
+					const startTime = now.setHours(checkMorningHours(event.startTime.split(":")[0]), event.startTime.split(":")[1] ,0);
+					const endTime = now.setHours(checkMorningHours(event.endTime.split(":")[0]), event.endTime.split(":")[1] ,0);
+
+					if(currentTime > startTime && currentTime < endTime) {
+						setLive(true)
+						return event;
+					}
+					else if(currentTime < startTime)	{
+						setLive(false);
+						return event;
+					}
+				})
+				setCurrentDisplay(currentEvent);
+			}
+		}
+		
+	},[]);
+	
+	
 	const errorHandler= () =>{ 
 		setError(null)
 	}
+
 
 	return (
 		<>
 			<ErrorModal error={error} onClear={errorHandler}/>
 			{isLoading && <LoadingSpinner asOverlay={true} />}
-			{!isLoading && data && (<div className='h-screen overflow-hidden w-full'>
+			{!isLoading && currentDisplay && (<div className='h-screen overflow-hidden w-full'>
 				<div className='px-20 pb-14 mx-auto flex justify-between content-center items-center flex-col sm:flex-row h-full'>
 					<div className='flex flex-col flex-grow justify-center sm:items-start pb-12'>
 						<div className='py-2 px-4 bg-red-600 text-gray-100 font-bold mb-2'>
-							UP NEXT
+							{live && "ON NOW" || "UP NEXT"}
 						</div>
 						<h4 className='my-2 text-4xl md:text-5xl text-indigo-600 font-bold leading-tight text-center sm:text-left'>
-						{data.schedule.scheduleList[0].startTime} - {data.schedule.scheduleList[0].endTime}
+						{currentDisplay.startTime} - {currentDisplay.endTime}
 						</h4>
 						<h1 className='text-4xl md:text-5xl text-indigo-200 pr-2 font-bold leading-tight text-center sm:text-left'>
-							{data.schedule.scheduleList[0].etitle}
+							{currentDisplay.presenter}
 						</h1>
 						<p className='my-10 leading-normal md:text-2xl mb-8 text-center sm:text-left'>
-							{data.schedule.scheduleList[0].stage}
+							{currentDisplay.stage}
 						</p>
 					</div>
-					{data.schedule.scheduleList[0].image && <div className='flex-grow-0 w-2/5'>{data.schedule.scheduleList[0].image}</div>}
+					<div className='flex-grow-0 w-2/5'>image</div>
 				</div>
 			</div>)}
+			{!isLoading && !currentDisplay && <div>Event has finished</div>}
 		</>
 	);
 }
