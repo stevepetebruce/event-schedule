@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
+import Card from "../../shared/components/UIElements/Card";
 
 function MonitorDisplay() {
 	const [isLoading, setIsLoading] = useState(false);
@@ -92,7 +93,12 @@ function MonitorDisplay() {
 					<div className='flex-grow-0 w-2/5'>image</div>
 				</div>
 			</div>)}
-			{!isLoading && !currentDisplay && <div>Event has finished</div>}
+			{!isLoading && !currentDisplay && (
+				<div className='center w-11/12 max-w-2xl my-4 mx-auto'>
+				<Card>
+					<h2>Event has finished</h2>
+				</Card>
+			</div>)}
 		</>
 	);
 }
