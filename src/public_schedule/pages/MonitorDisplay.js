@@ -15,7 +15,6 @@ function MonitorDisplay() {
 	
 	
 	useEffect(() => {
-
 		const sendRequest = async() => {
 			setIsLoading(true);
 			try {
@@ -27,8 +26,6 @@ function MonitorDisplay() {
 				}
 				setData(responseData);
 				isEvent(responseData);
-				
-				
 			} catch (error) {
 				setError(error.message);
 			}
@@ -36,18 +33,25 @@ function MonitorDisplay() {
 		};
 		sendRequest();
 
+		let interval
+
 		const isEvent = (data) => {
 			if(data){
-				const scheduleListOrdered = data.schedule.scheduleList.sort(function(a, b){return a.startTime.split(":").join(".") - b.startTime.split(":").join(".")});
-				
+				const checkMorningHours = (hour) => {
+					const hourNum = Number(hour)
+					return hourNum < 5 ? hourNum + 24 : hourNum;
+				}
+				const scheduleListOrdered = data.schedule.scheduleList.sort(function(a, b){return checkMorningHours(a.startTime.split(":")[0] + "." + a.startTime.split(":")[1]) - checkMorningHours(b.startTime.split(":")[0] + "." + b.startTime.split(":")[1])});
 				const currentEvent = scheduleListOrdered.find((event) => {
-					const checkMorningHours = (hour) => {
-						return hour < 5 ? hour + 24 : hour;
-					}
 					const currentTime = Date.now();
 					const now = new Date();
 					const startTime = now.setHours(checkMorningHours(event.startTime.split(":")[0]), event.startTime.split(":")[1] ,0);
 					const endTime = now.setHours(checkMorningHours(event.endTime.split(":")[0]), event.endTime.split(":")[1] ,0);
+
+					interval = setInterval(() => {
+						setLive(false);
+						isEvent(data);
+					}, 60000);
 
 					if(currentTime > startTime && currentTime < endTime) {
 						setLive(true)
@@ -61,6 +65,7 @@ function MonitorDisplay() {
 				setCurrentDisplay(currentEvent);
 			}
 		}
+		return () => clearInterval(interval);
 		
 	},[]);
 	
