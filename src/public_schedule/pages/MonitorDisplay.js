@@ -1,4 +1,3 @@
-/* eslint-disable */
 import React, {useEffect, useState} from "react";
 
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
@@ -8,11 +7,8 @@ import Card from "../../shared/components/UIElements/Card";
 function MonitorDisplay() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState();
-	const [data, setData] = useState();
 	const [live, setLive] = useState(false)
 	const [currentDisplay, setCurrentDisplay] = useState(null);
-
-	
 	
 	useEffect(() => {
 		const sendRequest = async() => {
@@ -24,7 +20,6 @@ function MonitorDisplay() {
 				if(!response.ok) {
 					throw new Error(responseData.message);
 				}
-				setData(responseData);
 				isEvent(responseData);
 			} catch (error) {
 				setError(error.message);
@@ -41,8 +36,11 @@ function MonitorDisplay() {
 					const hourNum = Number(hour)
 					return hourNum < 5 ? hourNum + 24 : hourNum;
 				}
+				const params = new URLSearchParams(document.location.search);
+				const stage = params.get("stage");
 				const scheduleListOrdered = data.schedule.scheduleList.sort(function(a, b){return checkMorningHours(a.startTime.split(":")[0] + "." + a.startTime.split(":")[1]) - checkMorningHours(b.startTime.split(":")[0] + "." + b.startTime.split(":")[1])});
-				const currentEvent = scheduleListOrdered.find((event) => {
+				const filteredStage = scheduleListOrdered.filter((schedule) => { return schedule.stage === stage });
+				const currentEvent = filteredStage.find((event) => {
 					const currentTime = Date.now();
 					const now = new Date();
 					const startTime = now.setHours(checkMorningHours(event.startTime.split(":")[0]), event.startTime.split(":")[1] ,0);
@@ -61,12 +59,13 @@ function MonitorDisplay() {
 						setLive(false);
 						return event;
 					}
+					return null;
 				})
 				setCurrentDisplay(currentEvent);
 			}
 		}
 		return () => clearInterval(interval);
-		
+		//eslint-disable-next-line
 	},[]);
 	
 	
@@ -83,7 +82,7 @@ function MonitorDisplay() {
 				<div className='px-20 pb-14 mx-auto flex justify-between content-center items-center flex-col sm:flex-row h-full'>
 					<div className='flex flex-col flex-grow justify-center sm:items-start pb-12'>
 						<div className='py-2 px-4 bg-red-600 text-gray-100 font-bold mb-2'>
-							{live && "ON NOW" || "UP NEXT"}
+							{live ? "ON NOW" : "UP NEXT"}
 						</div>
 						<h4 className='my-2 text-4xl md:text-5xl text-indigo-600 font-bold leading-tight text-center sm:text-left'>
 						{currentDisplay.startTime} - {currentDisplay.endTime}
