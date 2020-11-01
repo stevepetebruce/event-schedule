@@ -35,6 +35,7 @@ const ScheduleList = (props) => {
 					creatorId={schedule.creator}
 					onDelete={props.onDeleteSchedule}
 					numDays={schedule.daysQty}
+					events = {schedule.scheduleList}
 				/>
 			))}
 		</ul>

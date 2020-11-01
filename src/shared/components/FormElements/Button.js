@@ -7,7 +7,7 @@ const Button = (props) => {
 	if (props.href) {
 		return (
 			<a
-				className={`px-6 py-3 rounded-full no-underline mr-4 inline-block button ${
+				className={`px-6 py-3 rounded-full no-underline mr-4 uppercase inline-block button ${
 					props.style
 				} button--${props.size || "default"} ${
 					props.default &&
@@ -29,7 +29,7 @@ const Button = (props) => {
 			<Link
 				to={props.to}
 				exact={props.exact}
-				className={`px-6 py-3 rounded-full no-underline mr-4 inline-block button ${
+				className={`px-6 py-3 rounded-full no-underline mr-4 uppercase inline-block button ${
 					props.style
 				} button--${props.size || "default"} ${
 					props.default &&
@@ -47,7 +47,7 @@ const Button = (props) => {
 	}
 	return (
 		<button
-			className={`px-6 py-3 rounded-full no-underline mr-4 inline-block button ${
+			className={`px-6 py-3 rounded-full no-underline mr-4 uppercase inline-block button ${
 				props.style
 			} button--${props.size || "default"} ${
 				props.default &&

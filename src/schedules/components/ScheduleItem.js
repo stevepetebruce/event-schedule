@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 
 import Card from "../../shared/components/UIElements/Card";
 import Button from "../../shared/components/FormElements/Button";
@@ -15,6 +15,7 @@ const ScheduleItem = (props) => {
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 	const auth = useContext(AuthContext);
 	const [showConfirmModal, setShowConfirmModal] = useState(false);
+	const [stages, setStages] = useState([]);
 
 	const showDeleteHandler = () => {
 		setShowConfirmModal(true);
@@ -41,6 +42,20 @@ const ScheduleItem = (props) => {
 			console.log(err);
 		}
 	};
+
+	const filteredUniqueStages = props.events.reduce((acc, current) => {
+		const x = acc.find(item => item.stage === current.stage);
+		if (!x) {
+			return acc.concat([current]);
+		} else {
+			return acc;
+		}
+	}, []);
+
+	useEffect(() => {
+		setStages(filteredUniqueStages);
+		// eslint-disable-next-line
+	}, []);
 
 	return (
 		<React.Fragment>
@@ -83,8 +98,10 @@ const ScheduleItem = (props) => {
 							</Button>
 							<Dropdown
 								id={props.id}
-								values={[...Array(props.numDays)]}
-								valueName='DAY'>
+								columns={[...Array(props.numDays)]}
+								valueName='DAY'
+								rows={stages}
+								>
 								DISPLAY
 							</Dropdown>
 							<Button danger onClick={showDeleteHandler}>
