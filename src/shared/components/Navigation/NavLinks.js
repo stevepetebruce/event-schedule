@@ -58,7 +58,7 @@ const NavLinks = (props) => {
 				<li className='my-6 md:my-0'>
 					<button
 						className='px-5 py-2 rounded-full no-underline mr-2 md:ml-2 inline-block bg-transparent hover:bg-indigo-500 text-indigo-500 border border-indigo-500 hover:border-transparent hover:text-white focus:outline-none focus:bg-indigo-600'
-						inverse
+						inverse="true"
 						onClick={auth.logout}>
 						Log Out
 					</button>
