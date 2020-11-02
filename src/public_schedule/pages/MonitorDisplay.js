@@ -1,34 +1,30 @@
 import React, {useEffect, useState} from "react";
+import { useParams } from "react-router-dom";
 
+import { useHttpClient } from "../../shared/hooks/http-hook";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import Card from "../../shared/components/UIElements/Card";
 
 function MonitorDisplay() {
-	const [isLoading, setIsLoading] = useState(false);
-	const [error, setError] = useState();
+	const { isLoading, error, sendRequest, clearError } = useHttpClient();
+	const scheduleId = useParams().scheduleId;
+	const day = useParams().day;
 	const [live, setLive] = useState(false)
 	const [currentDisplay, setCurrentDisplay] = useState(null);
 	
 	useEffect(() => {
-		const sendRequest = async() => {
-			setIsLoading(true);
+		const request = async() => {
 			try {
-				const response = await fetch("http://localhost:5000/api/schedules/display/5f96ba6012e3152e34685882/1");
-				const responseData = await response.json();
-				
-				if(!response.ok) {
-					throw new Error(responseData.message);
-				}
+				let responseData = await sendRequest(`http://localhost:5000/api/schedules/display/${scheduleId}/${day}`);
 				isEvent(responseData);
-			} catch (error) {
-				setError(error.message);
+			} catch (err) {
+				console.log(err.message);
 			}
-			setIsLoading(false);
 		};
-		sendRequest();
+		request();
 
-		let interval
+		let interval;
 
 		const isEvent = (data) => {
 			if(data){
@@ -36,6 +32,7 @@ function MonitorDisplay() {
 					const hourNum = Number(hour)
 					return hourNum < 5 ? hourNum + 24 : hourNum;
 				}
+				
 				const params = new URLSearchParams(document.location.search);
 				const stage = params.get("stage");
 				const scheduleListOrdered = data.schedule.scheduleList.sort(function(a, b){return checkMorningHours(a.startTime.split(":")[0] + "." + a.startTime.split(":")[1]) - checkMorningHours(b.startTime.split(":")[0] + "." + b.startTime.split(":")[1])});
@@ -68,16 +65,15 @@ function MonitorDisplay() {
 		//eslint-disable-next-line
 	},[]);
 	
-	
-	const errorHandler= () =>{ 
-		setError(null)
-	}
-
 
 	return (
 		<>
-			<ErrorModal error={error} onClear={errorHandler}/>
-			{isLoading && <LoadingSpinner asOverlay={true} />}
+			<ErrorModal error={error} onClear={clearError} />
+			{isLoading && (
+				<div className='center'>
+					<LoadingSpinner asOverlay={true} />
+				</div>
+			)}
 			{!isLoading && currentDisplay && (<div className='h-screen overflow-hidden w-full'>
 				<div className='px-20 pb-14 mx-auto flex justify-between content-center items-center flex-col sm:flex-row h-full'>
 					<div className='flex flex-col flex-grow justify-center sm:items-start pb-12'>
@@ -100,7 +96,7 @@ function MonitorDisplay() {
 			{!isLoading && !currentDisplay && (
 				<div className='center w-11/12 max-w-2xl my-4 mx-auto'>
 				<Card>
-					<h2>Event has finished</h2>
+					<h2>No event to display</h2>
 				</Card>
 			</div>)}
 		</>

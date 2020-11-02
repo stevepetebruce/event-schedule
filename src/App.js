@@ -47,7 +47,7 @@ const App = () => {
 				<Route path='/:scheduleId' exact>
 					<ScheduleDisplay />
 				</Route>
-				<Route path='/display/:scheduleId/:day' exact>
+				<Route path='/display/:scheduleId/:day'>
 					<MonitorDisplay />
 				</Route>
 				<Redirect to='/' />
@@ -62,7 +62,7 @@ const App = () => {
 				<Route path='/:scheduleId' exact>
 					<ScheduleDisplay />
 				</Route>
-				<Route path='/display/:scheduleId/:day' exact>
+				<Route path='/display/:scheduleId/:day'>
 					<MonitorDisplay />
 				</Route>
 				<Redirect to='/auth' />
