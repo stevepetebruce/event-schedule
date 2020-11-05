@@ -5,6 +5,7 @@ import FormControl from "../../shared/components/FormElements/FormControl";
 import NewSheduleListSocial from "./NewScheduleListSocial";
 
 import "../../shared/components/UIElements/Collapsible.css";
+import "./collapsible.css";
 
 function NewScheduleListDetails({ schedule, index }) {
 	return (
