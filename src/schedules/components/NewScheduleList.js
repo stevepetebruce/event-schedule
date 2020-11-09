@@ -29,80 +29,96 @@ function NewScheduleList(props) {
 										<div className='w-full md:w-2/12 px-3 mb-6 md:mb-0'>
 											<ImageUpload schedule={`scheduleList[${index}]`} />
 										</div>
-										<div className='w-full md:w-4/12 px-3 mb-6 md:mb-0'>
-											<FormControl
-												control='input'
-												type='text'
-												label='Band/Artist/Presenter'
-												name={`scheduleList[${index}].presenter`}
-												value={schedule.presenter}
-											/>
-										</div>
-										<div className='w-full md:w-2/12 px-3 mb-6 md:mb-0'>
-											<label
-												htmlFor={`scheduleList[${index}].startTime`}
-												className='text-gray-500'>
-												Start Time
-											</label>
-											<TimePicker
-												defaultValue={moment()}
-												value={moment(`${schedule.startTime}`, "HH:mm")}
-												showSecond={false}
-												minuteStep={5}
-												name={`scheduleList[${index}].startTime`}
-												id={`scheduleList[${index}].startTime`}
-												className='text-gray-500'
-												onChange={(value) => {
-													setFieldValue(
-														`scheduleList[${index}].startTime`,
-														value.format("HH:mm"),
-														false
-													);
-												}}
-											/>
-											<p className='text-red-500 text-xs italic'>
-												{getIn(errors, `scheduleList[${index}].startTime`)}
-											</p>
-										</div>
-										<div className='w-full md:w-2/12 px-3 mb-6 md:mb-0'>
-											<label
-												htmlFor={`scheduleList[${index}].endTime`}
-												className='text-gray-500'>
-												End Time
-											</label>
-											<TimePicker
-												defaultValue={moment()}
-												value={moment(`${schedule.endTime}`, "HH:mm")}
-												showSecond={false}
-												minuteStep={5}
-												name={`scheduleList[${index}].endTime`}
-												id={`scheduleList[${index}].endTime`}
-												onChange={(value) => {
-													setFieldValue(
-														`scheduleList[${index}].endTime`,
-														value.format("HH:mm"),
-														false
-													);
-												}}
-											/>
-											<p className='text-red-500 text-xs italic'>
-												{getIn(errors, `scheduleList[${index}].endTime`)}
-											</p>
-										</div>
-										<div
-											className='w-full md:w-2/12 px-3 mb-6 md:mb-0'
-											style={{ position: "relative" }}>
-											{props.values.daysQty > 1 ? (
-												<FormControl
-													control='select'
-													label='Day'
-													name={`scheduleList[${index}].day`}
-													options={props.values.daysQty}
-													value={schedule.day}
-												/>
-											) : null}
+										<div className="flex flex-col w-full md:w-10/12">
+											<div className="flex flex-row">
+												<div className='w-full md:w-1/2 px-3 mb-6 md:mb-4'>
+													<FormControl
+														control='input'
+														type='text'
+														label='Band/Artist/Presenter'
+														name={`scheduleList[${index}].presenter`}
+														value={schedule.presenter}
+													/>
+												</div>
+												<div className='w-full md:w-1/2 px-3 mb-6 md:mb-4'>
+													<FormControl
+														control='input'
+														type='text'
+														label={<>Venue/Stage</>}
+														name={`scheduleList[${index}].stage`}
+														value={schedule.stage}
+													/>
+												</div>
+											</div>
+											<div className="flex flex-row">
+												<div className='w-full md:w-4/12 px-3 mb-6 md:mb-4'>
+													<label
+														htmlFor={`scheduleList[${index}].startTime`}
+														className='text-gray-500'>
+														Start Time
+													</label>
+													<TimePicker
+														defaultValue={moment()}
+														value={moment(`${schedule.startTime}`, "HH:mm")}
+														showSecond={false}
+														minuteStep={5}
+														name={`scheduleList[${index}].startTime`}
+														id={`scheduleList[${index}].startTime`}
+														className='text-gray-500'
+														onChange={(value) => {
+															setFieldValue(
+																`scheduleList[${index}].startTime`,
+																value.format("HH:mm"),
+																false
+															);
+														}}
+													/>
+													<p className='text-red-500 text-xs italic'>
+														{getIn(errors, `scheduleList[${index}].startTime`)}
+													</p>
+												</div>
+												<div className='w-full md:w-4/12 px-3 mb-6 md:mb-4'>
+													<label
+														htmlFor={`scheduleList[${index}].endTime`}
+														className='text-gray-500'>
+														End Time
+													</label>
+													<TimePicker
+														defaultValue={moment()}
+														value={moment(`${schedule.endTime}`, "HH:mm")}
+														showSecond={false}
+														minuteStep={5}
+														name={`scheduleList[${index}].endTime`}
+														id={`scheduleList[${index}].endTime`}
+														onChange={(value) => {
+															setFieldValue(
+																`scheduleList[${index}].endTime`,
+																value.format("HH:mm"),
+																false
+															);
+														}}
+													/>
+													<p className='text-red-500 text-xs italic'>
+														{getIn(errors, `scheduleList[${index}].endTime`)}
+													</p>
+												</div>
+												<div
+													className='w-full md:w-4/12 px-3 mb-6 md:mb-4'
+													style={{ position: "relative" }}>
+													{props.values.daysQty > 1 ? (
+														<FormControl
+															control='select'
+															label='Day'
+															name={`scheduleList[${index}].day`}
+															options={props.values.daysQty}
+															value={schedule.day}
+														/>
+													) : null}
+												</div>
+											</div>
 										</div>
 									</div>
+
 
 									<NewScheduleListDetails schedule={schedule} index={index} />
 
