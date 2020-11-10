@@ -25,16 +25,20 @@ const ImageUpload = ({ schedule }) => {
 		filePickerRef.current.click();
 	};
 
-	const pickedHandler = (event) => {
-		let pickedFile;
+	const uploadImage = async (event) => {
+		console.log("Uploading file")
+		const images = event.target.files;
+		const data = new FormData();
+		data.append('file', images[0]);
+		data.append('upload_preset', 'schedules');
 
-		if (event.target.files && event.target.files.length === 1) {
-			pickedFile = event.target.files[0];
-			setImgFile(pickedFile);
-			setFieldValue(event.target.name, pickedFile.name);
-			setFieldValue(`${event.target.name}type`, pickedFile.type);
-		}
-	};
+		const res = await fetch('https://api.cloudinary.com/v1_1/dftxjfft8/image/upload', { 
+			method: 'POST',
+			body: data
+		})
+		const file = await res.json();
+		console.log(file)
+	}
 
 	return (
 		<div className='form-control'>
@@ -46,7 +50,7 @@ const ImageUpload = ({ schedule }) => {
 							name={`${schedule}.image`}
 							ref={filePickerRef}
 							id={`${schedule}.image`}
-							onChange={pickedHandler}
+							onChange={uploadImage}
 							accept='.jpeg,.png,.jpg'
 							style={{ display: "none" }}
 						/>
