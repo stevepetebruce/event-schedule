@@ -67,6 +67,7 @@ const NewSchedule = () => {
 							stage: "",
 							startTime: moment().format("HH:mm"),
 							endTime: moment().format("HH:mm"),
+							image: "",
 							day: 1,
 							biography: "",
 							socialList: {

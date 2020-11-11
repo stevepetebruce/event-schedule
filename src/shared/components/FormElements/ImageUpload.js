@@ -7,27 +7,38 @@ import "./ImageUpload.css";
 const ImageUpload = ({ schedule }) => {
 	const { setFieldValue } = useFormikContext();
 	const filePickerRef = useRef();
-	const [imgFile, setImgFile] = useState();
-	const [previewUrl, setPreviewUrl] = useState();
+	const [imgFile, setImgFile] = useState("");
+	//const [previewUrl, setPreviewUrl] = useState();
 
-	useEffect(() => {
-		if (!imgFile) {
-			return;
-		}
-		const fileReader = new FileReader();
-		fileReader.onload = () => {
-			setPreviewUrl(fileReader.result);
-		};
-		fileReader.readAsDataURL(imgFile);
-	}, [imgFile]);
+	// useEffect(() => {
+	// 	if (!imgFile) {
+	// 		return;
+	// 	}
+	// 	const fileReader = new FileReader();
+	// 	fileReader.onload = () => {
+	// 		setPreviewUrl(fileReader.result);
+	// 	};
+	// 	fileReader.readAsDataURL(imgFile);
+	// }, [imgFile]);
 
 	const pickImageHandler = () => {
 		filePickerRef.current.click();
 	};
 
+	// const pickedHandler = (event) => {
+	// 	let pickedFile;
+
+	// 	if (event.target.files && event.target.files.length === 1) {
+	// 		pickedFile = event.target.files[0];
+	// 		setImgFile(pickedFile);
+	// 		setFieldValue(event.target.name, pickedFile.name);
+	// 		setFieldValue(`${event.target.name}type`, pickedFile.type);
+	// 	}
+	// };
+
 	const uploadImage = async (event) => {
-		console.log("Uploading file")
 		const images = event.target.files;
+		
 		const data = new FormData();
 		data.append('file', images[0]);
 		data.append('upload_preset', 'schedules');
@@ -37,7 +48,8 @@ const ImageUpload = ({ schedule }) => {
 			body: data
 		})
 		const file = await res.json();
-		console.log(file)
+		setImgFile(file.secure_url);
+		setFieldValue(filePickerRef.current.name, file.secure_url);
 	}
 
 	return (
@@ -59,8 +71,8 @@ const ImageUpload = ({ schedule }) => {
 			</Field>
 			<div className={`image-upload`}></div>
 			<div className='image-upload__preview'>
-				{previewUrl && <img src={previewUrl} alt='preview' />}
-				{!previewUrl && <img src='../../noimage.jpg' alt='preview' />}
+				{imgFile && <img src={imgFile} alt='preview' />}
+				{!imgFile && <img src='../../noimage.jpg' alt='preview' />}
 			</div>
 			<Button type='button' onClick={pickImageHandler}>
 				Select Image
