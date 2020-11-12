@@ -5,39 +5,23 @@ import Button from "./Button";
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
 
-const ImageUpload = ({ schedule }) => {
+const ImageUpload = ({ schedule, index }) => {
 	const { setFieldValue } = useFormikContext();
 	const filePickerRef = useRef();
 	const filethumb = useRef();
 	const [imgFile, setImgFile] = useState("");
 	const [imgFileLoading, setImgFileLoading] = useState(false);
-	//const [previewUrl, setPreviewUrl] = useState();
 
-	// useEffect(() => {
-	// 	if (!imgFile) {
-	// 		return;
-	// 	}
-	// 	const fileReader = new FileReader();
-	// 	fileReader.onload = () => {
-	// 		setPreviewUrl(fileReader.result);
-	// 	};
-	// 	fileReader.readAsDataURL(imgFile);
-	// }, [imgFile]);
+	useEffect(() => {
+		if (schedule.imagethmb) {
+			setImgFile(schedule.imagethmb)
+		}
+		// eslint-disable-next-line
+	}, []);
 
 	const pickImageHandler = () => {
 		filePickerRef.current.click();
 	};
-
-	// const pickedHandler = (event) => {
-	// 	let pickedFile;
-
-	// 	if (event.target.files && event.target.files.length === 1) {
-	// 		pickedFile = event.target.files[0];
-	// 		setImgFile(pickedFile);
-	// 		setFieldValue(event.target.name, pickedFile.name);
-	// 		setFieldValue(`${event.target.name}type`, pickedFile.type);
-	// 	}
-	// };
 
 	const uploadImage = async (event) => {
 		setImgFileLoading(true);
@@ -66,9 +50,9 @@ const ImageUpload = ({ schedule }) => {
 					<div>
 						<input
 							type='file'
-							name={`${schedule}.image`}
+							name={`scheduleList[${index}].image`}
 							ref={filePickerRef}
-							id={`${schedule}.image`}
+							id={`scheduleList[${index}].image`}
 							onChange={uploadImage}
 							accept='.jpeg,.png,.jpg'
 							style={{ display: "none" }}
@@ -82,8 +66,8 @@ const ImageUpload = ({ schedule }) => {
 						<input
 							type='text'
 							ref={filethumb}
-							name={`${schedule}.imagethmb`}
-							id={`${schedule}.imagethmb`}
+							name={`scheduleList[${index}].imagethmb`}
+							id={`scheduleList[${index}].imagethmb`}
 							style={{ display: "none" }}
 						/>
 					</div>

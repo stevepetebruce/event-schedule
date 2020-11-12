@@ -27,7 +27,7 @@ function NewScheduleList(props) {
 									className='border border-gray-600 border-solid bg-gray-900 rounded-lg px-4 py-2 mb-6 flex flex-col justify-between leading-normal relative'>
 									<div className='flex flex-wrap -mx-3 mb-4'>
 										<div className='w-full md:w-2/12 px-3 mb-6 md:mb-0'>
-											<ImageUpload schedule={`scheduleList[${index}]`} />
+											<ImageUpload schedule={schedule} index={index} />
 										</div>
 										<div className="flex flex-col w-full md:w-10/12">
 											<div className="flex flex-row">
@@ -148,6 +148,8 @@ function NewScheduleList(props) {
 								startTime: moment().format("HH:mm"),
 								endTime: moment().format("HH:mm"),
 								day: 1,
+								image: "",
+								imagethmb: "",
 								biography: "",
 								socialList: {
 									facebook: "",
