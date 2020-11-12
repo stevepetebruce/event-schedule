@@ -2,12 +2,14 @@ import React, { useRef, useState, useEffect } from "react";
 import { Field, useFormikContext } from "formik";
 
 import Button from "./Button";
-import "./ImageUpload.css";
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
+import CameraAltIcon from '@material-ui/icons/CameraAlt';
 
 const ImageUpload = ({ schedule }) => {
 	const { setFieldValue } = useFormikContext();
 	const filePickerRef = useRef();
 	const [imgFile, setImgFile] = useState("");
+	const [imgFileLoading, setImgFileLoading] = useState(false);
 	//const [previewUrl, setPreviewUrl] = useState();
 
 	// useEffect(() => {
@@ -37,8 +39,8 @@ const ImageUpload = ({ schedule }) => {
 	// };
 
 	const uploadImage = async (event) => {
+		setImgFileLoading(true);
 		const images = event.target.files;
-		
 		const data = new FormData();
 		data.append('file', images[0]);
 		data.append('upload_preset', 'schedules');
@@ -48,6 +50,7 @@ const ImageUpload = ({ schedule }) => {
 			body: data
 		})
 		const file = await res.json();
+		setImgFileLoading(false);
 		setImgFile(file.secure_url);
 		setFieldValue(filePickerRef.current.name, file.secure_url);
 	}
@@ -69,14 +72,18 @@ const ImageUpload = ({ schedule }) => {
 					</div>
 				)}
 			</Field>
-			<div className={`image-upload`}></div>
-			<div className='image-upload__preview'>
-				{imgFile && <img src={imgFile} alt='preview' />}
-				{!imgFile && <img src='../../noimage.jpg' alt='preview' />}
+			
+			<div className='flex items-center justify-center rounded-md border border-gray-600 h-24 w-24 overflow-hidden mt-2 object-cover relative cursor-pointer hover:border-gray-500 focus:border-indigo-800' onClick={pickImageHandler}>
+				{!imgFile && !imgFileLoading && <AddAPhotoIcon htmlColor='#4a5568' fontSize='large' titleAccess='Add Image' aria-label='Add Image' className='mb-1 mr-1' />}
+				{imgFileLoading && <div className="content-center lds-dual-ring cursor-wait"></div>}
+				{imgFile && !imgFileLoading && 
+					<>
+						<img src={imgFile} className="object-cover" alt='preview' />
+						<Button default type='button' size='icon' style={'absolute top-0 left-0'} onClick={pickImageHandler}><CameraAltIcon htmlColor='#fff' fontSize='small' titleAccess='Replace Image' aria-label='Replace Image' /></Button>
+					</>
+				}
 			</div>
-			<Button type='button' onClick={pickImageHandler}>
-				Select Image
-			</Button>
+			
 		</div>
 	);
 };
