@@ -68,6 +68,7 @@ const NewSchedule = () => {
 							startTime: moment().format("HH:mm"),
 							endTime: moment().format("HH:mm"),
 							image: "",
+							imagethmb: "",
 							day: 1,
 							biography: "",
 							socialList: {
@@ -156,6 +157,7 @@ const NewSchedule = () => {
 						<Button default disabled={isSubmitting} type='submit'>
 							Submit
 						</Button>
+						<pre>{JSON.stringify(values, null, 2)}</pre>
 					</Form>
 				)}
 			</Formik>
