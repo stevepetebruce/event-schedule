@@ -26,7 +26,7 @@ const ScheduleList = (props) => {
 				<ScheduleItem
 					key={schedule.id}
 					id={schedule.id}
-					image={schedule.image}
+					logo={schedule.logo}
 					title={schedule.title}
 					description={schedule.description}
 					address={schedule.address}

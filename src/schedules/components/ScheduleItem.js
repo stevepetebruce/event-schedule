@@ -81,9 +81,11 @@ const ScheduleItem = (props) => {
 			<li className='place-item'>
 				<Card className='palace-item__content'>
 					{isLoading && <LoadingSpinner asOverlay={true} />}
-					<div className='place-item__image'>
-						<img src={props.image} alt={props.title} />
-					</div>
+					{props.logo && (
+						<div className='place-item__image'>
+							<img src={props.logo} alt={props.title} />
+						</div>
+					)}
 					<div className='place-item__info'>
 						<h1>{props.title}</h1>
 						<p>{props.description}</p>
