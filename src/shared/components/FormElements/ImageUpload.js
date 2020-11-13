@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Field, useFormikContext } from "formik";
+import { Field, useFormikContext, ErrorMessage } from "formik";
+import TextError from "./TextError";
 
 import Button from "./Button";
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
@@ -85,7 +86,7 @@ const ImageUpload = ({ schedule, index }) => {
 					</>
 				}
 			</div>
-			
+			<ErrorMessage name={`scheduleList[${index}].image`} component={TextError} />
 		</div>
 	);
 };

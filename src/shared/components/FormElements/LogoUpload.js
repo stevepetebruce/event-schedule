@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Field, useFormikContext } from "formik";
+import { Field, useFormikContext, ErrorMessage } from "formik";
+import TextError from "./TextError";
 
 import Button from "./Button";
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
@@ -71,7 +72,8 @@ const LogoUpload = ({ name, label, ...rest }) => {
 						<Button default type='button' size='icon' style={'absolute top-0 left-0'}><CameraAltIcon htmlColor='#fff' fontSize='small' titleAccess='Replace Image' aria-label='Replace Image' /></Button>
 					</>
 				}
-			</div>	
+			</div>
+			<ErrorMessage name={name} component={TextError} />	
 		</div>
 	);
 };

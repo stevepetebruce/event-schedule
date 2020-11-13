@@ -27,6 +27,8 @@ const validateSchema = Yup.object().shape({
 	),
 	scheduleList: Yup.array().of(
 		Yup.object().shape({
+			image: Yup.string().url("Something went wrong. Please try again"),
+			imagethmb: Yup.string().url("Something went wrong. Please try again"),
 			presenter: Yup.string().required(
 				"Please enter the name of the presenter or artist"
 			),
