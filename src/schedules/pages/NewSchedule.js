@@ -167,6 +167,7 @@ const NewSchedule = () => {
 						<Button default disabled={isSubmitting} type='submit'>
 							Submit
 						</Button>
+				<pre>{JSON.stringify(values, null, 2)}</pre>
 					</Form>
 				)}
 			</Formik>

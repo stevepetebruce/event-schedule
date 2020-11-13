@@ -6,6 +6,7 @@ import * as Yup from "yup";
 
 import NewScheduleList from "../components/NewScheduleList";
 import FormControl from "../../shared/components/FormElements/FormControl";
+import LogoUpload from "../../shared/components/FormElements/LogoUpload";
 import Card from "../../shared/components/UIElements/Card";
 import Button from "../../shared/components/FormElements/Button";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
@@ -16,6 +17,7 @@ import { useHttpClient } from "../../shared/hooks/http-hook";
 import "react-datepicker/dist/react-datepicker.css";
 
 const validateSchema = Yup.object().shape({
+	logo: Yup.string().url("Something went wrong. Please try again"),
 	title: Yup.string().required("Please enter the name of your event"),
 	description: Yup.string()
 		.min(10, "Please enter a longer description (minimum of 10 characters")
@@ -91,6 +93,7 @@ const UpdatePlace = () => {
 			<h1 className='pl-8 mb-4'>Update Event</h1>
 			<Formik
 				initialValues={{
+					logo: loadedSchedule.logo,
 					title: loadedSchedule.title,
 					description: loadedSchedule.description,
 					startDate: loadedSchedule.startDate,
@@ -129,58 +132,64 @@ const UpdatePlace = () => {
 				}) => (
 					<Form className='bg-gray-900 shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 w-full'>
 						{isLoading && <LoadingSpinner asOverlay={true} />}
-						<div className='mb-4'>
-							<FormControl
-								control='input'
-								type='text'
-								label='Title'
-								name='title'
-							/>
-						</div>
-						<div className='mb-4'>
-							<FormControl
-								control='textarea'
-								label='Description'
-								name='description'
-								rows='3'
-							/>
-						</div>
 						<div className='flex flex-wrap -mx-3 mb-4'>
-							<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
-								<label
-									htmlFor='startDate'
-									className='text-gray-400 block w-full'>
-									Start Date
-								</label>
-								<DatePicker
-									selected={startDate}
-									onChange={(startDate) => {
-										setFieldValue("startDate", startDate);
-										setStartDate(startDate);
-									}}
-									selectsStart
-									startDate={startDate}
-									dateFormat='dd/MM/yyyy'
-									name='startDate'
-									className='form-input mt-1 block w-full bg-gray-800 text-gray-400 rounded-md border-none p-3'
-								/>
-								{errors.startDate && touched.startDate ? (
-									<p className='text-red-500 text-xs italic'>
-										{errors.startDate}
-									</p>
-								) : null}
+							<div className='w-full md:w-2/12 px-3 mb-6 md:mb-0'>
+								<LogoUpload name='logo' label='Event Logo' value={values.logo} />
 							</div>
-							<div className='w-full md:w-1/2 px-3'>
-								<FormControl
-									control='input'
-									type='number'
-									label='How many days is the event?'
-									name='daysQty'
-									min='1'
-								/>
+							<div className="w-full md:pl-1 md:w-10/12">
+								<div className='mb-4'>
+									<FormControl
+										control='input'
+										type='text'
+										label='Title'
+										name='title'
+									/>
+								</div>
+								<div className='mb-4'>
+									<FormControl
+										control='textarea'
+										label='Description'
+										name='description'
+										rows='3'
+									/>
+								</div>
+								<div className='flex flex-wrap -mx-3 mb-4'>
+									<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
+										<label
+											htmlFor='startDate'
+											className='text-gray-400 block w-full'>
+											Start Date
+										</label>
+										<DatePicker
+											selected={startDate}
+											onChange={(startDate) => {
+												setFieldValue("startDate", startDate);
+												setStartDate(startDate);
+											}}
+											selectsStart
+											startDate={startDate}
+											dateFormat='dd/MM/yyyy'
+											name='startDate'
+											className='form-input mt-1 block w-full bg-gray-800 text-gray-400 rounded-md border-none p-3'
+										/>
+										{errors.startDate && touched.startDate ? (
+											<p className='text-red-500 text-xs italic'>
+												{errors.startDate}
+											</p>
+										) : null}
+									</div>
+									<div className='w-full md:w-1/2 px-3'>
+										<FormControl
+											control='input'
+											type='number'
+											label='How many days is the event?'
+											name='daysQty'
+											min='1'
+										/>
+									</div>
+								</div>
 							</div>
 						</div>
-
 						<h2 className='py-4'>Update Event List</h2>
 						<NewScheduleList
 							values={values}

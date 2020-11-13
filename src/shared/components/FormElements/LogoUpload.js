@@ -6,19 +6,19 @@ import Button from "./Button";
 import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 import CameraAltIcon from '@material-ui/icons/CameraAlt';
 
-const LogoUpload = ({ name, label, ...rest }) => {
+const LogoUpload = ({ name, label, value }) => {
 	const { setFieldValue } = useFormikContext();
 	const filePickerRef = useRef();
 	const [imgFile, setImgFile] = useState("");
 	const [imgFileLoading, setImgFileLoading] = useState(false);
 
-	// useEffect(() => {
-	// 	if (!schedule.imagethmb) {
-	// 		return;
-	// 	}
-	// 	setImgFile(schedule.imagethmb)
-	// 	// eslint-disable-next-line
-	// }, []);
+	useEffect(() => {
+		if (!value) {
+			return;
+		}
+		setImgFile(value)
+		// eslint-disable-next-line
+	}, []);
 
 	const pickImageHandler = () => {
 		filePickerRef.current.click();
