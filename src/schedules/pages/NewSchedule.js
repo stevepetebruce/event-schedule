@@ -5,6 +5,7 @@ import moment from "moment";
 import * as Yup from "yup";
 
 import NewScheduleList from "../components/NewScheduleList";
+import LogoUpload from "../../shared/components/FormElements/LogoUpload";
 import FormControl from "../../shared/components/FormElements/FormControl";
 import Button from "../../shared/components/FormElements/Button";
 import { useHttpClient } from "../../shared/hooks/http-hook";
@@ -13,6 +14,7 @@ import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 
 const validateSchema = Yup.object().shape({
+	logo: Yup.string().url("Something went wrong. Please try again"),
 	title: Yup.string().required("Please enter the name of your event"),
 	description: Yup.string()
 		.min(10, "Please enter a longer description (minimum of 10 characters")
@@ -60,6 +62,7 @@ const NewSchedule = () => {
 					description: "",
 					startDate: new Date(),
 					daysQty: 1,
+					logo: "",
 					scheduleList: [
 						{
 							presenter: "",
@@ -112,41 +115,47 @@ const NewSchedule = () => {
 				}) => (
 					<Form className='bg-gray-900 shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 w-full'>
 						{isLoading && <LoadingSpinner asOverlay={true} />}
-						<div className='mb-4'>
-							<FormControl
-								control='input'
-								type='text'
-								label='Title'
-								name='title'
-							/>
-						</div>
-						<div className='mb-4'>
-							<FormControl
-								control='textarea'
-								label='Description'
-								name='description'
-								rows='3'
-							/>
-						</div>
-						<div className='flex flex-wrap -mx-3 mb-10'>
-							<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
-								<FormControl
-									control='date'
-									label='Start Date'
-									name='startDate'
-								/>
+						<div className='flex flex-wrap -mx-3 mb-4'>
+							<div className='w-full md:w-2/12 px-3 mb-6 md:mb-0'>
+								<LogoUpload name='logo' label='Event Logo' />
 							</div>
-							<div className='w-full md:w-1/2 px-3'>
-								<FormControl
-									control='input'
-									type='number'
-									label='How many days is the event?'
-									name='daysQty'
-									min='1'
-								/>
+							<div className="w-full md:pl-1 md:w-10/12">
+								<div className='mb-4'>
+									<FormControl
+										control='input'
+										type='text'
+										label='Title'
+										name='title'
+									/>
+								</div>
+								<div className='mb-4'>
+									<FormControl
+										control='textarea'
+										label='Description'
+										name='description'
+										rows='3'
+									/>
+								</div>
+								<div className='flex flex-wrap -mx-3 mb-10'>
+									<div className='w-full md:w-1/2 px-3 mb-6 md:mb-0'>
+										<FormControl
+											control='date'
+											label='Start Date'
+											name='startDate'
+										/>
+									</div>
+									<div className='w-full md:w-1/2 px-3'>
+										<FormControl
+											control='input'
+											type='number'
+											label='How many days is the event?'
+											name='daysQty'
+											min='1'
+										/>
+									</div>
+								</div>
 							</div>
 						</div>
-
 						<h2 className='py-4'>Add Event List</h2>
 						<NewScheduleList
 							values={values}
