@@ -4,7 +4,6 @@ import TextError from "./TextError";
 
 function Select(props) {
 	const { label, name, options, ...rest } = props;
-	console.log([...Array(options)], name);
 	return (
 		<>
 			<label htmlFor={name} className='text-gray-500'>
