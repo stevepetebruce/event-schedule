@@ -89,10 +89,10 @@ function ScheduleDisplayEventItem({ event, timeDuration, eventDay }) {
 					className='bg-orange-100 hover:bg-orange-200 focus:outline-none focus:shadow-outline w-64 h-16 flex flex-row items-center rounded shadow absolute'
 					style={style}
 					onClick={showDetailsHandler}>
-					{event.image && (
+					{event.imagethmb && (
 						<img
-							src='https://images.unsplash.com/photo-1560590053-465d3d493b62?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80'
-							alt='Band'
+							src={event.imagethmb}
+							alt={event.presenter}
 							className='h-16 w-16 object-cover rounded-l'
 						/>
 					)}

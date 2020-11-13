@@ -90,7 +90,7 @@ function MonitorDisplay() {
 							{currentDisplay.stage}
 						</p>
 					</div>
-					<div className='flex-grow-0 w-2/5'>image</div>
+					<div className='flex-grow-0 w-2/5'>{currentDisplay.image && <img src={currentDisplay.image} alt={currentDisplay.presenter}/>}</div>
 				</div>
 			</div>)}
 			{!isLoading && !currentDisplay && (
