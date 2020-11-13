@@ -2,9 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { Field, useFormikContext, ErrorMessage } from "formik";
 import TextError from "./TextError";
 
-import Button from "./Button";
-import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
-import CameraAltIcon from '@material-ui/icons/CameraAlt';
+import {RemoveCircle, CameraAlt, AddAPhoto} from '@material-ui/icons';
 
 const LogoUpload = ({ name, label, value }) => {
 	const { setFieldValue } = useFormikContext();
@@ -24,6 +22,11 @@ const LogoUpload = ({ name, label, value }) => {
 		filePickerRef.current.click();
 	};
 
+	const removeImageHandler = () => {
+		setImgFile("");
+		setFieldValue(filePickerRef.current.name, "");
+	};
+	
 	const uploadImage = async (event) => {
 		setImgFileLoading(true);
 		const images = event.target.files;
@@ -44,7 +47,7 @@ const LogoUpload = ({ name, label, value }) => {
 	}
 
 	return (
-		<div className='form-control text-center'>
+		<div className='flex flex-col items-center form-control text-center'>
 			<label htmlFor={name} className='text-gray-500'>
 				{label}
 			</label>
@@ -63,13 +66,16 @@ const LogoUpload = ({ name, label, value }) => {
 					</div>
 				)}
 			</Field>	
-			<div className='flex items-center justify-center rounded-md border border-gray-600 h-24 w-24 overflow-hidden mt-1 object-cover relative cursor-pointer hover:border-gray-500 focus:border-indigo-800' onClick={pickImageHandler}>
-				{!imgFile && !imgFileLoading && <AddAPhotoIcon htmlColor='#4a5568' fontSize='large' titleAccess='Add Image' aria-label='Add Image' className='mb-1 mr-1' />}
+			<div className='flex items-center justify-center rounded-md border border-gray-600 h-24 w-24 overflow-hidden mt-1 object-cover relative'>
+				{!imgFile && !imgFileLoading && <AddAPhoto htmlColor='#4a5568' fontSize='large' titleAccess='Add Image' aria-label='Add Image' className='mb-1 mr-1 hover:text-gray-300 cursor-pointer' onClick={pickImageHandler} />}
 				{imgFileLoading && <div className="content-center lds-dual-ring cursor-wait"></div>}
 				{imgFile && !imgFileLoading && 
 					<>
 						<img src={imgFile} className="object-cover" alt='preview' />
-						<Button default type='button' size='icon' style={'absolute top-0 left-0'}><CameraAltIcon htmlColor='#fff' fontSize='small' titleAccess='Replace Image' aria-label='Replace Image' /></Button>
+						<div className="flex w-24 px-4 absolute bottom-0 mb-1 justify-around">
+							<CameraAlt className='text-gray-400 hover:text-white cursor-pointer'  titleAccess='Replace Image' aria-label='Replace Image' onClick={pickImageHandler} />
+							<RemoveCircle className='text-gray-400 hover:text-white cursor-pointer' titleAccess='Replace Remove' aria-label='Remove Image'  onClick={removeImageHandler} />
+						</div>
 					</>
 				}
 			</div>
