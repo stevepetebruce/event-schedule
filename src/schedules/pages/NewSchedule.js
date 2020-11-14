@@ -55,7 +55,7 @@ const NewSchedule = () => {
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
 	return (
-		<div className='max-w-screen-md w-full mx-auto flex flex-col'>
+		<div className='max-w-screen-md w-full mx-auto flex flex-col mt-20'>
 			<ErrorModal error={error} onClear={clearError} />
 			<h1 className='pl-8 mb-4'>Add Event</h1>
 			<Formik

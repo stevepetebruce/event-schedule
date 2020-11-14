@@ -82,7 +82,7 @@ const App = () => {
 			}}>
 			<Router>
 				<MainNavigation />
-				<main className='w-full mx-auto flex mt-20 subpixel-antialiased'>
+				<main className='w-full mx-auto flex subpixel-antialiased'>
 					<Switch>{routes}</Switch>
 				</main>
 			</Router>

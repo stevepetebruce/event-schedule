@@ -130,7 +130,7 @@ const UpdatePlace = () => {
 					errors,
 					handleChange,
 				}) => (
-					<Form className='bg-gray-900 shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 w-full'>
+					<Form className='bg-gray-900 shadow-md rounded-lg px-8 pt-6 pb-8 mb-4 w-full mt-20'>
 						{isLoading && <LoadingSpinner asOverlay={true} />}
 						<div className='flex flex-wrap -mx-3 mb-4'>
 							<div className='w-full md:w-2/12 px-3 mb-6 md:mb-0'>

@@ -7,7 +7,7 @@ import ScheduleItem from "./ScheduleItem";
 const ScheduleList = (props) => {
 	if (props.items.length === 0) {
 		return (
-			<div className='center w-11/12 max-w-2xl my-4 mx-auto'>
+			<div className='center w-11/12 max-w-2xl my-4 mx-auto mt-20'>
 				<Card>
 					<h2 className='mb-6'>Create your first schedule</h2>
 					<div className='inline pl-4 center'>
@@ -21,7 +21,7 @@ const ScheduleList = (props) => {
 	}
 
 	return (
-		<ul className='w-11/12 max-w-2xl list-none my-4 mx-auto'>
+		<ul className='w-11/12 max-w-2xl list-none my-4 mx-auto mt-20'>
 			{props.items.map((schedule) => (
 				<ScheduleItem
 					key={schedule.id}
