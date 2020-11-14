@@ -3,7 +3,7 @@ import {
 	BrowserRouter as Router,
 	Route,
 	Redirect,
-	Switch,
+	Switch
 } from "react-router-dom";
 
 import Users from "./user/pages/Users";
@@ -44,7 +44,7 @@ const App = () => {
 				<Route path='/schedules/:scheduleId'>
 					<UpdateSchedule />
 				</Route>
-				<Route path='/:scheduleId' exact>
+				<Route path='/timetable/:scheduleId' exact>
 					<ScheduleDisplay />
 				</Route>
 				<Route path='/display/:scheduleId/:day'>
@@ -59,7 +59,7 @@ const App = () => {
 				<Route path='/auth' exact>
 					<Authenticate />
 				</Route>
-				<Route path='/:scheduleId' exact>
+				<Route path='/timetable/:scheduleId' exact>
 					<ScheduleDisplay />
 				</Route>
 				<Route path='/display/:scheduleId/:day'>

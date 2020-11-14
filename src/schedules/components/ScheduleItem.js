@@ -95,7 +95,7 @@ const ScheduleItem = (props) => {
 							<Button default to={`/schedules/${props.id}/edit`}>
 								EDIT
 							</Button>
-							<Button default to={`/${props.id}`}>
+							<Button default to={`/timetable/${props.id}`}>
 								VIEW SCHEDULE
 							</Button>
 							<Dropdown
