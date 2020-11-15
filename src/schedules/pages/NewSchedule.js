@@ -101,7 +101,7 @@ const NewSchedule = () => {
 								"Content-Type": "application/json",
 							}
 						);
-						history.push("/");
+						history.push(`/${auth.userId}/schedules`);
 					} catch (error) {
 						console.log(error);
 					}
