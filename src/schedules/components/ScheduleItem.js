@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+import { Formik } from "formik";
 
 import Card from "../../shared/components/UIElements/Card";
 import Button from "../../shared/components/FormElements/Button";
@@ -6,6 +7,7 @@ import Dropdown from "../../shared/components/UIElements/Dropdown";
 import Modal from "../../shared/components/UIElements/Modal";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import Collapsible from "react-collapsible";
+import CopyToClipboard from "../../shared/components/FormElements/CopyToClipboard"
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import { AuthContext } from "../../shared/context/auth-context";
 import { useHttpClient } from "../../shared/hooks/http-hook";
@@ -114,9 +116,24 @@ const ScheduleItem = (props) => {
 					)}
 					<Collapsible trigger='Display my schedule'>
 						<div className='flex flex-wrap -mx-3 mb-4'>
-							<div className='w-full px-3 mb-6 md:mb-0'>
-								content
-							</div>
+							<Formik>
+								<>
+									<CopyToClipboard 
+										name={`${props.id}copylink`} 
+										toCopy={`http://localhost:3000/timetable/${props.id}`} 
+										btnTitle='Copy Link' 
+										label='Copy schedule link' 
+										control='input'
+									/>
+									<CopyToClipboard 
+										name={`${props.id}copycode`} 
+										toCopy={`<iframe src="http://localhost:3000/timetable/${props.id}" title="${props.title}" style="border:0" width="100%" height="500px"></iframe>`} 
+										btnTitle='Copy Code' 
+										label='Add code to my website' 
+										control='textarea'
+									/>
+								</>
+							</Formik>
 						</div>
 					</Collapsible>
 				</Card>
