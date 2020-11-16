@@ -5,6 +5,7 @@ import Button from "../../shared/components/FormElements/Button";
 import Dropdown from "../../shared/components/UIElements/Dropdown";
 import Modal from "../../shared/components/UIElements/Modal";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
+import Collapsible from "react-collapsible";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import { AuthContext } from "../../shared/context/auth-context";
 import { useHttpClient } from "../../shared/hooks/http-hook";
@@ -111,6 +112,13 @@ const ScheduleItem = (props) => {
 							</Button>
 						</div>
 					)}
+					<Collapsible trigger='Display my schedule'>
+						<div className='flex flex-wrap -mx-3 mb-4'>
+							<div className='w-full px-3 mb-6 md:mb-0'>
+								content
+							</div>
+						</div>
+					</Collapsible>
 				</Card>
 			</li>
 		</React.Fragment>

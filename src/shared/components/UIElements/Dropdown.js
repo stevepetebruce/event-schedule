@@ -18,7 +18,7 @@ function Dropdown(props) {
 						{props.children} {dropdown ? <ExpandLess /> : <ExpandMore />}
 					</Button>
 					{dropdown && (
-						<div className='absolute right-0 mt-2 py-2 bg-gray-300 rounded-lg shadow-xl'>
+						<div className='absolute right-0 mt-2 py-2 bg-gray-300 rounded-lg shadow-xl z-10'>
 							<div className="sm:flex">
 							{props.columns.map((column, i) => (
 								<div key={i} className='w-40 inline-block'>
