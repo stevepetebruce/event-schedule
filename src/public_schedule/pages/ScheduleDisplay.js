@@ -9,6 +9,7 @@ import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import ScheduleDisplayTime from "../components/ScheduleDisplayTime";
 import ScheduleDisplayStages from "../components/ScheduleDisplayStages";
 import ScheduleDisplayEvent from "../components/ScheduleDisplayEvent";
+import MonitorHeader from "../components/MonitorHeader";
 
 import "@reach/tabs/styles.css";
 import "../../shared/components/UIElements/Tabs.css";
@@ -101,37 +102,40 @@ const ScheduleDisplay = (props) => {
 					<LoadingSpinner asOverlay={true} />
 				</div>
 			)}
+			<MonitorHeader {...loadedSchedule} />
 			{!isLoading && loadedSchedule && numDays.length > 1 && (
-				<Tabs>
-					<TabList>
-						{numDays.map((_, i) => (
-							<Tab key={i + 1}>
-								<h3>Day {i + 1}</h3>
-							</Tab>
-						))}
-					</TabList>
-					<TabPanels>
-						{numDays.map((_, i) => (
-							<TabPanel key={i}>
-								<div className='w-screen flex bg-gray-800'>
-									<ScheduleDisplayStages stages={stages} />
-									<div className='flex flex-col overflow-x-scroll scrolling-touch'>
-										<ScheduleDisplayTime timeDuration={timeDuration} />
-										<ScheduleDisplayEvent
-											stages={stages}
-											eventList={eventList}
-											timeDuration={timeDuration}
-											eventDay={i + 1}
-										/>
+				<div className='h-screen overflow-hidden w-full bg-gray-900 pt-20'>
+					<Tabs>
+						<TabList>
+							{numDays.map((_, i) => (
+								<Tab key={i + 1}>
+									<h3>Day {i + 1}</h3>
+								</Tab>
+							))}
+						</TabList>
+						<TabPanels>
+							{numDays.map((_, i) => (
+								<TabPanel key={i}>
+									<div className='w-screen h-full flex'>
+										<ScheduleDisplayStages stages={stages} />
+										<div className='flex flex-col overflow-x-scroll scrolling-touch'>
+											<ScheduleDisplayTime timeDuration={timeDuration} />
+											<ScheduleDisplayEvent
+												stages={stages}
+												eventList={eventList}
+												timeDuration={timeDuration}
+												eventDay={i + 1}
+											/>
+										</div>
 									</div>
-								</div>
-							</TabPanel>
-						))}
-					</TabPanels>
-				</Tabs>
+								</TabPanel>
+							))}
+						</TabPanels>
+					</Tabs>
+				</div>
 			)}
 			{!isLoading && loadedSchedule && numDays.length <= 1 && (
-				<div className='w-screen flex bg-gray-800'>
+				<div className='h-screen flex overflow-hidden w-full bg-gray-900 pt-20'>
 					<ScheduleDisplayStages stages={stages} />
 					<div className='flex flex-col overflow-x-scroll scrolling-touch'>
 						<ScheduleDisplayTime timeDuration={timeDuration} />

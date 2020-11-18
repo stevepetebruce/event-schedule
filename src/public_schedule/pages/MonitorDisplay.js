@@ -94,7 +94,13 @@ function MonitorDisplay() {
 								{currentDisplay.stage}
 							</p>
 						</div>
-						<div className='flex-grow-0 w-2/5'>{currentDisplay.image ? <img src={currentDisplay.image} alt={currentDisplay.presenter}/> : <img src={eventInfo.logo} alt={eventInfo.title} />}</div>
+						<div className='flex-grow-0 w-2/5'>
+							{currentDisplay.image ?
+								<img src={currentDisplay.image} alt={currentDisplay.presenter}/>
+							: eventInfo.logo ?
+								<img src={eventInfo.logo} alt={eventInfo.title} />
+							: null}
+						</div>
 					</div>
 				</div>
 			)}

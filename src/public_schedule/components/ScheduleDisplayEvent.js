@@ -36,7 +36,7 @@ function ScheduleDisplayEvent({ stages, eventList, timeDuration, eventDay }) {
 				))}
 			</>
 		)) || (
-			<div className='h-16 flex items-center text-indigo-200'>
+			<div className='h-16 flex items-center text-indigo-200 mt-20'>
 				No events to display
 			</div>
 		)

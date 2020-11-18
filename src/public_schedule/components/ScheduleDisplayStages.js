@@ -9,7 +9,7 @@ function ScheduleDisplayStages({ stages }) {
 		<aside
 			className='flex-col items-center h-full text-white leading-tight bg-gray-800'
 			style={pStyle}>
-			<div className='h-6 flex items-center w-full'></div>
+			<div className='h-8 flex items-center w-full'></div>
 			<ul>
 				{stages.map((stage) => (
 					<li
