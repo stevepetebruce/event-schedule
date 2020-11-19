@@ -13,7 +13,7 @@ function ScheduleDisplayStages({ stages }) {
 			<ul>
 				{stages.map((stage) => (
 					<li
-						className='h-16 px-6 flex justify-center items-center w-full border-b border-gray-800'
+						className='h-16 px-4 flex justify-center items-center w-full border-b border-gray-800 text-sm'
 						key={stage}>
 						{stage}
 					</li>
