@@ -1,3 +1,7 @@
+div[id^="tabs"]:focus {
+	outline: none;
+}
+
 [data-reach-tab-list] {
 	margin-bottom: 2px;
 	border-bottom: 1px solid #4a5568;
