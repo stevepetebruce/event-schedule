@@ -22,6 +22,15 @@ const ScheduleDisplay = (props) => {
 	const [stages, setStages] = useState([]);
 	const [eventList, setEventList] = useState({});
 	const [numDays, setNumDays] = useState([]);
+	const [selectedTab, setSelectedTab] = useState(0);
+
+	const dateDifference = (date1, date2) => {
+		var oneDay = 1000 * 3600 * 24;
+		const utc1 = Date.UTC(date1.getFullYear(), date1.getMonth(), date1.getDate());
+		const utc2 = Date.UTC(date2.getFullYear(), date2.getMonth(), date2.getDate());
+		var days = (utc2 - utc1) / oneDay;
+		return Math.abs(days);
+	}
 
 	useEffect(() => {
 		const scheduleDuration = (responseData) => {
@@ -94,6 +103,23 @@ const ScheduleDisplay = (props) => {
 		fetchSchedule();
 	}, []);
 
+	useEffect(() => {
+		if (!loadedSchedule) return;
+		let {daysQty, startDate} = loadedSchedule;
+		if (daysQty <= 1) return;
+		const todaysDate = new Date();
+		startDate = new Date(startDate);
+		const daysDifTotal = dateDifference(todaysDate, startDate)
+
+		if (startDate > todaysDate) {
+			setSelectedTab(0);
+		} else if (daysDifTotal < daysQty) {
+			setSelectedTab(daysDifTotal);
+		} else {
+			console.log("Event finished")
+		}
+	},[loadedSchedule]);
+
 	return (
 		<>
 			<ErrorModal error={error} onClear={clearError} />
@@ -105,7 +131,7 @@ const ScheduleDisplay = (props) => {
 			<MonitorHeader {...loadedSchedule} />
 			{!isLoading && loadedSchedule && numDays.length > 1 && (
 				<div className='h-screen overflow-hidden w-full bg-gray-900 pt-20'>
-					<Tabs>
+					<Tabs defaultIndex={selectedTab}>
 						<TabList>
 							{numDays.map((_, i) => (
 								<Tab key={i + 1}>
