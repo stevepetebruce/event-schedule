@@ -130,7 +130,7 @@ const ScheduleDisplay = (props) => {
 			)}
 			<MonitorHeader {...loadedSchedule} />
 			{!isLoading && loadedSchedule && numDays.length > 1 && (
-				<div className='h-screen overflow-hidden w-full bg-gray-900 pt-20'>
+				<div className='h-screen overflow-y-scroll w-full bg-gray-900 pt-20'>
 					<Tabs defaultIndex={selectedTab}>
 						<TabList>
 							{numDays.map((_, i) => (

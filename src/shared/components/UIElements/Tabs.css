@@ -1,14 +1,23 @@
 [data-reach-tab-list] {
 	margin-bottom: 2px;
-	padding-left: 12px;
 	border-bottom: 1px solid #4a5568;
+	justify-content: center;
 }
 
 [data-reach-tab] {
-	padding: 8px 20px;
+	padding: 0.7rem 1.5rem;
+	border-radius: 9999px;
+	margin: 0.6rem 0.3rem;
+	text-transform: uppercase;
+	border: solid 1px #4c51bf;
+}
+
+[data-reach-tab]:hover {
+	background-color: #667eea;
 }
 
 [data-reach-tab][data-selected] {
-	background: #4c51bf;
+	background-color: #4c51bf;
 	outline: none;
+	border: 0;
 }
