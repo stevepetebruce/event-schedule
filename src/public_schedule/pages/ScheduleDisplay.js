@@ -108,9 +108,9 @@ const ScheduleDisplay = (props) => {
 		let {daysQty, startDate} = loadedSchedule;
 		if (daysQty <= 1) return;
 		const todaysDate = new Date();
+		todaysDate.setHours(todaysDate.getHours() - 5);
 		startDate = new Date(startDate);
-		const daysDifTotal = dateDifference(todaysDate, startDate)
-
+		const daysDifTotal = dateDifference(todaysDate, startDate);
 		if (startDate > todaysDate) {
 			setSelectedTab(0);
 		} else if (daysDifTotal < daysQty) {
