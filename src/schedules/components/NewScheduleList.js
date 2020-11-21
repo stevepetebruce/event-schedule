@@ -2,6 +2,7 @@ import React from "react";
 import { FieldArray, getIn, useFormikContext } from "formik";
 import TimePicker from "rc-time-picker";
 import moment from "moment";
+import { motion, AnimatePresence } from "framer-motion";
 
 import "../../assets/rc-time-picker.css";
 import "../../shared/components/FormElements/TimePicker.css";
@@ -20,11 +21,17 @@ function NewScheduleList(props) {
 			render={({ insert, remove, push }) => (
 				<>
 					<div className='w-full'>
+						<AnimatePresence initial={false}>
 						{values.scheduleList.map((schedule, index) => {
 							return (
-								<div
+								<motion.div
 									key={index}
-									className='border border-gray-600 border-solid bg-gray-900 rounded-lg px-4 py-2 mb-6 flex flex-col justify-between leading-normal relative'>
+									className='border border-gray-600 border-solid bg-gray-900 rounded-lg px-4 py-2 mb-6 flex flex-col justify-between leading-normal relative'
+									layout
+									initial={{ opacity: 0, y: 50, scale: 0.3 }}
+									animate={{ opacity: 1, y: 0, scale: 1 }}
+									transition={{ delay: 0.2 }}
+									exit={{ opacity: 0, scale: 0.2, transition: { duration: 0.3 } }}>
 									<div className='flex flex-wrap -mx-3 mb-4'>
 										<div className='w-full md:w-2/12 px-3 mb-6 md:mb-0'>
 											<ImageUpload schedule={schedule} index={index} />
@@ -118,10 +125,7 @@ function NewScheduleList(props) {
 											</div>
 										</div>
 									</div>
-
-
 									<NewScheduleListDetails schedule={schedule} index={index} />
-
 									<span className='absolute top-0 right-0 px-1 py-1'>
 										<svg
 											className='fill-current h-6 w-6'
@@ -133,9 +137,10 @@ function NewScheduleList(props) {
 											<path fill="#5a67d8" d='M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z' />
 										</svg>
 									</span>
-								</div>
+								</motion.div>
 							);
 						})}
+						</AnimatePresence>
 					</div>
 					<Button
 						inverse
