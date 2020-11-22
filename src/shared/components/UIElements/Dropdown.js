@@ -21,11 +21,11 @@ function Dropdown(props) {
 						<div className='absolute right-0 mt-2 py-2 bg-gray-300 rounded-lg shadow-xl z-10'>
 							<div className="sm:flex">
 							{props.columns.map((column, i) => (
-								<div key={i} className='w-40 inline-block'>
+								<div key={i} className='w-40 inline-block items-center'>
 									{props.columns.length > 1 ? <p className='font-bold mt-2'>{column ? column : props.valueName} {i + 1}</p> : <p className='font-bold mt-2'>Location</p>}
 									{props.rows.map((row, index) => (
 										<Button inverse to={`/display/${props.id}/${i + 1}?stage=${row.stage}`}
-											key={index} style="block" size="small">
+											key={index} style="block px-1 ml-4 mb-1" size="small">
 											{row.stage}
 										</Button>
 									))}

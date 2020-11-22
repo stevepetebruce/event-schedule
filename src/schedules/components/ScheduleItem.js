@@ -12,6 +12,9 @@ import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import { AuthContext } from "../../shared/context/auth-context";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 
+import TvIcon from '@material-ui/icons/Tv';
+import ViewListIcon from '@material-ui/icons/ViewList';
+
 import "./ScheduleItem.css";
 
 const ScheduleItem = (props) => {
@@ -91,51 +94,67 @@ const ScheduleItem = (props) => {
 					)}
 					<div className='place-item__info'>
 						<h1>{props.title}</h1>
-						<p>{props.description}</p>
 					</div>
 					{auth.userId === props.creatorId && (
-						<div className='place-item__actions'>
-							<Button default to={`/schedules/${props.id}/edit`}>
-								EDIT
-							</Button>
-							<Button default to={`/timetable/${props.id}`}>
-								VIEW SCHEDULE
-							</Button>
-							<Dropdown
-								id={props.id}
-								columns={[...Array(props.numDays)]}
-								valueName='DAY'
-								rows={stages}
-								>
-								DISPLAY
-							</Dropdown>
-							<Button danger onClick={showDeleteHandler}>
-								DELETE
-							</Button>
+						<>
+						<div className='text-center p-3 mb-3'>
+							<Button default to={`/schedules/${props.id}/edit`}>EDIT</Button>
+							<Button danger onClick={showDeleteHandler}>DELETE</Button>
 						</div>
+						<div className="flex flex-row justify-evenly text-center mb-4">
+							<div className="flex flex-col items-center rounded-lg border border-gray-800 w-56 pb-3 mx-1">
+								<ViewListIcon 
+									fontSize="inherit"
+    							style={{ fontSize: "80px" }}
+									className="rotate-90" />
+								<div className="pl-4">
+									<Button default to={`/timetable/${props.id}`}>
+										VIEW SCHEDULE
+									</Button>
+								</div>
+							</div>
+							<div className="flex flex-col items-center rounded-lg border border-gray-800 w-56 pb-3 mx-1">
+								<TvIcon
+									fontSize="inherit"
+    							style={{ fontSize: "80px" }} />
+								<div className="pl-4">
+									<Dropdown
+									id={props.id}
+									columns={[...Array(props.numDays)]}
+									valueName='DAY'
+									rows={stages}
+									>
+										DISPLAY
+									</Dropdown>
+								</div>
+							</div>
+						</div>
+						<Collapsible trigger='Display my schedule'>
+							<div className='flex flex-wrap -mx-3 mb-4'>
+								<Formik>
+									<>
+										<CopyToClipboard 
+											name={`${props.id}copylink`} 
+											toCopy={`http://localhost:3000/timetable/${props.id}`} 
+											btnTitle='Copy Link' 
+											label='Copy schedule link' 
+											control='input'
+										/>
+										<CopyToClipboard 
+											name={`${props.id}copycode`} 
+											toCopy={`<iframe src="http://localhost:3000/timetable/${props.id}" title="${props.title}" style="border:0" width="100%" height="500px"></iframe>`} 
+											btnTitle='Copy Code' 
+											label='Add code to my website' 
+											control='textarea'
+										/>
+									</>
+								</Formik>
+							</div>
+						</Collapsible>
+						
+						</>
 					)}
-					<Collapsible trigger='Display my schedule'>
-						<div className='flex flex-wrap -mx-3 mb-4'>
-							<Formik>
-								<>
-									<CopyToClipboard 
-										name={`${props.id}copylink`} 
-										toCopy={`http://localhost:3000/timetable/${props.id}`} 
-										btnTitle='Copy Link' 
-										label='Copy schedule link' 
-										control='input'
-									/>
-									<CopyToClipboard 
-										name={`${props.id}copycode`} 
-										toCopy={`<iframe src="http://localhost:3000/timetable/${props.id}" title="${props.title}" style="border:0" width="100%" height="500px"></iframe>`} 
-										btnTitle='Copy Code' 
-										label='Add code to my website' 
-										control='textarea'
-									/>
-								</>
-							</Formik>
-						</div>
-					</Collapsible>
+					
 				</Card>
 			</li>
 		</React.Fragment>
