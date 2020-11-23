@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Modal from "../../shared/components/UIElements/Modal";
-import Button from "../../shared/components/FormElements/Button";
 
 import ScheduleDisplayModalDetails from "./ScheduleDisplayModalDetails";
+import ScheduleDisplayModalFooter from "./ScheduleDisplayModalFooter";
 
 function ScheduleDisplayEventItem({ event, timeDuration, eventDay }) {
 	const [style, setStyle] = useState({});
@@ -68,20 +68,13 @@ function ScheduleDisplayEventItem({ event, timeDuration, eventDay }) {
 			<Modal
 				show={showDetailsModal}
 				cancel={showDetailsModal}
-				modal='modal-wide'
+				modal='modal-wide bg-gray-900'
 				header={
-					<div className='flex justify-between'>
-						{event.presenter}
-						<button onClick={cancelDetailsHandler}>&#10005;</button>
+					<div className='flex justify-end'>
+						<button onClick={cancelDetailsHandler} className='text-xl'>&#10005;</button>
 					</div>
 				}
-				footer={
-					<>
-						<Button default onClick={cancelDetailsHandler}>
-							CLOSE
-						</Button>
-					</>
-				}>
+				footer={<ScheduleDisplayModalFooter event={event} />}>
 				<ScheduleDisplayModalDetails event={event} />
 			</Modal>
 			{parseInt(event.day) === parseInt(eventDay) && (

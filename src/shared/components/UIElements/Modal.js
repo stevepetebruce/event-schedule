@@ -8,16 +8,16 @@ import "./Modal.css";
 const ModalOverlay = (props) => {
 	const Content = (
 		<div
-			className={`modal rounded-lg fixed w-4/5 bg-gray-800 z-50 ${props.modal}`}
+			className={`modal fixed bg-gray-800 z-50 ${props.modal}`}
 			style={props.style}>
-			<header className={`w-full p-5 bg-gray-900 props.headerClass`}>
+			<header className={`w-full py-4 px-5 bg-gray-900 props.headerClass`}>
 				<h3>{props.header}</h3>
 			</header>
 			<form
 				onSubmit={
 					props.onSubmit ? props.onSubmit : (event) => event.preventDefault()
-				}>
-				<div className={`px-5 py-5 ${props.contentClass}`}>
+				} className="h-full">
+				<div className={`px-5 py-1 md:py-5 h-full ${props.contentClass}`}>
 					{props.children}
 				</div>
 				<footer className={`px-5 py-5 ${props.footerClass}`}>
