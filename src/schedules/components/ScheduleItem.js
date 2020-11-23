@@ -12,13 +12,19 @@ import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import { AuthContext } from "../../shared/context/auth-context";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 
-import TvIcon from '@material-ui/icons/Tv';
-import ViewListIcon from '@material-ui/icons/ViewList';
+import {Tv, ViewList}  from '@material-ui/icons';
+import { makeStyles } from '@material-ui/core/styles';
 
-import "./ScheduleItem.css";
+const useStyles = makeStyles({
+  root: {
+		color: '#374151',
+		fontSize: "80px"
+  },
+});
 
 const ScheduleItem = (props) => {
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
+	const classes = useStyles(props);
 	const auth = useContext(AuthContext);
 	const [showConfirmModal, setShowConfirmModal] = useState(false);
 	const [stages, setStages] = useState([]);
@@ -70,88 +76,76 @@ const ScheduleItem = (props) => {
 				show={showConfirmModal}
 				cancel={cancelDeleteHandler}
 				header='Delete Schedule'
-				contentClass='modal__content'
-				footerClass='place-item__modal-actions'
 				footer={
 					<>
-						<Button default onClick={cancelDeleteHandler}>
-							CLOSE
-						</Button>
-						<Button danger onClick={confirmDeleteHandler}>
-							DELETE
-						</Button>
+						<Button default onClick={cancelDeleteHandler}>CLOSE</Button>
+						<Button danger onClick={confirmDeleteHandler}>DELETE</Button>
 					</>
 				}>
 				<p>Do you want to proceed and delete this schedule?</p>
 			</Modal>
-			<li className='place-item'>
-				<Card className='palace-item__content'>
+			<li className='my-4'>
+				<Card className='p-12'>
 					{isLoading && <LoadingSpinner asOverlay={true} />}
-					{props.logo && (
-						<div className='place-item__image'>
-							<img src={props.logo} alt={props.title} />
-						</div>
-					)}
-					<div className='place-item__info'>
-						<h1>{props.title}</h1>
+					<h1 className='text-center'>{props.title}</h1>
+					{auth.userId === props.creatorId && (
+					<div className='text-center p-3 mb-3 ml-4'>
+						<Button default to={`/schedules/${props.id}/edit`}>EDIT</Button>
+						<Button danger onClick={showDeleteHandler}>DELETE</Button>
 					</div>
+					)}
+					{props.logo && <img src={props.logo} alt={props.title} className="object-cover mb-3" />}
 					{auth.userId === props.creatorId && (
 						<>
-						<div className='text-center p-3 mb-3'>
-							<Button default to={`/schedules/${props.id}/edit`}>EDIT</Button>
-							<Button danger onClick={showDeleteHandler}>DELETE</Button>
-						</div>
-						<div className="flex flex-row justify-evenly text-center mb-4">
-							<div className="flex flex-col items-center rounded-lg border border-gray-800 w-56 pb-3 mx-1">
-								<ViewListIcon 
-									fontSize="inherit"
-    							style={{ fontSize: "80px" }}
-									className="rotate-90" />
-								<div className="pl-4">
-									<Button default to={`/timetable/${props.id}`}>
-										VIEW SCHEDULE
-									</Button>
+							<div className="flex flex-row justify-evenly text-center mb-4">
+								<div className="flex flex-col items-center rounded-lg border border-gray-800 w-56 pb-3 mx-1">
+									<ViewList 
+										fontSize="inherit"
+										className={classes.root}  />
+									<div className="pl-4">
+										<Button default to={`/timetable/${props.id}`}>
+											VIEW SCHEDULE
+										</Button>
+									</div>
+								</div>
+								<div className="flex flex-col items-center rounded-lg border border-gray-800 w-56 pb-3 mx-1">
+									<Tv
+										fontSize="inherit"
+										className={classes.root} />
+									<div className="pl-4">
+										<Dropdown
+										id={props.id}
+										columns={[...Array(props.numDays)]}
+										valueName='DAY'
+										rows={stages}
+										>
+											DISPLAY
+										</Dropdown>
+									</div>
 								</div>
 							</div>
-							<div className="flex flex-col items-center rounded-lg border border-gray-800 w-56 pb-3 mx-1">
-								<TvIcon
-									fontSize="inherit"
-    							style={{ fontSize: "80px" }} />
-								<div className="pl-4">
-									<Dropdown
-									id={props.id}
-									columns={[...Array(props.numDays)]}
-									valueName='DAY'
-									rows={stages}
-									>
-										DISPLAY
-									</Dropdown>
+							<Collapsible trigger='Display my schedule'>
+								<div className='flex flex-wrap -mx-3 mb-4'>
+									<Formik>
+										<>
+											<CopyToClipboard 
+												name={`${props.id}copylink`} 
+												toCopy={`http://localhost:3000/timetable/${props.id}`} 
+												btnTitle='Copy Link' 
+												label='Copy schedule link' 
+												control='input'
+											/>
+											<CopyToClipboard 
+												name={`${props.id}copycode`} 
+												toCopy={`<iframe src="http://localhost:3000/timetable/${props.id}" title="${props.title}" style="border:0" width="100%" height="500px"></iframe>`} 
+												btnTitle='Copy Code' 
+												label='Add code to my website' 
+												control='textarea'
+											/>
+										</>
+									</Formik>
 								</div>
-							</div>
-						</div>
-						<Collapsible trigger='Display my schedule'>
-							<div className='flex flex-wrap -mx-3 mb-4'>
-								<Formik>
-									<>
-										<CopyToClipboard 
-											name={`${props.id}copylink`} 
-											toCopy={`http://localhost:3000/timetable/${props.id}`} 
-											btnTitle='Copy Link' 
-											label='Copy schedule link' 
-											control='input'
-										/>
-										<CopyToClipboard 
-											name={`${props.id}copycode`} 
-											toCopy={`<iframe src="http://localhost:3000/timetable/${props.id}" title="${props.title}" style="border:0" width="100%" height="500px"></iframe>`} 
-											btnTitle='Copy Code' 
-											label='Add code to my website' 
-											control='textarea'
-										/>
-									</>
-								</Formik>
-							</div>
-						</Collapsible>
-						
+							</Collapsible>
 						</>
 					)}
 					
