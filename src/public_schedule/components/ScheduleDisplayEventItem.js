@@ -77,7 +77,7 @@ function ScheduleDisplayEventItem({ event, timeDuration, eventDay }) {
 					</div>
 				}
 				footer={<ScheduleDisplayModalFooter event={event} />}>
-				<ScheduleDisplayModalDetails event={event} />
+				<ScheduleDisplayModalDetails event={event} show={showDetailsModal} />
 			</Modal>
 			{parseInt(event.day) === parseInt(eventDay) && (
 				<motion.div
