@@ -80,10 +80,12 @@ function ScheduleDisplayEventItem({ event, timeDuration, eventDay }) {
 				<ScheduleDisplayModalDetails event={event} />
 			</Modal>
 			{parseInt(event.day) === parseInt(eventDay) && (
-				<div
-					className='bg-orange-100 hover:bg-orange-200 focus:outline-none focus:shadow-outline w-64 h-16 flex flex-row items-center rounded shadow absolute'
+				<motion.div
+					className='bg-orange-100 hover:bg-orange-200 focus:outline-none focus:shadow-outline cursor-pointer h-16 flex flex-row items-center rounded absolute'
 					style={style}
-					onClick={showDetailsHandler}>
+					onClick={showDetailsHandler}
+					whileHover={{ scale: 1.1, zIndex: 2, boxShadow: "0px 0px 4px 3px rgba(0, 0, 0, 0.2)" }}
+				>
 					{event.imagethmb && (
 						<img
 							src={event.imagethmb}
@@ -99,7 +101,7 @@ function ScheduleDisplayEventItem({ event, timeDuration, eventDay }) {
 							{event.startTime}-{event.endTime}
 						</div>
 					</div>
-				</div>
+				</motion.div>
 			)}
 		</>
 	);
