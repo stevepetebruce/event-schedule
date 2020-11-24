@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Modal from "../../shared/components/UIElements/Modal";
+import { motion } from "framer-motion";
 
 import ScheduleDisplayModalDetails from "./ScheduleDisplayModalDetails";
 import ScheduleDisplayModalFooter from "./ScheduleDisplayModalFooter";
@@ -71,7 +72,8 @@ function ScheduleDisplayEventItem({ event, timeDuration, eventDay }) {
 				modal='modal-wide bg-gray-900'
 				header={
 					<div className='flex justify-end'>
-						<button onClick={cancelDetailsHandler} className='text-xl'>&#10005;</button>
+						<motion.button onClick={cancelDetailsHandler} className='text-xl'
+							whileHover={{ scale: 1.4, rotate: 90 }}>&#10005;</motion.button>
 					</div>
 				}
 				footer={<ScheduleDisplayModalFooter event={event} />}>
