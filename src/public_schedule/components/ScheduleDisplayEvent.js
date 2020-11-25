@@ -1,6 +1,43 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import ScheduleDisplayEventItem from "./ScheduleDisplayEventItem";
 import { motion } from "framer-motion"
+
+const container = {
+	hidden: { opacity: 0, y: -10 },
+	show: {
+		opacity: 1,
+		y: 0,
+		transition: {
+			ease: "easeOut",
+			duration: 0.3,
+			staggerChildren: 0.08,
+		}
+	}
+}
+
+const item = {
+	hidden: { opacity: 0, y: -10, },
+	show: { 
+		opacity: 1, 
+		y: 0, 
+		transition: {
+			ease: "easeOut",
+			duration: 0.3,
+		}
+	}
+}
+
+const events = {
+	hidden: { opacity: 0 },
+	show: { 
+		opacity: 1, 
+		transition: {
+			ease: "easeInOut",
+			duration: 1,
+			delay: 0.4
+		}
+	}
+}
 
 function ScheduleDisplayEvent({ stages, eventList, timeDuration, eventDay, tabAnimate }) {
 	const [style, setStyle] = useState({});
@@ -20,27 +57,33 @@ function ScheduleDisplayEvent({ stages, eventList, timeDuration, eventDay, tabAn
 	return (
 		(eventList[stages[0]] && (
 			<>
-				{stages.map((stage, i) => (
-					<Fragment key={i}>
-					{tabAnimate && (<motion.div
-						className='h-16 flex border-b border-indigo-700 border-dashed w-screen relative'
-						key={i}
-						style={style}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-        	>
-						{eventList[stage].map((event) => (
-							<ScheduleDisplayEventItem
-								key={event.presenter}
-								event={event}
-								timeDuration={timeDuration}
-								eventDay={eventDay}
-							/>
-						))}
-					</motion.div>)}
-					</Fragment>
-				))}
+				{tabAnimate && (<motion.div
+						variants={container}
+						initial="hidden"
+						animate="show"
+					>
+					{stages.map((stage, i) => (
+			
+							<motion.div
+								className='h-16 flex border-b border-indigo-700 border-dashed w-screen relative'
+								key={i}
+								style={style}
+								variants={item}
+							>
+								{eventList[stage].map((event, i) => (
+									<motion.div variants={events} key={i}>
+										<ScheduleDisplayEventItem
+											key={event.presenter}
+											event={event}
+											timeDuration={timeDuration}
+											eventDay={eventDay}
+										/>
+									</motion.div>
+								))}
+							</motion.div>
+					
+					))}
+				</motion.div>)}
 			</>
 		)) || (
 			<div className='h-16 flex items-center text-indigo-200 mt-20'>
