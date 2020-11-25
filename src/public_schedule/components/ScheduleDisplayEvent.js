@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import ScheduleDisplayEventItem from "./ScheduleDisplayEventItem";
+import { motion } from "framer-motion"
 
-function ScheduleDisplayEvent({ stages, eventList, timeDuration, eventDay }) {
+function ScheduleDisplayEvent({ stages, eventList, timeDuration, eventDay, tabAnimate }) {
 	const [style, setStyle] = useState({});
 
 	useEffect(() => {
@@ -19,11 +20,16 @@ function ScheduleDisplayEvent({ stages, eventList, timeDuration, eventDay }) {
 	return (
 		(eventList[stages[0]] && (
 			<>
-				{stages.map((stage) => (
-					<div
+				{stages.map((stage, i) => (
+					<Fragment key={i}>
+					{tabAnimate && (<motion.div
 						className='h-16 flex border-b border-indigo-700 border-dashed w-screen relative'
-						key={stage}
-						style={style}>
+						key={i}
+						style={style}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+        	>
 						{eventList[stage].map((event) => (
 							<ScheduleDisplayEventItem
 								key={event.presenter}
@@ -32,7 +38,8 @@ function ScheduleDisplayEvent({ stages, eventList, timeDuration, eventDay }) {
 								eventDay={eventDay}
 							/>
 						))}
-					</div>
+					</motion.div>)}
+					</Fragment>
 				))}
 			</>
 		)) || (

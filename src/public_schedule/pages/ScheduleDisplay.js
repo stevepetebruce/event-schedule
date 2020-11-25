@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@reach/tabs";
+import { AnimatePresence } from "framer-motion";
 
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
@@ -23,6 +24,7 @@ const ScheduleDisplay = (props) => {
 	const [eventList, setEventList] = useState({});
 	const [numDays, setNumDays] = useState([]);
 	const [selectedTab, setSelectedTab] = useState(0);
+	const [tabAnimate, setTabAnimate] = useState(true);
 
 	const dateDifference = (date1, date2) => {
 		const oneDay = 1000 * 3600 * 24;
@@ -117,6 +119,10 @@ const ScheduleDisplay = (props) => {
 		setNumDays([...Array(loadedSchedule.daysQty)]);
 	},[loadedSchedule]);
 
+	useEffect(() => {
+		setTabAnimate(true)
+	},[tabAnimate]);
+
 	return (
 		<>
 			<ErrorModal error={error} onClear={clearError} />
@@ -128,33 +134,36 @@ const ScheduleDisplay = (props) => {
 			<MonitorHeader {...loadedSchedule} />
 			{!isLoading && loadedSchedule && numDays.length > 1 && (
 				<div className='h-screen overflow-y-scroll w-full bg-gray-900 pt-20'>
-					<Tabs defaultIndex={selectedTab}>
-						<TabList>
-							{numDays.map((_, i) => (
-								<Tab key={i + 1}>
-									<h3>Day {i + 1}</h3>
-								</Tab>
-							))}
-						</TabList>
-						<TabPanels>
-							{numDays.map((_, i) => (
-								<TabPanel key={i}>
-									<div className='w-screen h-full flex'>
-										<ScheduleDisplayStages stages={stages} />
-										<div className='flex flex-col overflow-x-scroll scrolling-touch'>
-											<ScheduleDisplayTime timeDuration={timeDuration} />
-											<ScheduleDisplayEvent
-												stages={stages}
-												eventList={eventList}
-												timeDuration={timeDuration}
-												eventDay={i + 1}
-											/>
+					<AnimatePresence exitBeforeEnter>
+						<Tabs defaultIndex={selectedTab} onChange={() => setTabAnimate(false)}>
+							<TabList>
+								{numDays.map((_, i) => (
+									<Tab key={i + 1}>
+										<h3>Day {i + 1}</h3>
+									</Tab>
+								))}
+							</TabList>
+							<TabPanels>
+								{numDays.map((_, i) => (
+									<TabPanel key={i}>
+										<div className='w-screen h-full flex'>
+											<ScheduleDisplayStages stages={stages} />
+											<div className='flex flex-col overflow-x-scroll scrolling-touch'>
+												<ScheduleDisplayTime timeDuration={timeDuration} />
+												<ScheduleDisplayEvent
+													stages={stages}
+													eventList={eventList}
+													timeDuration={timeDuration}
+													eventDay={i + 1}
+													tabAnimate={tabAnimate}
+												/>
+											</div>
 										</div>
-									</div>
-								</TabPanel>
-							))}
-						</TabPanels>
-					</Tabs>
+									</TabPanel>
+								))}
+							</TabPanels>
+						</Tabs>
+					</AnimatePresence>
 				</div>
 			)}
 			{!isLoading && loadedSchedule && numDays.length <= 1 && (
