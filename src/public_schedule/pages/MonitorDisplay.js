@@ -1,11 +1,50 @@
 import React, {useEffect, useState} from "react";
 import { useParams } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import Card from "../../shared/components/UIElements/Card";
 import MonitorHeader from "../components/MonitorHeader";
+
+const containerVariant = {
+	hidden: { opacity: 0, y: 30 },
+	show: {
+		opacity: 1,
+		y: 0,
+		transition: {
+			ease: "easeOut",
+			duration: 0.5,
+			delay:  0.5,
+			staggerChildren: 0.7,
+		}
+	}
+}
+
+const itemVariant = {
+	hidden: { opacity: 0, y: 30, },
+	show: { 
+		opacity: 1, 
+		y: 0, 
+		transition: {
+			ease: "easeOut",
+			duration: 0.5,
+		}
+	}
+}
+
+const imageVariant = {
+	hidden: { opacity: 0 },
+	show: { 
+		opacity: 1, 
+		transition: {
+			ease: "easeOut",
+			delay:  0.3,
+			duration: 0.7
+		}
+	}
+}
 
 function MonitorDisplay() {
 	const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -80,32 +119,35 @@ function MonitorDisplay() {
 			{!isLoading && currentDisplay && (
 				<div className='h-screen overflow-hidden w-full bg-gray-900'>
 					<div className='px-20 pb-14 mx-auto flex justify-between content-center items-center flex-col sm:flex-row h-full'>
-						<div className='flex flex-col flex-grow justify-center sm:items-start pb-12'>
+						<motion.div className='flex flex-col flex-grow justify-center sm:items-start pb-12' 
+							variants={containerVariant}
+							initial="hidden"
+							animate="show">
 							<div className='py-2 px-4 bg-red-600 text-gray-100 font-bold mb-2'>
 								{live ? "ON NOW" : "UP NEXT"}
 							</div>
-							<h4 className='my-2 text-4xl md:text-5xl text-indigo-600 font-bold leading-tight text-center sm:text-left'>
+							<motion.h4 className='my-2 text-4xl md:text-5xl text-indigo-600 font-bold leading-tight text-center sm:text-left' variants={itemVariant}>
 							{currentDisplay.startTime} - {currentDisplay.endTime}
-							</h4>
-							<h1 className='text-4xl md:text-5xl text-indigo-200 pr-2 font-bold leading-tight text-center sm:text-left'>
+							</motion.h4>
+							<motion.h1 className='text-4xl md:text-5xl text-indigo-200 pr-2 font-bold leading-tight text-center sm:text-left' variants={itemVariant}>
 								{currentDisplay.presenter}
-							</h1>
-							<p className='my-10 leading-normal md:text-2xl mb-8 text-center sm:text-left'>
+							</motion.h1>
+							<motion.p className='my-10 leading-normal md:text-2xl mb-8 text-center sm:text-left' variants={itemVariant}>
 								{currentDisplay.stage}
-							</p>
-						</div>
+							</motion.p>
+						</motion.div>
 						<div className='flex-grow-0 w-2/5'>
 							{currentDisplay.image ?
-								<img src={currentDisplay.image} alt={currentDisplay.presenter}/>
+								<motion.img src={currentDisplay.image} alt={currentDisplay.presenter} variants={imageVariant} initial="hidden" animate="show" />
 							: eventInfo.logo ?
-								<img src={eventInfo.logo} alt={eventInfo.title} />
+								<motion.img src={eventInfo.logo} alt={eventInfo.title} variants={imageVariant} initial="hidden" animate="show"  />
 							: null}
 						</div>
 					</div>
 				</div>
 			)}
 			{!isLoading && !currentDisplay && (
-				<div className='center w-11/12 max-w-2xl my-4 mx-auto mt-12'>
+				<div className='center w-11/12 max-w-2xl my-4 mx-auto mt-20'>
 					<Card>
 						<h2>No event to display</h2>
 					</Card>
