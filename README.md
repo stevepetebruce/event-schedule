@@ -23,6 +23,7 @@ Display for monitors at each location/stage:
 - React
 - Tailwind CSS
 - Formik
+- Framer Motion
 
 **and on the back-end**
 
