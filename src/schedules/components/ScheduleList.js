@@ -29,8 +29,6 @@ const ScheduleList = (props) => {
 					logo={schedule.logo}
 					title={schedule.title}
 					description={schedule.description}
-					address={schedule.address}
-					coordinates={schedule.location}
 					date={schedule.date}
 					creatorId={schedule.creator}
 					onDelete={props.onDeleteSchedule}

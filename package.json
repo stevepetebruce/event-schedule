@@ -9,7 +9,6 @@
 		"copy-to-clipboard": "^3.3.1",
 		"formik": "^2.2.5",
 		"framer-motion": "^2.9.4",
-		"mapbox-gl": "^1.13.0",
 		"moment": "^2.29.1",
 		"rc-time-picker": "^3.7.3",
 		"react": "^16.14.0",
