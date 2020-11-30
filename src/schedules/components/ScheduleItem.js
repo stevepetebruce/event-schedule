@@ -41,7 +41,7 @@ const ScheduleItem = (props) => {
 		setShowConfirmModal(false);
 		try {
 			await sendRequest(
-				`http://localhost:5000/api/schedules/${props.id}`,
+				process.env.REACT_APP_BACKEND_URL + `/schedules/${props.id}`,
 				"DELETE",
 				null,
 				{
@@ -130,14 +130,14 @@ const ScheduleItem = (props) => {
 										<>
 											<CopyToClipboard 
 												name={`${props.id}copylink`} 
-												toCopy={`http://localhost:3000/timetable/${props.id}`} 
+												toCopy={process.env.REACT_APP_FRONTEND_URL + `/timetable/${props.id}`} 
 												btnTitle='Copy Link' 
 												label='Copy schedule link' 
 												control='input'
 											/>
 											<CopyToClipboard 
 												name={`${props.id}copycode`} 
-												toCopy={`<iframe src="http://localhost:3000/timetable/${props.id}" title="${props.title}" style="border:0" width="100%" height="500px"></iframe>`} 
+												toCopy={`<iframe src="${process.env.REACT_APP_FRONTEND_URL}/timetable/${props.id}" title="${props.title}" style="border:0" width="100%" height="500px"></iframe>`} 
 												btnTitle='Copy Code' 
 												label='Add code to my website' 
 												control='textarea'

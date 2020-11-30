@@ -98,7 +98,7 @@ const ScheduleDisplay = (props) => {
 	useEffect(() => {
 		const fetchSchedule = async () => {
 			try {
-				let responseData = await sendRequest(`http://localhost:5000/api/schedules/${scheduleId}`);
+				let responseData = await sendRequest(process.env.REACT_APP_BACKEND_URL + `/schedules/${scheduleId}`);
 				setLoadedSchedule(responseData.schedule);
 			} catch (err) {
 				console.log(err.message);
