@@ -41,7 +41,7 @@ const ScheduleItem = (props) => {
 		setShowConfirmModal(false);
 		try {
 			await sendRequest(
-				process.env.REACT_APP_BACKEND_URL + `/schedules/${props.id}`,
+				`${process.env.REACT_APP_BACKEND_URL}/schedules/${props.id}`,
 				"DELETE",
 				null,
 				{

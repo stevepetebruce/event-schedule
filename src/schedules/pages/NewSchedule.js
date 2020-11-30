@@ -93,7 +93,7 @@ const NewSchedule = () => {
 
 					try {
 						await sendRequest(
-							process.env.REACT_APP_BACKEND_URL + "/api/schedules",
+							process.env.REACT_APP_BACKEND_URL + "/schedules",
 							"POST",
 							JSON.stringify({ ...values, ...{ creator: auth.userId } }),
 							{

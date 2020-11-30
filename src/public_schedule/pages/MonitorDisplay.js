@@ -57,7 +57,7 @@ function MonitorDisplay() {
 	useEffect(() => {
 		const request = async() => {
 			try {
-				let responseData = await sendRequest(process.env.REACT_APP_BACKEND_URL + `/schedules/display/${scheduleId}/${day}`);
+				let responseData = await sendRequest(`${process.env.REACT_APP_BACKEND_URL}/schedules/display/${scheduleId}/${day}`);
 				isEvent(responseData);
 			} catch (err) {
 				console.log(err.message);

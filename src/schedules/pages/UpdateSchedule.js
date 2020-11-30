@@ -62,7 +62,7 @@ const UpdatePlace = () => {
 		const fetchSchedule = async () => {
 			try {
 				const responseData = await sendRequest(
-					process.env.REACT_APP_BACKEND_URL + `/schedules/${scheduleId}`
+					`${process.env.REACT_APP_BACKEND_URL}/schedules/${scheduleId}`
 				);
 				setLoadedSchedule(responseData.schedule);
 				setStartDate(new Date(responseData.schedule.startDate));
@@ -108,7 +108,7 @@ const UpdatePlace = () => {
 					setSubmitting({ values });
 					try {
 						await sendRequest(
-							process.env.REACT_APP_BACKEND_URL + `/schedules/${scheduleId}`,
+							`${process.env.REACT_APP_BACKEND_URL}/schedules/${scheduleId}`,
 							"PATCH",
 							JSON.stringify({ ...values }),
 							{
