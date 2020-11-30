@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import {
 	BrowserRouter as Router,
 	Route,
@@ -8,16 +8,24 @@ import {
 
 import Users from "./user/pages/Users";
 import Account from "./user/pages/Account";
-import ScheduleDisplay from "./public_schedule/pages/ScheduleDisplay";
-import MonitorDisplay from "./public_schedule/pages/MonitorDisplay";
-import NewSchedule from "./schedules/pages/NewSchedule";
+import LoadingSpinner from "./shared/components/UIElements/LoadingSpinner";
+//import ScheduleDisplay from "./public_schedule/pages/ScheduleDisplay";
+//import MonitorDisplay from "./public_schedule/pages/MonitorDisplay";
+//import NewSchedule from "./schedules/pages/NewSchedule";
 import UserSchedules from "./schedules/pages/UserSchedules";
-import UpdateSchedule from "./schedules/pages/UpdateSchedule";
+//import UpdateSchedule from "./schedules/pages/UpdateSchedule";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import Authenticate from "./user/pages/Authenticate";
 
 import { AuthContext } from "./shared/context/auth-context";
 import { useAuth } from "./shared/hooks/auth-hook";
+
+const ScheduleDisplay = React.lazy(() => import('./public_schedule/pages/ScheduleDisplay'))
+const MonitorDisplay = React.lazy(() => import('./public_schedule/pages/MonitorDisplay'))
+const NewSchedule = React.lazy(() => import('./schedules/pages/NewSchedule'))
+const UpdateSchedule = React.lazy(() => import('./schedules/pages/UpdateSchedule'))
+
+
 
 const App = () => {
 	const { token, login, logout, userId, userStatus } = useAuth();
@@ -83,7 +91,7 @@ const App = () => {
 			<Router>
 				<MainNavigation />
 				<main className='w-full mx-auto flex subpixel-antialiased'>
-					<Switch>{routes}</Switch>
+					<Switch><Suspense fallback={<div className='center'><LoadingSpinner asOverlay={true} /></div>}>{routes}</Suspense></Switch>
 				</main>
 			</Router>
 		</AuthContext.Provider>

@@ -23,7 +23,7 @@ const UserSchedules = (props) => {
 		const fetchSchedules = async () => {
 			try {
 				const responseData = await sendRequest(
-					process.env.REACT_APP_BACKEND_URL + `/schedules/user/${userId}`,
+					`${process.env.REACT_APP_BACKEND_URL}/schedules/user/${userId}`,
 					"GET",
 					null,
 					{
