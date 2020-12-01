@@ -148,7 +148,7 @@ const ScheduleDisplay = (props) => {
 									<TabPanel key={i}>
 										<div className='w-screen h-full flex'>
 											<ScheduleDisplayStages stages={stages} />
-											<div className='flex flex-col overflow-x-scroll scrolling-touch'>
+											<div className='flex flex-col overflow-x-scroll scrolling-touch pb-4'>
 												<ScheduleDisplayTime timeDuration={timeDuration} />
 												<ScheduleDisplayEvent
 													stages={stages}
@@ -170,7 +170,7 @@ const ScheduleDisplay = (props) => {
 				<div className='h-screen flex overflow-hidden w-full bg-gray-900 pt-20'>
 					<AnimatePresence exitBeforeEnter>
 						<ScheduleDisplayStages stages={stages} />
-						<div className='flex flex-col overflow-x-scroll scrolling-touch'>
+						<div className='flex flex-col overflow-x-scroll scrolling-touch pb-4'>
 							<ScheduleDisplayTime timeDuration={timeDuration} />
 							<ScheduleDisplayEvent
 								stages={stages}
