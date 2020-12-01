@@ -168,16 +168,19 @@ const ScheduleDisplay = (props) => {
 			)}
 			{!isLoading && loadedSchedule && numDays.length <= 1 && (
 				<div className='h-screen flex overflow-hidden w-full bg-gray-900 pt-20'>
-					<ScheduleDisplayStages stages={stages} />
-					<div className='flex flex-col overflow-x-scroll scrolling-touch'>
-						<ScheduleDisplayTime timeDuration={timeDuration} />
-						<ScheduleDisplayEvent
-							stages={stages}
-							eventList={eventList}
-							timeDuration={timeDuration}
-							eventDay={1}
-						/>
-					</div>
+					<AnimatePresence exitBeforeEnter>
+						<ScheduleDisplayStages stages={stages} />
+						<div className='flex flex-col overflow-x-scroll scrolling-touch'>
+							<ScheduleDisplayTime timeDuration={timeDuration} />
+							<ScheduleDisplayEvent
+								stages={stages}
+								eventList={eventList}
+								timeDuration={timeDuration}
+								eventDay={1}
+								tabAnimate={tabAnimate}
+							/>
+						</div>
+					</AnimatePresence>
 				</div>
 			)}
 		</>
