@@ -25,7 +25,7 @@ function Examples(props) {
             fontSize="inherit"
             className={classes.root}  />
           <div className="pl-4">
-            <Button href="https://www.app.scheduled.live/timetable/5fc644e33869900017b2fb5b" inverse target="_blank" rel="noopener noreferrer">
+            <Button href="https://www.app.scheduled.live/timetable/5fc644e33869900017b2fb5b" inverse size="small" target="_blank" rel="noopener noreferrer">
               VIEW SCHEDULE
             </Button>
           </div>
@@ -35,7 +35,7 @@ function Examples(props) {
             fontSize="inherit"
             className={classes.root} />
           <div className="pl-4">
-            <Button href="https://www.app.scheduled.live/display/5fc644e33869900017b2fb5b/1?stage=Main%20Stage" inverse target="_blank" rel="noopener noreferrer">
+            <Button href="https://www.app.scheduled.live/display/5fc644e33869900017b2fb5b/1?stage=Main%20Stage" inverse size="small" target="_blank" rel="noopener noreferrer">
               VIEW DISPLAY
             </Button>
           </div>
