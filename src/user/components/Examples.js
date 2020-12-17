@@ -17,7 +17,7 @@ function Examples(props) {
   return (
     <div className="mt-20">
       <h3 className='mb-4 text-center'>
-        View example
+        View an example schedule
       </h3>
       <div className="flex flex-row justify-evenly text-center mb-4">
         <div className="flex flex-col items-center rounded-lg border border-gray-700 w-56 pb-3 mx-1">

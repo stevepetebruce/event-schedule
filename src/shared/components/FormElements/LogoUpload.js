@@ -74,7 +74,7 @@ const LogoUpload = ({ name, label, value }) => {
 						<img src={imgFile} className="object-cover" alt='preview' />
 						<div className="flex w-24 px-4 absolute bottom-0 mb-1 justify-around">
 							<CameraAlt className='text-gray-400 hover:text-white cursor-pointer'  titleAccess='Replace Image' aria-label='Replace Image' onClick={pickImageHandler} />
-							<RemoveCircle className='text-gray-400 hover:text-white cursor-pointer' titleAccess='Replace Remove' aria-label='Remove Image'  onClick={removeImageHandler} />
+							<RemoveCircle className='text-gray-400 hover:text-white cursor-pointer' titleAccess='Remove Remove' aria-label='Remove Image'  onClick={removeImageHandler} />
 						</div>
 					</>
 				}

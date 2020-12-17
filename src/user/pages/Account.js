@@ -22,12 +22,12 @@ const Welcome = () => {
 			<div className='max-w-screen-md w-full mx-auto flex mt-24'>
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="lg:text-center">
-						<h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">Welcome</h2>
+						<h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">Welcome to scheduled.live</h2>
 						<h1 className='mb-4'>
 							Set up your first schedule
 						</h1>
 						<p className="my-4 max-w-2xl text-gray-500 lg:mx-auto">
-							Click below and enter your event details to view your schedule.
+							Simply enter your event details and view your schedule.
 						</p>
 						<Button default to='/schedule/new'>
 							Create Schedule

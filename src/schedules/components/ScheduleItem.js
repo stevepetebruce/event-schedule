@@ -14,6 +14,8 @@ import { useHttpClient } from "../../shared/hooks/http-hook";
 
 import {Tv, ViewList}  from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
+import "../../shared/components/UIElements/Dropdown";
+import "./collapsible.css";
 
 const useStyles = makeStyles({
   root: {
