@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 
@@ -13,7 +13,13 @@ import { useHttpClient } from "../../shared/hooks/http-hook";
 const Authenticate = (props) => {
 	const auth = useContext(AuthContext);
 	const [isLoginMode, setIsLoginMode] = useState(true);
-	const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  
+  useEffect(() => {
+    const params = new URLSearchParams(document.location.search);
+    const access = params.get("access");
+    if (access === "signup") setIsLoginMode(false);
+  }, []);
 
 	const initialValues = {
 		name: "",
@@ -91,7 +97,7 @@ const Authenticate = (props) => {
 				console.log(err);
 			}
 		}
-	};
+  };
 
 	return (
 		<>
