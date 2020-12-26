@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 
 import moment from "moment";
 import defaultImage from "../../assets/icons/no-image-icon.png"
@@ -7,7 +7,7 @@ import defaultImage from "../../assets/icons/no-image-icon.png"
 function AccountScheduleItem({schedule, userId, key}) {
   return (
     <li className='my-0'>
-      <Link to={`/${userId}/schedules`}>
+      <HashLink smooth to={`/${userId}/schedules#${schedule.id}`}>
         <article key={key} className="p-4 flex space-x-4 hover:bg-gray-800">
           {schedule.logo ? <img src={schedule.logo} alt={schedule.title} className="flex-none w-12 h-12 rounded-lg object-cover bg-gray-800" /> : <img src={defaultImage} alt={schedule.title} className="flex-none w-12 h-12 rounded-lg object-cover bg-gray-800" />}
           <div className="min-w-0 relative flex-auto sm:pr-14 lg:pr-0 xl:pr-14">
@@ -19,7 +19,7 @@ function AccountScheduleItem({schedule, userId, key}) {
             </div>
           </div>
         </article>
-      </Link>
+      </HashLink>
     </li>
   )
 }

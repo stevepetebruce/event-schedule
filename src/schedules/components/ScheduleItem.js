@@ -86,7 +86,7 @@ const ScheduleItem = (props) => {
 				}>
 				<p>Do you want to proceed and delete this schedule?</p>
 			</Modal>
-			<li className='my-4'>
+			<li className='my-4' id={props.id} style={{scrollMarginTop: "4rem"}}>
 				<Card className='p-12'>
 					{isLoading && <LoadingSpinner asOverlay={true} />}
 					<h1 className='text-center'>{props.title}</h1>
