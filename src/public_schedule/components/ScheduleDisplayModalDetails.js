@@ -34,7 +34,7 @@ function ScheduleDisplayModalDetails({ event, show }) {
 			<AnimatePresence>
 				{event.image && (
 					<motion.img
-						className='float-right ml-4 my-2 pb-4 w-full sm:w-3/12'
+						className='float-right ml-4 my-2 pb-4 w-full sm:w-2/4'
 						src={event.image}
 						alt={event.presenter}
 						initial={{ opacity: 0 }}
