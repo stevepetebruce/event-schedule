@@ -54,11 +54,15 @@ const Welcome = () => {
               <p className="my-4 max-w-2xl text-gray-500 lg:mx-auto">
                 Simply enter your event details and view your schedule.
               </p>
-              <Button default to='/schedule/new'>
-                Create Schedule
-              </Button>
+              <Card className='w-full p-12 '>
+                <div className="text-center">
+                  <Button default to='/schedule/new'>
+                    Create Schedule
+                  </Button>  
+                </div>   
+                <Examples />
+              </Card>
             </div>
-            <Examples />
           </div>
         </div>
 			}

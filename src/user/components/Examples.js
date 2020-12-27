@@ -15,7 +15,7 @@ function Examples(props) {
   const classes = useStyles(props);
 
   return (
-    <div className="mt-20">
+    <div className="mt-12">
       <h3 className='mb-4 text-center'>
         View an example schedule
       </h3>
