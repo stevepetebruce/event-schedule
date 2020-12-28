@@ -28,7 +28,7 @@ const UpdateSchedule = React.lazy(() => import('./schedules/pages/UpdateSchedule
 
 
 const App = () => {
-	const { token, login, logout, userId, userStatus } = useAuth();
+	const { token, login, logout, userId, userName, userStatus } = useAuth();
 
 	let routes;
 
@@ -84,6 +84,7 @@ const App = () => {
 				isLoggedIn: !!token,
 				token: token,
 				userId: userId,
+				userName: userName,
 				userStatus: userStatus,
 				login: login,
 				logout: logout,

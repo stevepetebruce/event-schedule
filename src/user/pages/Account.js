@@ -72,7 +72,7 @@ const Welcome = () => {
             <div className="md:text-center">
               <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">Welcome back</h2>
               <h1 className='mb-4'>
-                ...
+                {auth.userName}
               </h1>
             </div>
             <Card className='w-full p-12'>

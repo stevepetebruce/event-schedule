@@ -69,6 +69,7 @@ const Authenticate = (props) => {
 				);
 				auth.login(
 					responseData.userId,
+					responseData.userName,
 					responseData.token,
 					responseData.status
 				);
@@ -90,6 +91,7 @@ const Authenticate = (props) => {
 
 				auth.login(
 					responseData.userId,
+					responseData.userName,
 					responseData.token,
 					responseData.status
 				);
