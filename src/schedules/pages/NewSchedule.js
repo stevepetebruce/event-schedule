@@ -158,15 +158,15 @@ const NewSchedule = () => {
 								</div>
 							</div>
 						</div>
-						<h2 className='py-4'>Add Event List</h2>
+						<h2 className='py-4'>Add the Bands or Artists</h2>
 						<NewScheduleList
 							values={values}
 							setFieldValue={setFieldValue}
 							onChange={handleChange}
 						/>
-						<Button default disabled={isSubmitting} type='submit'>
-							Submit
-						</Button>
+						<div className="pt-4">
+							<Button default disabled={isSubmitting} type='submit'>Submit</Button>
+						</div>
 					</Form>
 				)}
 			</Formik>
