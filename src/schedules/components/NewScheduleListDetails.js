@@ -4,8 +4,7 @@ import Collapsible from "react-collapsible";
 import FormControl from "../../shared/components/FormElements/FormControl";
 import NewSheduleListSocial from "./NewScheduleListSocial";
 
-import "../../shared/components/UIElements/Collapsible.css";
-import "./collapsible.css";
+import "../../shared/components/UIElements/Collapsible.css"
 
 function NewScheduleListDetails({ schedule, index }) {
 	return (

@@ -11,7 +11,7 @@ import Account from "./user/pages/Account";
 import LoadingSpinner from "./shared/components/UIElements/LoadingSpinner";
 //import ScheduleDisplay from "./public_schedule/pages/ScheduleDisplay";
 //import MonitorDisplay from "./public_schedule/pages/MonitorDisplay";
-//import NewSchedule from "./schedules/pages/NewSchedule";
+import NewSchedule from "./schedules/pages/NewSchedule";
 import UserSchedules from "./schedules/pages/UserSchedules";
 //import UpdateSchedule from "./schedules/pages/UpdateSchedule";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
@@ -22,7 +22,6 @@ import { useAuth } from "./shared/hooks/auth-hook";
 
 const ScheduleDisplay = React.lazy(() => import('./public_schedule/pages/ScheduleDisplay'))
 const MonitorDisplay = React.lazy(() => import('./public_schedule/pages/MonitorDisplay'))
-const NewSchedule = React.lazy(() => import('./schedules/pages/NewSchedule'))
 const UpdateSchedule = React.lazy(() => import('./schedules/pages/UpdateSchedule'))
 
 

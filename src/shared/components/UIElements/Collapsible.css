@@ -1,8 +1,28 @@
+
 .Collapsible__trigger {
 	background-color: #1a202c;
-	border-radius: 6px;
 	border: solid 1px #4a5568;
+	border-radius: 26px;
 	color: #667eea;
-	font-size: 1.1rem;
+	padding: 13px 22px;
+	text-transform: uppercase;
+	font-weight: 300;
+	font-size: 100%;
 	margin-bottom: 12px;
+	text-rendering: auto;
 }
+
+.Collapsible__trigger:hover {
+	color: #7693eb;
+}
+
+.Collapsible__trigger:after {
+	display: block;
+	content: " ";
+	background-image: url("../../../assets/icons/iconmonstr-arrow-65.svg");
+	background-size: 20px 18px;
+	height: 18px;
+	width: 20px;
+	margin-top: 2px;
+}
+
