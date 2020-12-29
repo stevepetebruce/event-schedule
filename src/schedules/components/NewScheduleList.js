@@ -164,7 +164,7 @@ function NewScheduleList(props) {
 								},
 							})
 						}>
-						Add new band / artist
+						+ Add new artist / Band
 					</Button>
 				</>
 			)}

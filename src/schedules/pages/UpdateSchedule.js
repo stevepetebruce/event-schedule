@@ -196,10 +196,9 @@ const UpdatePlace = () => {
 							setFieldValue={setFieldValue}
 							onChange={handleChange}
 						/>
-
-						<Button default disabled={isSubmitting} type='submit'>
-							Submit
-						</Button>
+						<div className="pt-6 text-center">
+							<Button default disabled={isSubmitting} type='submit'>Submit Event</Button>
+						</div>
 					</Form>
 				)}
 			</Formik>

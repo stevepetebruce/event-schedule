@@ -164,8 +164,8 @@ const NewSchedule = () => {
 							setFieldValue={setFieldValue}
 							onChange={handleChange}
 						/>
-						<div className="pt-4">
-							<Button default disabled={isSubmitting} type='submit'>Submit</Button>
+						<div className="pt-6 text-center">
+							<Button default disabled={isSubmitting} type='submit'>Submit Event</Button>
 						</div>
 					</Form>
 				)}
