@@ -62,3 +62,12 @@ h3 {
 	justify-content: center;
 	align-items: center;
 }
+
+.border {
+  border-width: 1px;
+  border-style: solid;
+}
+
+.divide-y li {
+  border-bottom-width: 1px;
+}
