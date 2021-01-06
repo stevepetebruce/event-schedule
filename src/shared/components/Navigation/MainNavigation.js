@@ -37,10 +37,10 @@ const MainNavigation = (props) => {
 						<svg xmlns="http://www.w3.org/2000/svg" className="w-36 h-8 md:w-64 md:h-10" viewBox="0 0 924.41 180.56">
               <defs>
                 <linearGradient id="a" x1="1.61" y1="52.97" x2="121.56" y2="52.97" gradientUnits="userSpaceOnUse">
-                  <stop offset="0" stop-color="#3730a3"/>
-                  <stop offset=".2" stop-color="#4e34a1"/>
-                  <stop offset=".63" stop-color="#893e9d"/>
-                  <stop offset="1" stop-color="#c24899"/>
+                  <stop offset="0" stopColor="#3730a3"/>
+                  <stop offset=".2" stopColor="#4e34a1"/>
+                  <stop offset=".63" stopColor="#893e9d"/>
+                  <stop offset="1" stopColor="#c24899"/>
                 </linearGradient>
                 <linearGradient id="b" x1="41.81" y1="76.53" x2="161.77" y2="76.53" href="#a"/>
                 <linearGradient id="c" x1="41.96" y1="130.82" x2="161.92" y2="130.82" href="#a"/>
