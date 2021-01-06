@@ -1,5 +1,6 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { v4 as uuidv4 } from 'uuid';
 
 const container = {
 	hidden: { opacity: 0, y: 30 },
@@ -37,6 +38,7 @@ function ScheduleDisplayModalDetails({ event, show }) {
 						className='float-right ml-4 my-2 pb-4 w-full sm:w-2/4'
 						src={event.image}
 						alt={event.presenter}
+            key={uuidv4()}
 						initial={{ opacity: 0 }}
 						animate={{ opacity: 1, 
 							transition: {
@@ -52,6 +54,7 @@ function ScheduleDisplayModalDetails({ event, show }) {
 						variants={container}
 						initial="hidden"
 						animate="show"
+            key={uuidv4()}
 					>
 						<motion.h2 className="py-3" variants={item}>
 							{event.presenter}

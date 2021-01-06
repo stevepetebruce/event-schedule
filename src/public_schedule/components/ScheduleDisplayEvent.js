@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ScheduleDisplayEventItem from "./ScheduleDisplayEventItem";
 import { motion } from "framer-motion"
+import { v4 as uuidv4 } from 'uuid';
 
 const container = {
 	hidden: { opacity: 0, y: -10 },
@@ -66,14 +67,13 @@ function ScheduleDisplayEvent({ stages, eventList, timeDuration, eventDay, tabAn
 			
 							<motion.div
 								className='h-16 flex border-b border-indigo-700 border-dashed w-screen relative'
-								key={i}
+								key={uuidv4()}
 								style={style}
 								variants={item}
 							>
 								{eventList[stage].map((event, i) => (
-									<motion.div variants={events} key={i}>
+									<motion.div variants={events} key={uuidv4()}>
 										<ScheduleDisplayEventItem
-											key={event.presenter}
 											event={event}
 											timeDuration={timeDuration}
 											eventDay={eventDay}

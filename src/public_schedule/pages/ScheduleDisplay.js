@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@reach/tabs";
 import { AnimatePresence } from "framer-motion";
+import { v4 as uuidv4 } from 'uuid';
 
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
@@ -135,17 +136,17 @@ const ScheduleDisplay = (props) => {
 			{!isLoading && loadedSchedule && numDays.length > 1 && (
 				<div className='h-screen overflow-y-scroll w-full bg-gray-900 pt-20'>
 					<AnimatePresence exitBeforeEnter>
-						<Tabs defaultIndex={selectedTab} onChange={() => setTabAnimate(false)}>
+						<Tabs defaultIndex={selectedTab} onChange={() => setTabAnimate(false)} key={uuidv4()}>
 							<TabList>
 								{numDays.map((_, i) => (
-									<Tab key={i + 1}>
+									<Tab key={uuidv4()}>
 										<h3>Day {i + 1}</h3>
 									</Tab>
 								))}
 							</TabList>
 							<TabPanels>
 								{numDays.map((_, i) => (
-									<TabPanel key={i}>
+									<TabPanel key={uuidv4()}>
 										<div className='w-screen h-full flex'>
 											<ScheduleDisplayStages stages={stages} />
 											<div className='flex flex-col overflow-x-scroll scrolling-touch pb-4'>
@@ -168,8 +169,8 @@ const ScheduleDisplay = (props) => {
 			)}
 			{!isLoading && loadedSchedule && numDays.length <= 1 && (
 				<div className='h-screen flex overflow-hidden w-full bg-gray-900 pt-20'>
-					<AnimatePresence exitBeforeEnter>
-						<ScheduleDisplayStages stages={stages} />
+					<AnimatePresence>
+						<ScheduleDisplayStages stages={stages} key="1" />
 						<div className='flex flex-col overflow-x-scroll scrolling-touch pb-4'>
 							<ScheduleDisplayTime timeDuration={timeDuration} />
 							<ScheduleDisplayEvent
