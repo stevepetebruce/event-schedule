@@ -6,6 +6,7 @@ import { AnimatePresence } from "framer-motion";
 import { v4 as uuidv4 } from 'uuid';
 
 import { useHttpClient } from "../../shared/hooks/http-hook";
+import { dateDifference } from "../../shared/util/calculate-dates"
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import ScheduleDisplayTime from "../components/ScheduleDisplayTime";
@@ -26,14 +27,6 @@ const ScheduleDisplay = (props) => {
 	const [numDays, setNumDays] = useState([]);
 	const [selectedTab, setSelectedTab] = useState(0);
 	const [tabAnimate, setTabAnimate] = useState(true);
-
-	const dateDifference = (date1, date2) => {
-		const oneDay = 1000 * 3600 * 24;
-		const utc1 = Date.UTC(date1.getFullYear(), date1.getMonth(), date1.getDate());
-		const utc2 = Date.UTC(date2.getFullYear(), date2.getMonth(), date2.getDate());
-		const days = (utc2 - utc1) / oneDay;
-		return Math.abs(days);
-	}
 
 	const checkTab = (loadedSchedule) => {
 		let {daysQty, startDate} = loadedSchedule;
