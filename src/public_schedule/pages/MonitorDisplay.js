@@ -87,8 +87,8 @@ function MonitorDisplay() {
 					interval = setInterval(() => {
 						setLive(false);
 						isEvent(data);
-					}, 60000);
-
+          }, 60000);
+          
 					if(currentTime > startTime && currentTime < endTime) {
 						setLive(true)
 						return event;
@@ -100,9 +100,9 @@ function MonitorDisplay() {
 					return null;
 				})
 				setCurrentDisplay(currentEvent);
+				return () => clearInterval(interval);
 			}
 		}
-		return () => clearInterval(interval);
 		//eslint-disable-next-line
 	},[]);
 	

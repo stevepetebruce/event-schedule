@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 
 function ScheduleHeader({title}) {
   const time = new Date().toLocaleTimeString();
@@ -9,9 +9,13 @@ function ScheduleHeader({title}) {
     SetCurrentTime(ctime);
   };
 
-  setInterval(() => {
-    calcTime();
-  }, 1000);
+  useEffect(() => {
+    const time = setInterval(() => {
+      calcTime();
+    }, 1000);
+
+    return () => clearInterval(time);
+  },[])
 
   return (
     <header className='flex w-full justify-between h-16 items-center fixed top-0 left-0 bg-gray-800 text-gray-600 px-6 md:px-20 z-10'>
