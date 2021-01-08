@@ -8,10 +8,12 @@ import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { AuthContext } from "../../shared/context/auth-context";
+import { isAfterToday } from "../../shared/util/calculate-dates";
 
 const Welcome = () => {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
-	const [loadedSchedules, setloadedSchedules] = useState();
+  const [loadedSchedules, setloadedSchedules] = useState([]);
+  const [pastSchedules, setPastSchedules] = useState([]);
   const auth = useContext(AuthContext);
   
   const fetchSchedules = async () => {
@@ -24,7 +26,9 @@ const Welcome = () => {
           Authorization: "Bearer " + auth.token,
         }
       );
-      setloadedSchedules(responseData.schedules);
+      responseData.schedules.map((schedule) => {
+        return isAfterToday(schedule.startDate, schedule.daysQty) ? setloadedSchedules(loadedSchedules => [...loadedSchedules, schedule]) : setPastSchedules(pastSchedules => [...pastSchedules, schedule]);
+      })
     } catch (err) {
       console.log(err);
     }
@@ -84,6 +88,18 @@ const Welcome = () => {
                 <AccountScheduleItem schedule={schedule} userId={auth.userId} key={i} />
               )}
               </ul> 
+              {(!isLoading && pastSchedules.length > 0) &&
+                <>
+                  <h2 className='mb-2 mt-12 lg:text-center'>
+                    Past Schedules
+                  </h2>
+                  <ul className="divide-y divide-gray-700">
+                  {pastSchedules.map((schedule, i) => 
+                    <AccountScheduleItem schedule={schedule} userId={auth.userId} key={i} />
+                  )}
+                  </ul>
+                </>
+              }
             </Card>
           </div>
         </div>
