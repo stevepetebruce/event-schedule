@@ -13,6 +13,7 @@ import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import { AuthContext } from "../../shared/context/auth-context";
 import { useHttpClient } from "../../shared/hooks/http-hook";
+import { isAfterToday } from "../../shared/util/calculate-dates";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -56,7 +57,8 @@ const UpdatePlace = () => {
 	const [loadedSchedule, setLoadedSchedule] = useState();
 	const scheduleId = useParams().scheduleId;
 	const history = useHistory();
-	const [startDate, setStartDate] = useState();
+  const [startDate, setStartDate] = useState();
+  const [isFutureEvent, setIsFutureEvent] = useState(false);
 
 	useEffect(() => {
 		const fetchSchedule = async () => {
@@ -72,6 +74,14 @@ const UpdatePlace = () => {
 		};
 		fetchSchedule();
 	}, [history, scheduleId, sendRequest]);
+	
+	useEffect(()=>{
+		if (loadedSchedule) {
+			const futureEvent = isAfterToday(loadedSchedule.startDate, loadedSchedule.daysQty);
+			setIsFutureEvent(futureEvent);
+		}
+	// eslint-disable-next-line
+	},[loadedSchedule])
 
 	if (isLoading) {
 		return <LoadingSpinner asOverlay={true} />;
@@ -79,9 +89,29 @@ const UpdatePlace = () => {
 
 	if (!loadedSchedule && !error) {
 		return (
-			<div className='center'>
+			<div className='center w-11/12 max-w-2xl my-4 mx-auto mt-20'>
 				<Card>
 					<h2>Schedule could not be found</h2>
+					<div className='inline pl-4 pt-6 center'>
+						<Button default to={`/${auth.userId}/schedules`} className='center'>
+							Return to Schedules
+						</Button>
+					</div>
+				</Card>
+			</div>
+		);
+  }
+  
+  if (loadedSchedule && !isFutureEvent && !error) {
+		return (
+			<div className='center w-11/12 max-w-2xl my-4 mx-auto mt-20'>
+				<Card>
+					<h2 className="text-center">This event has passed and cannot be edited.</h2>
+					<div className='inline pl-4 pt-6 center'>
+						<Button default to={`/${auth.userId}/schedules`} className='center'>
+							Return to Schedules
+						</Button>
+					</div>
 				</Card>
 			</div>
 		);
