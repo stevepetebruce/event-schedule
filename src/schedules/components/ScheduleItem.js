@@ -11,6 +11,7 @@ import CopyToClipboard from "../../shared/components/FormElements/CopyToClipboar
 import LoadingSpinner from "../../shared/components/UIElements/LoadingSpinner";
 import { AuthContext } from "../../shared/context/auth-context";
 import { useHttpClient } from "../../shared/hooks/http-hook";
+import { isAfterToday } from "../../shared/util/calculate-dates";
 
 import {Tv, ViewList}  from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
@@ -19,7 +20,7 @@ import "../../shared/components/UIElements/Dropdown";
 import "../../shared/components/UIElements/Collapsible.css"
 
 const useStyles = makeStyles({
-  root: {
+	root: {
 		color: '#374151',
 		fontSize: "80px"
   },
@@ -31,6 +32,7 @@ const ScheduleItem = (props) => {
 	const auth = useContext(AuthContext);
 	const [showConfirmModal, setShowConfirmModal] = useState(false);
 	const [stages, setStages] = useState([]);
+	const [isFutureEvent, setIsFutureEvent] = useState(false);
 
 	const showDeleteHandler = () => {
 		setShowConfirmModal(true);
@@ -67,8 +69,11 @@ const ScheduleItem = (props) => {
 		}
 	}, []);
 
+	const futureEvent = isAfterToday(props.startDate, props.numDays);
+
 	useEffect(() => {
 		setStages(filteredUniqueStages);
+		setIsFutureEvent(futureEvent);
 		// eslint-disable-next-line
 	}, []);
 
@@ -93,7 +98,7 @@ const ScheduleItem = (props) => {
 					<h1 className='text-center'>{props.title}</h1>
 					{auth.userId === props.creatorId && (
 					<div className='text-center p-3 mb-3 ml-4'>
-						<Button default to={`/schedules/${props.id}/edit`}>EDIT</Button>
+						{isFutureEvent && <Button default to={`/schedules/${props.id}/edit`}>EDIT</Button>}
 						<Button danger onClick={showDeleteHandler}>DELETE</Button>
 					</div>
 					)}

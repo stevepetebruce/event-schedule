@@ -29,7 +29,7 @@ const ScheduleList = (props) => {
 					logo={schedule.logo}
 					title={schedule.title}
 					description={schedule.description}
-					date={schedule.date}
+					startDate={schedule.startDate}
 					creatorId={schedule.creator}
 					onDelete={props.onDeleteSchedule}
 					numDays={schedule.daysQty}
