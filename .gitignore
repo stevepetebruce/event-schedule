@@ -106,3 +106,5 @@ dist
 
 # VScode folder
 .vscode/
+
+.eslintrc
