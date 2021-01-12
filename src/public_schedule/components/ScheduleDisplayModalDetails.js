@@ -11,7 +11,7 @@ const container = {
 			ease: "easeOut",
 			duration: 0.5,
 			delay:  0.5,
-			staggerChildren: 0.7,
+			staggerChildren: 0.5,
 		}
 	}
 }
@@ -56,10 +56,13 @@ function ScheduleDisplayModalDetails({ event, show }) {
 						animate="show"
             key={uuidv4()}
 					>
-						<motion.h2 className="py-3" variants={item}>
+						<motion.h2 className="py-2" variants={item}>
 							{event.presenter}
 						</motion.h2>
-						<motion.p className="whitespace-pre-line" variants={item}>
+						<motion.h3 variants={item}>
+							{event.stage} @ {event.startTime}
+						</motion.h3>
+						<motion.p className="whitespace-pre-line py-6" variants={item}>
 							{event.biography}
 						</motion.p>
 					</motion.div>
