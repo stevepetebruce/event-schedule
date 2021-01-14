@@ -227,6 +227,7 @@ const UpdatePlace = () => {
 							onChange={handleChange}
 						/>
 						<div className="pt-6 text-center">
+							{Object.keys(errors).length > 0 && <p className='text-red-500 text-xs italic mr-4 mb-2'>The schedule has not been updated.<br/>Please view the errors in the form above.</p>}
 							<Button default disabled={isSubmitting} type='submit'>Submit Event</Button>
 						</div>
 					</Form>
